@@ -18,24 +18,24 @@ const PORT = process.env.PORT || 4000;
 const userRoutes = require('./routes/user');
 
 
-//Test connectivity
-// sequelize
-//   .authenticate()
-//   .then(() => {
-//     console.log('Connection to MySQL has been established successfully.');
-//   })
-//   .catch((err) => {
-//     console.error('Unable to connect to the database:', err);
-//   });
+// Test connectivity
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection to MySQL has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
 
-// app.get('/', (req, res) => {
-//   res.send('Server is running');
-// });
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
 
-// app.listen(PORT, () => {
-//   console.log(`Server is listening on port ${PORT}`);
-// });
-//Test end
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
+// Test end
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
