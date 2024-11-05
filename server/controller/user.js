@@ -1,5 +1,5 @@
-const { User } = require("../models");
-
+const db = require("../models");
+const User = db.User;
 exports.register = async (req, res) => {
     try {
       const { username, password, email } = req.body;
