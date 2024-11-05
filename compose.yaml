@@ -12,6 +12,15 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+    develop:
+      watch:
+        - action: sync 
+          path: ./client
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./client/package.json
     ports:
       - '3000:3000'
     depends_on:
@@ -38,6 +47,15 @@ services:
       - DB_PASSWORD=pass
       - DB_NAME=pocketplan_db
     command: npm start
+    develop:
+      watch:
+        - action: sync
+          path: ./server
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./server/package.json
 
   db:
     image: mysql:8.0
