@@ -1,23 +1,23 @@
 module.exports = {
   development: {
-    username: 'root',
-    password: 'pass',
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: 'pocketplan_db',
-    host: 'db',
+    host: process.env.DB_HOST,
     dialect: 'mysql',
   },
   test: {
-    username: 'root',
-    password: 'pass',
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: 'database_test',
-    host: 'db',
+    host: process.env.DB_HOST,
     dialect: 'mysql',
   },
   production: {
-    username: 'root',
-    password: 'pass',
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: 'database_production',
-    host: 'db',
+    host: process.env.DB_HOST,
     dialect: 'mysql',
     pool: {
       max: 5,
