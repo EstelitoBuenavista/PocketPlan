@@ -36,15 +36,18 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
+
 require("./routes/user")(app);
 require("./routes/category")(app);
 require("./routes/transaction")(app);
 require("./routes/account")(app);
 
 
+
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
 
 db.sequelize
   .sync()
