@@ -32,10 +32,14 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
+app.get('/hello', (req, res) => {
+  res.send('Hello fish!');
+});
+
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
-// Test end
+// Test ended
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
