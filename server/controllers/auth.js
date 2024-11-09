@@ -1,11 +1,11 @@
 const db = require("../models");
 const User = db.user;
 const saltRounds = 8;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
-    const { username, password, email } = req.body;
+    let { username, password, email } = req.body;
     password = await bcrypt.hash(password, saltRounds);
 
     try {
