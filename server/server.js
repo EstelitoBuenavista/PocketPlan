@@ -41,6 +41,7 @@ require("./routes/user")(app);
 require("./routes/category")(app);
 require("./routes/transaction")(app);
 require("./routes/account")(app);
+require("./routes/auth")(app);
 
 
 
