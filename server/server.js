@@ -14,6 +14,10 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 const app = express();
 app.use(cors());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());
+
 const PORT = process.env.PORT || 4000;
 const userRoutes = require('./routes/user');
 
@@ -32,13 +36,18 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
+
+require("./routes/user")(app);
+require("./routes/category")(app);
+require("./routes/transaction")(app);
+require("./routes/account")(app);
+
+
+
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
-// Test end
-app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());
 
 db.sequelize
   .sync()
@@ -48,12 +57,3 @@ db.sequelize
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
-
-// require("./routes/user")(app);
-// require("./routes/category")(app);
-// require("./routes/transaction")(app);
-// require("./routes/account")(app);
-
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });

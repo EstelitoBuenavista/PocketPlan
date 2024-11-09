@@ -12,6 +12,9 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+    volumes:
+      - ./client:/app
+      - /app/node_modules
     develop:
       watch:
         - action: sync 
@@ -27,6 +30,7 @@ services:
       - server
     environment:
       - NEXT_PUBLIC_API_URL=http://server:4000
+    command: npm run dev
 
   server:
     build:
@@ -46,7 +50,7 @@ services:
       - DB_USER=root
       - DB_PASSWORD=pass
       - DB_NAME=pocketplan_db
-    command: npm start
+    command: npm run dev
     develop:
       watch:
         - action: sync
