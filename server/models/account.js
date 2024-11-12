@@ -25,11 +25,12 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     balance: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
+      defaultValue: 0,
     },
     type: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     name: {

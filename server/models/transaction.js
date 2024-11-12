@@ -33,7 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     amount: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    type: {
+      type: DataTypes.ENUM("Income", "Expense"),
       allowNull: false,
     },
     remarks: {
@@ -41,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     trasnsaction_date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNll: false,
     }
   }, {
