@@ -1,20 +1,17 @@
 const db = require("../models");
 const User = db.user;
-exports.register = async (req, res) => {
-    try {
-      const { username, password, email } = req.body;
-      const user = await User.create({ username, password, email });
-      res.status(201).json(user);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
 
-exports.getAllUsers = async (req, res) => {
-    try {
-      const users = await User.findAll();
-      res.status(200).json(users);
-    } catch (error) {
-      res.status(500).json({ error: error.message }); 
-    }
+exports.getUser = async (req,res) => {
+  const id = req.params.id
+
+  try {
+    const user = await User.findByPk(id, {
+      include:{
+        model: account,
+      }
+    })
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message }); 
   }
+}
