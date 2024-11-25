@@ -48,8 +48,46 @@ exports.getCategoryTransactions = async (req,res) => {
     const id = req.params.id;
 
     try {
-        
+        const transactions = await Transaction.findAll({where:{category_id : id}})
+        if (transactions){
+          res.status(201).send(transactions)
+        } else  {
+          res.status(404).send({error : "No Records Found"})
+        }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: error.message });
     }
+}
+
+exports.create = async (req,res) => {
+  const newTransaction = req.body;
+
+  try {
+    const transaction = await Transaction.create(newTransaction)
+    res.status(201).send(transaction)
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  } 
+}
+
+exports.delete = async (req, res) => {
+  const id = req.params.id
+
+  try {
+    await Transaction.delete({where:{id : id}})
+    res.status(200).send("Successful Deletion!")
+  } catch (error) {
+    res.status(500).send({error:error.message})
+  }
+}
+
+exports.update = async (req, res) => {
+  const id = req.params.id
+  let data = req.body
+
+  try {
+    const transaction = await Transaction.update(data,{where:{id : id}})
+  } catch (error) {
+    res.status(500).send({error:error.message})
+  }
 }
