@@ -1,8 +1,10 @@
 module.exports = (app) => {
-    const user = require("../controllers/user");
+    const account = require("../controllers/account");
     let router = require("express").Router();
   
-    router.post("/register", user.register);
+    router.post("/user/:id", account.getUserAccounts);
+    router.post("/", account.create)
+    router.delete("/:id", account.delete)
   
     app.use("/account", router);
   };
