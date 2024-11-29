@@ -23,7 +23,6 @@ body {
 }
 
 .hero {
-  background-image: url('/assets/PPbg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
