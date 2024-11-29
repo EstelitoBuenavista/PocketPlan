@@ -52,14 +52,6 @@ export default function signUpPage() {
           </div>
         </div>
       </div>
-
-      <footer className="footer footer-center bg-primary text-primary-content p-10">
-        <aside>
-          <p className="font-bold">A project by</p>
-          <p className="font-medium">Estelito Buenavista | Lawrence Tulod | Fabiola Villanueva</p>
-          <p className="font-light">Copyright © {new Date().getFullYear()} - All right reserved</p>
-        </aside>
-      </footer>
     </div>
   );
 }
