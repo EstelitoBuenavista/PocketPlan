@@ -24,7 +24,7 @@ export default function signUpPage() {
           </figure>
 
           <div className="card-body text-neutral-content">
-            <h2 className="font-normal text-center mb-2">Welcome! Sign up to get started.</h2>
+            <h2 className="font-normal text-center mb-2">Welcome back!</h2>
             
             <label className="form-control w-full">
               <div className="label">
@@ -35,21 +35,7 @@ export default function signUpPage() {
                 placeholder="Bryanarra" 
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
               <div className="label">
-                <span className="font-light text-xs">E-mail</span>
-              </div>
-              <input 
-                type="text" 
-                placeholder="bryanarra@email.com" 
-                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
-              <div className="label">
                 <span className="font-light text-xs">Password</span>
-              </div>
-              <input 
-                type="password" 
-                placeholder="sample password" 
-                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
-              <div className="label">
-                <span className="font-light text-xs">Confirm Password</span>
               </div>
               <input 
                 type="password" 
@@ -57,11 +43,11 @@ export default function signUpPage() {
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
             </label>
 
-            <button className="btn mt-4 btn-primary w-full">Sign up</button>
+            <button className="btn mt-4 btn-primary w-full">Login</button>
 
-            <div className="flex items-center justify-center gap-2 w-full max-w-[200px] mx-auto">
-              <p className="text-xs font-normal">Already have an account?</p>
-              <Link href="/login" className="text-primary text-xs font-normal">Login</Link>
+            <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
+              <p className="text-xs font-normal">Don't have an account yet?</p>
+              <Link href="/signup" className="text-primary text-xs font-normal">Sign Up</Link>
             </div>
           </div>
         </div>
