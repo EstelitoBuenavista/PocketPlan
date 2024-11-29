@@ -20,7 +20,7 @@
       "static/media/Poppins_Thin-s.p.7de80f7a.ttf",
       "static/media/Poppins_ThinItalic-s.p.01c21dc8.ttf"
     ],
-    "[project]/src/app/_not-found/page": [
+    "[project]/src/app/signup/page": [
       "static/media/Poppins_Regular-s.p.fa867bbf.ttf",
       "static/media/Poppins_Black-s.p.f2f67bd9.ttf",
       "static/media/Poppins_BlackItalic-s.p.567f5fe0.ttf",
