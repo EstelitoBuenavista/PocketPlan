@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
+  --font-poppins: 'Poppins', sans-serif;
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -17,5 +19,12 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.hero {
+  background-image: url('/assets/PPbg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
