@@ -61,7 +61,7 @@ export default function signUpPage() {
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[200px] mx-auto">
               <p className="text-xs font-normal">Already have an account?</p>
-              <Link href="/login" className="text-primary text-xs font-normal">Login</Link>
+              <Link href="/pages/login" className="text-primary text-xs font-normal">Login</Link>
             </div>
           </div>
         </div>

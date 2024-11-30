@@ -10,7 +10,7 @@ export default function signUpPage() {
       style= {{ backgroundImage: 'url("/assets/signuploginbg.jpg")' }}>
 
         <div className="absolute top-8 left-8">
-          <Link href="/" className=" flex items-center gap-2 text-neutral-content hover:text-primary">
+          <Link href="../" className=" flex items-center gap-2 text-neutral-content hover:text-primary">
             <ChevronLeftIcon className="w-4 h-4"/>
             <p className="text-sm font-normal">Back</p>
           </Link>
@@ -47,7 +47,7 @@ export default function signUpPage() {
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
               <p className="text-xs font-normal">Don't have an account yet?</p>
-              <Link href="/signup" className="text-primary text-xs font-normal">Sign Up</Link>
+              <Link href="/pages/signup" className="text-primary text-xs font-normal">Sign Up</Link>
             </div>
           </div>
         </div>

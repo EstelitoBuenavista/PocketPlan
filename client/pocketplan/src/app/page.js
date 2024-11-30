@@ -9,7 +9,7 @@ export default function Home() {
   const router = useRouter();
   
   const navToSignUp = () => {
-    router.push('/signup');
+    router.push('/pages/signup');
   }
 
   return (

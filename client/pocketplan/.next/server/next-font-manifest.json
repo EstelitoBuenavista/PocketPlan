@@ -20,7 +20,7 @@
       "static/media/Poppins_Thin-s.p.7de80f7a.ttf",
       "static/media/Poppins_ThinItalic-s.p.01c21dc8.ttf"
     ],
-    "[project]/src/app/signup/page": [
+    "[project]/src/app/_not-found/page": [
       "static/media/Poppins_Regular-s.p.fa867bbf.ttf",
       "static/media/Poppins_Black-s.p.f2f67bd9.ttf",
       "static/media/Poppins_BlackItalic-s.p.567f5fe0.ttf",
@@ -40,7 +40,27 @@
       "static/media/Poppins_Thin-s.p.7de80f7a.ttf",
       "static/media/Poppins_ThinItalic-s.p.01c21dc8.ttf"
     ],
-    "[project]/src/app/login/page": [
+    "[project]/src/app/pages/signup/page": [
+      "static/media/Poppins_Regular-s.p.fa867bbf.ttf",
+      "static/media/Poppins_Black-s.p.f2f67bd9.ttf",
+      "static/media/Poppins_BlackItalic-s.p.567f5fe0.ttf",
+      "static/media/Poppins_Bold-s.p.d7fac3c9.ttf",
+      "static/media/Poppins_BoldItalic-s.p.2b57e60a.ttf",
+      "static/media/Poppins_ExtraBold-s.p.a40a6493.ttf",
+      "static/media/Poppins_ExtraBoldItalic-s.p.a1f9208a.ttf",
+      "static/media/Poppins_ExtraLight-s.p.fbe3954f.ttf",
+      "static/media/Poppins_ExtraLightItalic-s.p.d2752510.ttf",
+      "static/media/Poppins_Italic-s.p.08d02228.ttf",
+      "static/media/Poppins_Light-s.p.825a9ce7.ttf",
+      "static/media/Poppins_LightItalic-s.p.5526b072.ttf",
+      "static/media/Poppins_Medium-s.p.c325fb78.ttf",
+      "static/media/Poppins_MediumItalic-s.p.c0878655.ttf",
+      "static/media/Poppins_SemiBold-s.p.110ddba7.ttf",
+      "static/media/Poppins_SemiBoldItalic-s.p.0c1da9d9.ttf",
+      "static/media/Poppins_Thin-s.p.7de80f7a.ttf",
+      "static/media/Poppins_ThinItalic-s.p.01c21dc8.ttf"
+    ],
+    "[project]/src/app/pages/login/page": [
       "static/media/Poppins_Regular-s.p.fa867bbf.ttf",
       "static/media/Poppins_Black-s.p.f2f67bd9.ttf",
       "static/media/Poppins_BlackItalic-s.p.567f5fe0.ttf",
