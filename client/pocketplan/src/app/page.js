@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import './globals.css';
 
-export default function Home() {
+export default function LandingPage() {
   const router = useRouter();
   
   const navToSignUp = () => {

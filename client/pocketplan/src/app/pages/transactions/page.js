@@ -1,7 +1,7 @@
 // pages/dashboard
 import Navbar from "../../components/navbar";
 
-export default function Dashboard() {
+export default function Transactions() {
   return (
     <div className="background">
         <Navbar />

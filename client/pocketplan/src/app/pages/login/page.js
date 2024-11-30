@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 
-export default function signUpPage() {
+export default function LoginPage() {
   return (
     <div>
       <div 
@@ -19,7 +19,7 @@ export default function signUpPage() {
         <div className="card glass shadow-[0_0_60px_rgba(0,0,0,0.15)] w-full max-w-[450px] mx-8 my-8 p-4">
           <figure>
             <Link href="/">
-              <img className="mt-8 mx-auto" src="/assets/pocketPlanLogo.svg" alt="Logo" width={120} height={120} />
+              <img className="mt-8 mx-auto btn btn-ghost cursor-pointer p-1" src="/assets/pocketPlanLogo.svg" alt="Logo" width={120} height={120} />
             </Link>
           </figure>
 
