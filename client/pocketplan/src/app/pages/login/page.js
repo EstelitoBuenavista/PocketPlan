@@ -5,7 +5,6 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
 export default function LoginPage() {
-  const API_URL = "http://localhost:4000";
   const [isError,setIsError] = useState(false)
   const [Username,setUsername] = useState("")
   const [Password,setPassword] = useState("")
