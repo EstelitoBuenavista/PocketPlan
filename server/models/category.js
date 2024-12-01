@@ -24,12 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         key: "id",
       },
     },
-    type: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     name: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
