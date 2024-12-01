@@ -1,8 +1,48 @@
 // signup page
+"use client"
 import Link from 'next/link';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 
 export default function LoginPage() {
+  const API_URL = "http://localhost:4000";
+  const [isError,setIsError] = useState(false)
+  const [Username,setUsername] = useState("")
+  const [Password,setPassword] = useState("")
+
+  const handleLogin = (e) =>{
+    e.preventDefault()
+
+    const User = {
+      username: Username,
+      password: Password,
+    };
+
+    fetch(`http://localhost:4000/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(User),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.token){
+          localStorage.setItem('token',data.token);
+          window.location.href = "/pages/dashboard";
+        } else {
+          console.log(data)
+          setIsError(true)
+          return
+        }
+      })
+      .catch((error) => {
+        console.error("Error Login", error);
+        console.log(JSON.stringify(newUser))
+      });
+  }
+
+
   return (
     <div>
       <div 
@@ -31,6 +71,7 @@ export default function LoginPage() {
                 <span className="font-light text-xs">Username</span>
               </div>
               <input 
+                onChange={e => setUsername(e.target.value)}
                 type="text" 
                 placeholder="Bryanarra" 
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
@@ -38,12 +79,14 @@ export default function LoginPage() {
                 <span className="font-light text-xs">Password</span>
               </div>
               <input 
+                onChange={e => setPassword(e.target.value)}
                 type="password" 
                 placeholder="sample password" 
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
             </label>
 
-            <button className="btn mt-4 btn-primary w-full">Login</button>
+            <button className="btn mt-4 btn-primary w-full" onClick={handleLogin}>Login</button>
+            {isError && <p>Invalid Login Attempt!</p>}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
               <p className="text-xs font-normal">Don't have an account yet?</p>
