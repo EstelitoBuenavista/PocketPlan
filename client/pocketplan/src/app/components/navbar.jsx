@@ -21,7 +21,7 @@ function Navbar() {
     <div className="navbar bg-neutral">
       <div className="flex-1">
         <img
-          className="btn btn-ghost cursor-pointer p-1"
+          className="pl-2"
           src="/assets/pocketPlanLogo.svg"
           alt="Logo"
           width={120}
@@ -32,12 +32,12 @@ function Navbar() {
 
       <div className="flex flex-1 justify-end items-center px-0">
         <div className="flex">
-          <ul className="flex space-x-4">
+          <ul className="flex space-x-2">
             <li>
               <button
                 aria-label="Dashboard"
-                className={`flex items-center justify-center transition-transform hover:scale-110 ${
-                    isActive('/pages/dashboard') ? 'text-primary' : 'text-neutral-content'
+                className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
+                    isActive('/pages/dashboard') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
                 }`}
                 onClick={() => router.push('/pages/dashboard')}>
                 <RectangleGroupIcon className="w-6 h-6" />
@@ -46,8 +46,8 @@ function Navbar() {
             <li>
               <button
                 aria-label="Charts"
-                className={`flex items-center justify-center transition-transform hover:scale-110 ${
-                    isActive('/pages/charts') ? 'text-primary' : 'text-neutral-content'
+                className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
+                    isActive('/pages/charts') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
                 }`}
                 onClick={() => router.push('/pages/charts')}>
                 <PresentationChartBarIcon className="w-6 h-6" />
@@ -56,8 +56,8 @@ function Navbar() {
             <li>
               <button
                 aria-label="Transactions"
-                className={`flex items-center justify-center transition-transform hover:scale-110 ${
-                    isActive('/pages/transactions') ? 'text-primary' : 'text-neutral-content'
+                className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
+                    isActive('/pages/transactions') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
                 }`}
                 onClick={() => router.push('/pages/transactions')}>
                 <ReceiptPercentIcon className="w-6 h-6" />
@@ -66,8 +66,8 @@ function Navbar() {
             <li>
               <button
                 aria-label="Accounts"
-                className={`flex items-center justify-center transition-transform hover:scale-110 ${
-                    isActive('/pages/accounts') ? 'text-primary' : 'text-neutral-content'
+                className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
+                    isActive('/pages/accounts') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
                 }`}
                 onClick={() => router.push('/pages/accounts')}>
                 <CreditCardIcon className="w-6 h-6" />
@@ -76,7 +76,7 @@ function Navbar() {
           </ul>
         </div>
 
-        <hr className="border-l border-neutral-content mx-5 my-2 h-6" />
+        <hr className="border-l-2 border-neutral-content mx-5 my-2 h-7" />
 
         <div className="dropdown dropdown-end">
           <div

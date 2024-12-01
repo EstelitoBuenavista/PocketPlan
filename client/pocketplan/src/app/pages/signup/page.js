@@ -57,7 +57,7 @@ export default function SignUpPage() {
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
             </label>
 
-            <button className="btn mt-4 btn-primary w-full">Sign up</button>
+            <button className="btn mt-4 btn-primary w-wide">Sign up</button>
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[200px] mx-auto">
               <p className="text-xs font-normal">Already have an account?</p>
