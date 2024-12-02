@@ -43,7 +43,7 @@ export default function LoginPage() {
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
             </label>
 
-            <button className="btn mt-4 btn-primary w-full">Login</button>
+            <button className="btn mt-4 btn-primary w-wide">Login</button>
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
               <p className="text-xs font-normal">Don't have an account yet?</p>
