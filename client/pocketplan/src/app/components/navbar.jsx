@@ -18,7 +18,7 @@ function Navbar() {
   const isActive = (path) => pathname === path;
 
   return (
-    <div className="navbar bg-neutral">
+    <div className="navbar bg-neutral shadow-[0_1_60px_rgba(0,0,0,0.15)]">
       <div className="flex-1">
         <img
           className="pl-2"
