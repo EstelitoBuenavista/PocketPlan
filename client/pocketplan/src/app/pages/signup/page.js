@@ -106,9 +106,11 @@ const handleRegister = (e) =>{
                 placeholder="sample password" 
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
             </label>
+
             {!isSamePW && <p>Password Mismatch!</p>}
-            <button className="btn mt-4 btn-primary w-full" onClick={handleRegister}>Sign up</button>
+            <button className="btn mt-4 btn-primary w-wide" onClick={handleRegister}>Sign up</button>
             {isError && <p>Error Registering!</p>}
+
             <div className="flex items-center justify-center gap-2 w-full max-w-[200px] mx-auto">
               <p className="text-xs font-normal">Already have an account?</p>
               <Link href="/pages/login" className="text-primary text-xs font-normal">Login</Link>

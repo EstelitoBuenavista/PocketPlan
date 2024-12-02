@@ -84,7 +84,8 @@ export default function LoginPage() {
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
             </label>
 
-            <button className="btn mt-4 btn-primary w-full" onClick={handleLogin}>Login</button>
+
+            <button className="btn mt-4 btn-primary w-wide"onClick={handleLogin}>Login</button>
             {isError && <p>Invalid Login Attempt!</p>}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
