@@ -1,22 +1,96 @@
-// components/newAccModal
-'use state'
+'use client';
 
-function newAccModal () {
- return (
-    // daisyui modal
-    <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">Hello!</h3>
-    <p className="py-4">Press ESC key or click the button below to close</p>
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
-        <button className="btn">Close</button>
-      </form>
+import React, { useState } from 'react';
+
+function NewAccModal({ onClose }) {
+  const [selectedType, setSelectedType] = useState('Others'); // Default to 'Others'
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleDropdownSelect = (value) => {
+    setSelectedType(value);
+    setIsDropdownOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+        
+      <dialog id="my_modal" className="modal modal-bottom sm:modal-middle h-full" open>
+        <div className="modal-box bg-neutral text-neutral-content relative p-8">
+          <h3 className="font-bold text-xl sm:text-lg">Create a New Account</h3>
+          <p className="py-2 text-sm sm:text-base">Fill in the details for the new account.</p>
+
+          <label className="form-control w-full mb-4">
+            <div className="label">
+              <span className="font-light text-xs">Account Name</span>
+            </div>
+            <input
+              type="text"
+              placeholder="ex. Personal Funds"
+              className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
+            />
+          </label>
+
+          <label className="form-control w-full mb-4">
+            <div className="label">
+              <span className="font-light text-xs">Balance</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <p className="font-normal text-base">₱</p>
+              <input
+                type="text"
+                placeholder="ex. 10892.00"
+                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
+              />
+            </div>
+          </label>
+
+          <label className="form-control w-full mb-4">
+            <div className="label">
+              <span className="font-light text-xs">Account Type</span>
+            </div>
+            <div className="dropdown w-full">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn m-1 btn-warning w-full text-left"
+                onClick={toggleDropdown}
+              >
+                {selectedType}
+              </div>
+
+              {isDropdownOpen && (
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-neutral rounded-box z-[1] p-2 shadow absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-full "
+                >
+                  {['Miscellaneous', 'Personal', 'Savings', 'Work', 'Others'].map((type) => (
+                    <li key={type} onClick={() => handleDropdownSelect(type)}>
+                      <a>{type}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </label>
+
+          <div className="modal-action flex items-center justify-between space-x-4 flex-wrap">
+            <button className="btn btn-accent btn-md w-full sm:w-auto" onClick={onClose}>
+              Cancel
+            </button>
+            {/* IF continue then append the new account into the list */}
+            <button className="btn btn-primary btn-md w-full sm:w-auto" onClick={onClose}>
+              Continue
+            </button>
+          </div>
+        </div>
+      </dialog>
+      
     </div>
-  </div>
-</dialog>
- );
+  );
 }
 
-export default newAccModal;
+export default NewAccModal;

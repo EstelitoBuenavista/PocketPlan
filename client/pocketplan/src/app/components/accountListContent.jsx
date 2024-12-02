@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import DashboardContent from './dashboardContent';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import NewAccModal from './newAccModal'; // Import the modal component
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 function AccountListContent() {
   const [accounts, setAccounts] = useState([
@@ -36,22 +37,19 @@ function AccountListContent() {
     },
   ]);
 
-  // Default view is "Overview"
   const [selectedAccountId, setSelectedAccountId] = useState(0);
-
-  const addNewAccount = () => {
-    const newAccount = {
-      id: accounts.length + 1,
-      userID: 101,
-      balance: 0.0,
-      accountType: 'Checking',
-      accountName: `Account ${accounts.length + 1}`,
-    };
-    setAccounts([...accounts, newAccount]);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleTabSelect = (accountId) => {
     setSelectedAccountId(accountId);
+  };
+
+  const handleAddAccountClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const selectedAccount =
@@ -66,7 +64,6 @@ function AccountListContent() {
           role="tablist"
           className="tabs gap-3 tabs-xs flex items-center justify-start w-full"
         >
-          {/* Default overview tab */}
           <button
             type="button"
             role="tab"
@@ -81,7 +78,6 @@ function AccountListContent() {
             Overview
           </button>
 
-          {/* List other accounts */}
           {accounts.map((account) => (
             <button
               key={account.id}
@@ -99,22 +95,27 @@ function AccountListContent() {
             </button>
           ))}
 
-          {/* Add new account button */}
           <button
             type="button"
             className="tab rounded-t text-primary hover:scale-110"
-            onClick={addNewAccount}
+            onClick={handleAddAccountClick}
             aria-label="Add New Account"
           >
-            <PlusCircleIcon className="w-4 h-4" />
+            <PlusIcon className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* Display the content of the selected tab */}
       <div className="mt-2">
         <DashboardContent accountProp={selectedAccount || null} />
       </div>
+
+      {isModalOpen && (
+        <NewAccModal
+          onClose={handleCloseModal}
+          setAccounts={setAccounts}
+        />
+      )}
     </div>
   );
 }
