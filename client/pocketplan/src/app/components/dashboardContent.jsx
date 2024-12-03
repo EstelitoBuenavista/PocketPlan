@@ -1,9 +1,10 @@
+// components/dashboardContent
 'use client';
 
 import TotalCard from './totalCard';
 
-function DashboardContent({ accountProp }) {
-  const isOverview = !accountProp;
+function DashboardContent({ selectedAccount }) {
+  const isOverview = !selectedAccount;
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
@@ -12,12 +13,12 @@ function DashboardContent({ accountProp }) {
       <div className="py-2 flex flex-wrap gap-4">
         <TotalCard
           title={`Balance`}
-          value={isOverview ? 'TEST' : accountProp.balance}
+          value={isOverview ? 'TEST' : selectedAccount.balance}
         />
         <TotalCard
           title={`Expenses`}
           // add logic for EXPENSES HERE
-          value={isOverview ? 'TEST' : accountProp.balance * 0.3}
+          value={isOverview ? 'TEST' : selectedAccount.balance * 0.3}
         />
       </div>
 

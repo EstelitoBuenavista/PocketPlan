@@ -1,3 +1,4 @@
+// components/newAccModal
 'use client';
 
 import React, { useState } from 'react';
@@ -86,7 +87,7 @@ function NewAccModal({ onClose }) {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn m-1 btn-warning w-full text-left"
+                className="btn m-1 btn-success w-full text-left"
                 onClick={toggleDropdown}
               >
                 {selectedType}

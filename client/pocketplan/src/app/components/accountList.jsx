@@ -28,6 +28,7 @@ function AccountListContent() {
     renderAccounts()
    }, [])
 
+
   const [selectedAccountId, setSelectedAccountId] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -102,7 +103,7 @@ function AccountListContent() {
       </div>
 
       <div className="mt-2">
-        <DashboardContent accountProp={selectedAccount || null} />
+        <DashboardContent selectedAccount={selectedAccount || null} />
       </div>
 
       {isModalOpen && (

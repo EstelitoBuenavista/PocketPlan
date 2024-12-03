@@ -1,21 +1,26 @@
-// pages/dashboard
-'use client'
+'use client';
 
-import { useState } from "react";
 import Navbar from "../../components/navbar";
-import AccountListContent from "@/app/components/accountListContent";
+import AccountList from "@/app/components/accountList";
+import DashboardContent from "@/app/components/dashboardContent";
 
 export default function Dashboard() {
   return (
     <div className="background flex flex-col min-h-screen">
-        <Navbar className="fixed top-0 w-full z-10"/>
+      <Navbar className="fixed top-0 w-full z-10" />
 
-        {/* tabs of accounts, overview shall be a default */}
-        <div className="md:px-32 sm:px-16 m-4">
-          <h1 className="text-2xl font-bold my-4 text-primary">Dashboard</h1>
-          <AccountListContent />
-        </div>
-        
+      <div className="md:px-32 sm:px-16 m-4 mt-8">
+        <h1 className="text-2xl font-bold my-4 text-primary">Dashboard</h1>
+
+        {/* AccountList handles its own state and passes selectedAccount data */}
+        <AccountList>
+          {({ selectedAccount }) => (
+            <div className="mt-4">
+              <DashboardContent selectedAccount={selectedAccount} />
+            </div>
+          )}
+        </AccountList>
+      </div>
     </div>
   );
 }
