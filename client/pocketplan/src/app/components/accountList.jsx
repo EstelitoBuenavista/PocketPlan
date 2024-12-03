@@ -1,3 +1,4 @@
+// components/accountList
 'use client';
 
 import { useState } from 'react';
@@ -7,10 +8,10 @@ import NewAccModal from "@/app/components/newAccModal";
 function AccountList({ children }) {
   // State for accounts and selected account
   const [accounts, setAccounts] = useState([
-    { id: 1, userID: 101, balance: 1500.75, accountType: 'Checking', accountName: 'Main Checking' },
-    { id: 2, userID: 101, balance: 3000.5,  accountType: 'Savings', accountName: 'Emergency Savings' },
-    { id: 3, userID: 103, balance: 4500.25, accountType: 'Business', accountName: 'Company' },
-    { id: 4, userID: 104, balance: 750.4,   accountType: 'Savings', accountName: 'Retirement Fund' },
+    { id: 1, userID: 101, balance: 1500.75, accountType: 'Checking',  accountName: 'Main Checking' },
+    { id: 2, userID: 101, balance: 3000.5,  accountType: 'Savings',   accountName: 'Emergency Savings' },
+    { id: 3, userID: 103, balance: 4500.25, accountType: 'Business',  accountName: 'Company' },
+    { id: 4, userID: 104, balance: 750.4,   accountType: 'Savings',   accountName: 'Retirement Fund' },
   ]);
   const [selectedAccountId, setSelectedAccountId] = useState(0); // Overview is default
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +30,7 @@ function AccountList({ children }) {
           role="tablist"
           className="tabs gap-3 tabs-xs flex items-center justify-start w-full"
         >
-          {/* Overview tab */}
+          {/* Overview tab (default) */}
           <button
             type="button"
             role="tab"
@@ -62,7 +63,6 @@ function AccountList({ children }) {
             </button>
           ))}
 
-          {/* Add account button */}
           <button
             type="button"
             className="tab rounded-t text-primary hover:scale-110"
@@ -77,7 +77,6 @@ function AccountList({ children }) {
       {/* Render children with the selected account */}
       {children({ selectedAccount })}
 
-      {/* New Account Modal */}
       {isModalOpen && (
         <NewAccModal
           onClose={handleCloseModal}
