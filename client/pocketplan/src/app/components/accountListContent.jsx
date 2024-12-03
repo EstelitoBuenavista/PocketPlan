@@ -1,44 +1,39 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardContent from './dashboardContent';
 import NewAccModal from './newAccModal'; // Import the modal component
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { jwtDecode } from 'jwt-decode';
+
 
 function AccountListContent() {
-  const [accounts, setAccounts] = useState([
-    {
-      id: 1,
-      userID: 101,
-      balance: 1500.75,
-      accountType: 'Checking',
-      accountName: 'Main Checking',
-    },
-    {
-      id: 2,
-      userID: 101,
-      balance: 3000.5,
-      accountType: 'Savings',
-      accountName: 'Emergency Savings',
-    },
-    {
-      id: 3,
-      userID: 103,
-      balance: 4500.25,
-      accountType: 'Business',
-      accountName: 'Company',
-    },
-    {
-      id: 4,
-      userID: 104,
-      balance: 750.4,
-      accountType: 'Savings',
-      accountName: 'Retirement Fund',
-    },
-  ]);
+  const [accounts, setAccounts] = useState([])
+  const token = localStorage.getItem("token")
+  const id = (jwtDecode(token).userId).toString()
+
+  const renderAccounts = () => {
+    fetch(`http://localhost:4000/account/user/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        setAccounts (data)
+        console.log(data)
+      })
+      .catch(error => {
+        console.log("Error:", error);
+      });
+  }
+
+  useEffect(() => {
+    renderAccounts()
+   }, [])
 
   const [selectedAccountId, setSelectedAccountId] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    renderAccounts()
+   }, [isModalOpen])
 
   const handleTabSelect = (accountId) => {
     setSelectedAccountId(accountId);
@@ -78,7 +73,7 @@ function AccountListContent() {
             Overview
           </button>
 
-          {accounts.map((account) => (
+          {accounts && accounts.map((account) => (
             <button
               key={account.id}
               type="button"
@@ -91,7 +86,7 @@ function AccountListContent() {
               aria-label={`Account ${account.id}`}
               onClick={() => handleTabSelect(account.id)}
             >
-              {account.accountName}
+              {account.name}
             </button>
           ))}
 
