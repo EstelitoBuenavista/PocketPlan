@@ -7,8 +7,12 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import { jwtDecode } from 'jwt-decode';
 
 
-function AccountListContent() {
+function AccountList({ children }) {
+  // State for accounts and selected account
   const [accounts, setAccounts] = useState([])
+  const [selectedAccountId, setSelectedAccountId] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const token = localStorage.getItem("token")
   const id = (jwtDecode(token).userId).toString()
 
@@ -27,10 +31,6 @@ function AccountListContent() {
   useEffect(() => {
     renderAccounts()
    }, [])
-
-
-  const [selectedAccountId, setSelectedAccountId] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     renderAccounts()
@@ -54,12 +54,13 @@ function AccountListContent() {
       : accounts.find((account) => account.id === selectedAccountId);
 
   return (
-    <div className="dashContent">
+    <div>
       <div className="flex items-center">
         <div
           role="tablist"
           className="tabs gap-3 tabs-xs flex items-center justify-start w-full"
         >
+          {/* Overview tab (default) */}
           <button
             type="button"
             role="tab"
@@ -74,6 +75,7 @@ function AccountListContent() {
             Overview
           </button>
 
+          {/* Account tabs */}
           {accounts && accounts.map((account) => (
             <button
               key={account.id}
@@ -102,9 +104,8 @@ function AccountListContent() {
         </div>
       </div>
 
-      <div className="mt-2">
-        <DashboardContent selectedAccount={selectedAccount || null} />
-      </div>
+      {/* Render children with the selected account */}
+       {children({ selectedAccount })}
 
       {isModalOpen && (
         <NewAccModal
@@ -116,4 +117,4 @@ function AccountListContent() {
   );
 }
 
-export default AccountListContent;
+export default AccountList;
