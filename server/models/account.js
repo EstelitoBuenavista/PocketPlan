@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
     type: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("Miscallaneous", "Personal", "Savings", "Work", "Others"),
       allowNull: false,
     },
     name: {
