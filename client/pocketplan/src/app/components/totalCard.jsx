@@ -1,3 +1,4 @@
+// components/totalCard
 'use client';
 
 import { useState } from "react";
@@ -15,8 +16,8 @@ function TotalCard({ title, value }) {
     : "N/A";
     
     const icon = title === 'Balance' 
-        ? <WalletIcon className="w-10 h-10 text-warning" /> 
-        : <BanknotesIcon className="w-10 h-10 text-warning" />;
+        ? <WalletIcon className="w-10 h-10 text-success" /> 
+        : <BanknotesIcon className="w-10 h-10 text-success" />;
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
