@@ -1,10 +1,38 @@
 'use client';
 
 import React, { useState } from 'react';
+import {jwtDecode} from 'jwt-decode'
 
 function NewAccModal({ onClose }) {
   const [selectedType, setSelectedType] = useState('Others'); // Default to 'Others'
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [name, setName] =  useState('')
+  const [balance, setBalance] = useState(0)
+  const token = localStorage.getItem('token');
+
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+
+    const newStudent = {
+      user_id : (jwtDecode(token).userId).toString(),
+      balance : balance,
+      name : name,
+      type : selectedType,
+    };
+
+    fetch(`http://localhost:4000/account/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(newStudent),
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error("Error creating Account", error);
+      });
+  }
 
   const handleDropdownSelect = (value) => {
     setSelectedType(value);
@@ -30,6 +58,7 @@ function NewAccModal({ onClose }) {
             <input
               type="text"
               placeholder="ex. Personal Funds"
+              onChange={e => setName(e.target.value)}
               className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
             />
           </label>
@@ -43,6 +72,7 @@ function NewAccModal({ onClose }) {
               <input
                 type="text"
                 placeholder="ex. 10892.00"
+                onChange={e => setBalance(e.target.value)}
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
               />
             </div>
@@ -82,7 +112,7 @@ function NewAccModal({ onClose }) {
               Cancel
             </button>
             {/* IF continue then append the new account into the list */}
-            <button className="btn btn-primary btn-md w-full sm:w-auto" onClick={onClose}>
+            <button className="btn btn-primary btn-md w-full sm:w-auto" onClick={(e) => {handleSubmit(e);onClose()}}>
               Continue
             </button>
           </div>
