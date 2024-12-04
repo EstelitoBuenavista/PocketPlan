@@ -31,7 +31,7 @@ function TransactionsList({ selectedAccount }) {
       return (
         <div className="border-2 border-error overflow-hidden w-full h-full">
           <div className="overflow-x-auto max-h-[75vh] md:h-[60vh] bg-accent rounded-lg">
-            <table className="table table-xs rounded-lg shadow-[0_0_60px_rgba(0,0,0,0.15)] bg-base-100 text-neutral-content border-spacing-1 w-full max-w-full">
+            <table className="table table-xs rounded-lg shadow-[0_0_60px_rgba(0,0,0,0.15)] bg-base-100 text-neutral-content table-fixed border-spacing-1 w-full max-w-full">
               <thead>
                 <tr className="text-primary sticky top-0 bg-secondary">
                   <th className="break-words whitespace-normal">Title</th>
