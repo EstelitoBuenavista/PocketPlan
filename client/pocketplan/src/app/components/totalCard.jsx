@@ -16,8 +16,8 @@ function TotalCard({ title, value }) {
     : "N/A";
     
     const icon = title === 'Balance' 
-        ? <WalletIcon className="w-10 h-10 text-success" /> 
-        : <BanknotesIcon className="w-10 h-10 text-success" />;
+        ? <WalletIcon className="w-10 h-10 text-success sm:block hidden md:block hidden" /> 
+        : <BanknotesIcon className="w-10 h-10 text-success sm:block hidden md:block hidden" />;
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible);

@@ -1,17 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import DashboardContent from './dashboardContent';
-import NewAccModal from './newAccModal'; // Import the modal component
-import { PlusIcon } from '@heroicons/react/24/outline';
 import { jwtDecode } from 'jwt-decode';
 
-
 function AccountList({ children }) {
-  // State for accounts and selected account
-  const [accounts, setAccounts] = useState([])
+  const [accounts, setAccounts] = useState([]);
   const [selectedAccountId, setSelectedAccountId] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const token = localStorage.getItem("token")
   const id = (jwtDecode(token).userId).toString()
@@ -32,20 +26,8 @@ function AccountList({ children }) {
     renderAccounts()
    }, [])
 
-  useEffect(() => {
-    renderAccounts()
-   }, [isModalOpen])
-
   const handleTabSelect = (accountId) => {
     setSelectedAccountId(accountId);
-  };
-
-  const handleAddAccountClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   const selectedAccount =
@@ -92,27 +74,11 @@ function AccountList({ children }) {
               {account.name}
             </button>
           ))}
-
-          <button
-            type="button"
-            className="tab rounded-t text-primary hover:scale-110"
-            onClick={handleAddAccountClick}
-            aria-label="Add New Account"
-          >
-            <PlusIcon className="w-4 h-4" />
-          </button>
         </div>
       </div>
 
       {/* Render children with the selected account */}
        {children({ selectedAccount })}
-
-      {isModalOpen && (
-        <NewAccModal
-          onClose={handleCloseModal}
-          setAccounts={setAccounts}
-        />
-      )}
     </div>
   );
 }

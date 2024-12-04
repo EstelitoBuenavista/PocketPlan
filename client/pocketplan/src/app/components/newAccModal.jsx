@@ -87,7 +87,7 @@ function NewAccModal({ onClose }) {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-success w-full text-left"
+                className="btn btn-success btn-sm w-full text-left"
                 onClick={toggleDropdown}
               >
                 {selectedType}

@@ -1,7 +1,10 @@
 // signup page
 "use client"
 import Link from 'next/link';
-import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { 
+  ChevronLeftIcon,
+  ShieldExclamationIcon
+ } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
 export default function LoginPage() {
@@ -40,7 +43,6 @@ export default function LoginPage() {
         console.log(JSON.stringify(newUser))
       });
   }
-
 
   return (
     <div>
@@ -86,7 +88,14 @@ export default function LoginPage() {
 
 
             <button className="btn mt-4 btn-primary w-wide"onClick={handleLogin}>Login</button>
-            {isError && <p>Invalid Login Attempt!</p>}
+            {isError && (
+              <div className="flex items-center justify-center gap-2">
+                <ShieldExclamationIcon className="w-4 h-4 text-error" />
+                <p className="font-medium text-error text-center text-xs py-2 w-full max-w-[140px]">
+                  Invalid Login Attempt!
+                </p>
+              </div>
+            )}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
               <p className="text-xs font-normal">Don't have an account yet?</p>
