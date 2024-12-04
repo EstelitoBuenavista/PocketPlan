@@ -22,7 +22,7 @@ export default function LandingPage() {
           <Image src="/assets/pocketPlanLogo.svg" alt="Logo" width={120} height={120} />
         </div>
 
-        <div className="hero-content text-neutral-content text-center">
+        <div className="hero-content text-neutral text-center">
           <div className="w-[60%] max-w-screen-lg">
             <h1 className="mb-8 text-5xl font-black">Plan for the money in your pocket.</h1>
             <p className="mb-8">

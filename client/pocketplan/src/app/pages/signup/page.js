@@ -59,7 +59,7 @@ const handleRegister = (e) =>{
       style= {{ backgroundImage: 'url("/assets/signuploginbg.jpg")' }}>
 
         <div className="absolute top-8 left-8">
-          <Link href="/" className=" flex items-center gap-2 text-neutral-content hover:text-primary">
+          <Link href="/" className=" flex items-center gap-2 text-neutral hover:text-primary">
             <ChevronLeftIcon className="w-4 h-4"/>
             <p className="text-sm font-normal">Back</p>
           </Link>
@@ -72,7 +72,7 @@ const handleRegister = (e) =>{
             </Link>
           </figure>
 
-          <div className="card-body text-neutral-content">
+          <div className="card-body text-neutral">
             <h2 className="font-normal text-center mb-2">Welcome! Sign up to get started.</h2>
             
             <label className="form-control w-full">
@@ -113,7 +113,7 @@ const handleRegister = (e) =>{
             <button className="btn mt-4 btn-primary w-wide" onClick={handleRegister}>Sign up</button>
 
             {!isSamePW && <p className="font-medium text-error text-center text-xs w-full">Password Mismatch!</p>}
-            {isError && <p className="font-medium text-error text-center text-xs w-full">Error Registering!</p>}
+            {isError && <p className="font-medium text-error text-center text-xs w-full">ERROR! Invalid Input Fields!</p>}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[200px] mx-auto">
               <p className="text-xs font-normal">Already have an account?</p>
