@@ -7,8 +7,8 @@ import DashboardGrid from "@/app/components/dashboardGrid";
 
 export default function Dashboard() {
   return (
-    <div className="background flex flex-col min-h-screen w-screen">
-      <Navbar className="fixed top-0 w-full z-10" />
+    <div className="background flex flex-col min-h-screen w-full max-w-screen overflow-x-hidden">
+      <Navbar className="fixed top-0 w-full" />
 
       <div className="md:px-32 sm:px-16 m-4 mt-8 mb-16">
         <h1 className="text-2xl font-bold my-4 text-primary">Dashboard</h1>

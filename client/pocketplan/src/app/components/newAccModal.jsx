@@ -96,7 +96,7 @@ function NewAccModal({ onClose }) {
               {isDropdownOpen && (
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-neutral rounded-box z-[1] p-2 shadow absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-full "
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] p-2 shadow absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-full "
                 >
                   {['Miscellaneous', 'Personal', 'Savings', 'Work', 'Others'].map((type) => (
                     <li key={type} onClick={() => handleDropdownSelect(type)}>

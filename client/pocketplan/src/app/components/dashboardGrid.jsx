@@ -21,6 +21,8 @@ function DashboardGrid({ selectedAccount }) {
           // add logic for EXPENSES HERE
           value={isOverview ? 'TEST' : selectedAccount.balance * 0.3}
         />
+
+        <TransactionsList />
       </div>
 
       {/* RIGHT COLUMN */}
