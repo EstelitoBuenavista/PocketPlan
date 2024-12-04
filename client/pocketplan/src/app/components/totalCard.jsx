@@ -16,21 +16,21 @@ function TotalCard({ title, value }) {
     : "N/A";
     
     const icon = title === 'Balance' 
-        ? <WalletIcon className="w-10 h-10 text-success" /> 
-        : <BanknotesIcon className="w-10 h-10 text-success" />;
+        ? <WalletIcon className="w-10 h-10 text-success sm:block hidden md:block hidden" /> 
+        : <BanknotesIcon className="w-10 h-10 text-success sm:block hidden md:block hidden" />;
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
     };
 
     return (
-        <div className="stats bg-neutral shadow-[0_1_60px_rgba(0,0,0,0.15)] bg-neutral w-full sm:w-[48%] lg:w-[30%] flex-grow">
+        <div className="stats shadow-[0_1_60px_rgba(0,0,0,0.15)] bg-base-100 w-full sm:w-[48%] lg:w-[30%] flex-grow">
             <div className="stat">
                 <div className="stat-figure text-primary">
                     {icon}
                 </div>
                 <div className="flex items-center justify-start mb-2">
-                    <div className="stat-title text-neutral-content mr-2">
+                    <div className="stat-title text-neutral mr-2">
                         Total {title}
                     </div>
                     <button onClick={toggleVisibility} className="ml-2">
@@ -41,7 +41,7 @@ function TotalCard({ title, value }) {
                         )}
                     </button>
                 </div>
-                <div className="stat-value flex align-center justify-start gap-2 text-neutral-content">
+                <div className="stat-value flex align-center justify-start gap-2 text-neutral">
                     <p className="font-normal text-xl">₱</p> 
                     {isVisible ? formattedValue : '*****'}
                 </div>
