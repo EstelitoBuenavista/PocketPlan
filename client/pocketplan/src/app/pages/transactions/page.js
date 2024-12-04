@@ -1,8 +1,8 @@
+// pages/transactions
 'use client';
 
 import Navbar from "../../components/navbar";
 import AccountList from "@/app/components/accountList";
-import DashboardContent from "@/app/components/dashboardContent";
 
 export default function Dashboard() {
   return (
