@@ -15,7 +15,7 @@ export default function Transactions({ selectedAccount }) {
 
       <div className="md:px-32 sm:px-16 m-4 mt-8 mb-16">
         <div className="flex justify-between items-center pb-4">
-            <h1 className="text-2xl font-bold my-4 text-primary">Manage Accounts</h1>
+            <h1 className="text-2xl font-bold my-4 text-primary">Transactions History</h1>
             <button
               className="btn btn-primary btn-sm"
               // onClick={handleAddTransactionClick}

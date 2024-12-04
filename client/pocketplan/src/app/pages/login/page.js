@@ -51,7 +51,7 @@ export default function LoginPage() {
       style= {{ backgroundImage: 'url("/assets/signuploginbg.jpg")' }}>
 
         <div className="absolute top-8 left-8">
-          <Link href="../" className=" flex items-center gap-2 text-neutral-content hover:text-primary">
+          <Link href="../" className=" flex items-center gap-2 text-neutral hover:text-primary">
             <ChevronLeftIcon className="w-4 h-4"/>
             <p className="text-sm font-normal">Back</p>
           </Link>
@@ -64,7 +64,7 @@ export default function LoginPage() {
             </Link>
           </figure>
 
-          <div className="card-body text-neutral-content">
+          <div className="card-body text-neutral">
             <h2 className="font-normal text-center mb-2">Welcome back!</h2>
             
             <label className="form-control w-full">
