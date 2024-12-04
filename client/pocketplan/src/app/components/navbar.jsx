@@ -18,7 +18,7 @@ function Navbar() {
   const isActive = (path) => pathname === path;
 
   return (
-    <div className="navbar bg-neutral shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+    <div className="navbar bg-base-100 shadow-[0_1_60px_rgba(0,0,0,0.15)] sticky top-0 z-20">
       <div className="flex-1">
         <img
           className="pl-2"
@@ -37,7 +37,7 @@ function Navbar() {
               <button
                 aria-label="Dashboard"
                 className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
-                    isActive('/pages/dashboard') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
+                    isActive('/pages/dashboard') ? 'text-primary bg-accent rounded' : 'text-neutral'
                 }`}
                 onClick={() => router.push('/pages/dashboard')}>
                 <RectangleGroupIcon className="w-6 h-6" />
@@ -47,7 +47,7 @@ function Navbar() {
               <button
                 aria-label="Charts"
                 className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
-                    isActive('/pages/charts') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
+                    isActive('/pages/charts') ? 'text-primary bg-accent rounded' : 'text-neutral'
                 }`}
                 onClick={() => router.push('/pages/charts')}>
                 <PresentationChartBarIcon className="w-6 h-6" />
@@ -57,7 +57,7 @@ function Navbar() {
               <button
                 aria-label="Transactions"
                 className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
-                    isActive('/pages/transactions') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
+                    isActive('/pages/transactions') ? 'text-primary bg-accent rounded' : 'text-neutral'
                 }`}
                 onClick={() => router.push('/pages/transactions')}>
                 <ReceiptPercentIcon className="w-6 h-6" />
@@ -67,7 +67,7 @@ function Navbar() {
               <button
                 aria-label="Accounts"
                 className={`flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square ${
-                    isActive('/pages/accounts') ? 'text-primary bg-accent rounded' : 'text-neutral-content'
+                    isActive('/pages/accounts') ? 'text-primary bg-accent rounded' : 'text-neutral'
                 }`}
                 onClick={() => router.push('/pages/accounts')}>
                 <CreditCardIcon className="w-6 h-6" />
@@ -82,7 +82,7 @@ function Navbar() {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost avatar p-0">
+            className="btn btn-ghost avatar p-0 hover:bg-base-100">
             <div className="w-9 h-9 rounded-lg">
               {/* Image of user should be here */}
               <img
@@ -94,7 +94,7 @@ function Navbar() {
 
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-neutral rounded-box z-[1] mt-3 w-52 p-2 shadow text-neutral-content">
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-neutral">
             <li>
               <a>
                 <UserIcon className="w-4 h-4" />

@@ -48,7 +48,7 @@ function NewAccModal({ onClose }) {
     <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
         
       <dialog id="my_modal" className="modal modal-bottom sm:modal-middle h-full" open>
-        <div className="modal-box bg-neutral text-neutral-content relative p-8">
+        <div className="modal-box bg-base-100 text-neutral relative p-8">
           <h3 className="font-bold text-xl sm:text-lg">Create a New Account</h3>
           <p className="py-2 text-sm sm:text-base">Fill in the details for the new account.</p>
 

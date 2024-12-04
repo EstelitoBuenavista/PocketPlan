@@ -1,7 +1,10 @@
 // signup page
 "use client"
 import Link from 'next/link';
-import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { 
+  ChevronLeftIcon,
+  ShieldExclamationIcon
+ } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
 export default function SignUpPage() {
@@ -107,9 +110,10 @@ const handleRegister = (e) =>{
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
             </label>
 
-            {!isSamePW && <p>Password Mismatch!</p>}
             <button className="btn mt-4 btn-primary w-wide" onClick={handleRegister}>Sign up</button>
-            {isError && <p>Error Registering!</p>}
+
+            {!isSamePW && <p className="font-medium text-error text-center text-xs w-full">Password Mismatch!</p>}
+            {isError && <p className="font-medium text-error text-center text-xs w-full">Error Registering!</p>}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[200px] mx-auto">
               <p className="text-xs font-normal">Already have an account?</p>

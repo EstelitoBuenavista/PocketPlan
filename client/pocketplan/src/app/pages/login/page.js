@@ -88,14 +88,7 @@ export default function LoginPage() {
 
 
             <button className="btn mt-4 btn-primary w-wide"onClick={handleLogin}>Login</button>
-            {isError && (
-              <div className="flex items-center justify-center gap-2">
-                <ShieldExclamationIcon className="w-4 h-4 text-error" />
-                <p className="font-medium text-error text-center text-xs py-2 w-full max-w-[140px]">
-                  Invalid Login Attempt!
-                </p>
-              </div>
-            )}
+            {isError && <p className="font-medium text-error text-center text-xs w-full">Invalid Login Attempt!</p>}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
               <p className="text-xs font-normal">Don't have an account yet?</p>

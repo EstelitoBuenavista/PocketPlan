@@ -1,16 +1,17 @@
-// components/dashboardContent
+// components/dashboardGrid
 'use client';
 
 import TotalCard from './totalCard';
+import TransactionsList from "@/app/components/transactionsList";
 
-function DashboardContent({ selectedAccount }) {
+function DashboardGrid({ selectedAccount }) {
   const isOverview = !selectedAccount;
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
       {/* LEFT COLUMN */}
-      {/* <div className="border-2 border-error py-2 flex flex-wrap gap-4"> */}
-      <div className="py-2 flex flex-wrap gap-4">
+      <div className="border-2 border-error p flex flex-wrap gap-4">
+      {/* <div className="py-2 flex flex-wrap gap-4"> */}
         <TotalCard
           title={`Balance`}
           value={isOverview ? 'TEST' : selectedAccount.balance}
@@ -23,12 +24,12 @@ function DashboardContent({ selectedAccount }) {
       </div>
 
       {/* RIGHT COLUMN */}
-      {/* <div className="border-2 border-error p-2 gap-4 w-full h-full"> */}
-      <div className="p-2 gap-4 w-full h-full">
+      <div className="border-2 border-error gap-4 w-full h-full">
+      {/* <div className="p-2 gap-4 w-full h-full"> */}
         
       </div>
     </div>
   );
 }
 
-export default DashboardContent;
+export default DashboardGrid;

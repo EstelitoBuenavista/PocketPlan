@@ -25,7 +25,7 @@ export default function Accounts() {
             aria-label="Create New Account"
           >
             <PlusIcon className="w-4 h-4 stroke-[3]" />
-            Create New Account
+            New Account
           </button>
         </div>
       </div>
