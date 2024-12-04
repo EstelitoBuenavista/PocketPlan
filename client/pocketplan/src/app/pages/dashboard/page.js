@@ -1,3 +1,4 @@
+// pages/dashboard
 'use client';
 
 import Navbar from "../../components/navbar";
