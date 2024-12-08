@@ -7,6 +7,7 @@ var cors = require("cors");
 const db = require("./models");
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const DBname = config.database
 // const { sequelize } = require('./models'); // Adjust the path as necessary
 
 
@@ -50,11 +51,18 @@ app.listen(PORT, () => {
 });
 
 
-db.sequelize
-  .sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
+db.sequelize.query(`CREATE DATABASE IF NOT EXISTS ${DBname}`)
+    .then(() => {
+        console.log('Database created or already exists.');
+        // Now you can sync your models
+        db.sequelize.sync()
+            .then(() => {
+                console.log('Models synced successfully.');
+            })
+            .catch(err => {
+                console.error('Error syncing database:', err);
+            });
+    })
+    .catch(err => {
+        console.error('Error creating database:', err);
+    });
