@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {jwtDecode} from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
 function NewAccModal({ onClose }) {
   const [selectedType, setSelectedType] = useState('Others'); // Default to 'Others'
@@ -46,13 +46,11 @@ function NewAccModal({ onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
-        
-      <dialog id="my_modal" className="modal modal-bottom sm:modal-middle h-full" open>
         <div className="modal-box bg-base-100 text-neutral relative p-8">
           <h3 className="font-bold text-xl sm:text-lg">Create a New Account</h3>
-          <p className="py-2 text-sm sm:text-base">Fill in the details for the new account.</p>
+          <p className="py-2 text-sm sm:text-base">Fill in the fields for the new account.</p>
 
-          <label className="form-control w-full mb-4">
+          <label className="form-control w-full">
             <div className="label">
               <span className="font-light text-xs">Account Name</span>
             </div>
@@ -64,7 +62,7 @@ function NewAccModal({ onClose }) {
             />
           </label>
 
-          <label className="form-control w-full mb-4">
+          <label className="form-control w-full">
             <div className="label">
               <span className="font-light text-xs">Balance</span>
             </div>
@@ -79,7 +77,7 @@ function NewAccModal({ onClose }) {
             </div>
           </label>
 
-          <label className="form-control w-full mb-4">
+          <label className="form-control w-full">
             <div className="label">
               <span className="font-light text-xs">Account Type</span>
             </div>
@@ -108,17 +106,16 @@ function NewAccModal({ onClose }) {
             </div>
           </label>
 
-          <div className="modal-action flex items-center justify-between space-x-4 flex-wrap">
-            <button className="btn btn-accent btn-md w-full sm:w-auto" onClick={onClose}>
+          <div className="modal-action flex items-center justify-between flex-wrap">
+            <button className="btn btn-accent btn-md" onClick={onClose}>
               Cancel
             </button>
             {/* IF continue then append the new account into the list */}
-            <button className="btn btn-primary btn-md w-full sm:w-auto" onClick={(e) => {handleSubmit(e);onClose()}}>
+            <button className="btn btn-primary btn-md" onClick={(e) => {handleSubmit(e);onClose()}}>
               Continue
             </button>
           </div>
         </div>
-      </dialog>
       
     </div>
   );

@@ -30,7 +30,7 @@ export default function Accounts() {
         </div>
       </div>
 
-      {isModalOpen && <NewAccModal onClose={handleCloseModal} />}
+      {isModalOpen && <NewAccModal onClose={ handleCloseModal } />}
     </div>
   );
 }
