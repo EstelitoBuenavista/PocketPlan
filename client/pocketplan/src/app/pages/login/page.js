@@ -91,7 +91,7 @@ export default function LoginPage() {
             {isError && <p className="font-medium text-error text-center text-xs w-full">Invalid Login Attempt!</p>}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
-              <p className="text-xs font-normal">Don't have an account yet?</p>
+              <p className="text-xs font-normal">Don&apos;t have an account yet?</p>
               <Link href="/pages/signup" className="text-primary text-xs font-normal">Sign Up</Link>
             </div>
           </div>
