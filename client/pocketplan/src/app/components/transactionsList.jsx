@@ -45,7 +45,7 @@ function TransactionsList({ selectedAccount }) {
   return (
     <div className="overflow-hidden w-full h-full rounded">
       <div className={containerStyle}>
-        <table className="table table-xs rounded-lg shadow-[0_0_60px_rgba(0,0,0,0.15)] bg-base-100 text-neutral-content table-fixed border-spacing-1 w-full max-w-full">
+        <table className="table table-xs rounded-lg bg-base-100 text-neutral-content table-fixed border-spacing-1 w-full max-w-full">
           <thead>
             <tr className="text-primary sticky top-0 bg-secondary">
               <th className="break-words whitespace-normal">Title</th>
