@@ -1,7 +1,12 @@
 // components/transactionRow
-function TransactionRow({ transaction }) {
-    return (
-      <tr key={transaction.id}>
+
+function TransactionRow({ transaction, isOpen, toggleDetails }) {
+  return (
+    <>
+      {/* Main Row Info */}
+      <tr 
+        className={`cursor-pointer ${isOpen ? 'bg-gray-100 border-none' : 'hover:bg-gray-200'}`}
+        onClick={toggleDetails}>
         <td>
           <div className="flex items-center gap-3">
             <div>
@@ -17,8 +22,31 @@ function TransactionRow({ transaction }) {
         <td className="text-neutral">{transaction.remarks}</td>
         <td className="text-neutral-content">{transaction.transactionDate}</td>
       </tr>
-    );
-  }
+
+      {/* Collapsible Section for Edit Button */}
+      {isOpen && (
+        <tr>
+          <td colSpan="5" className="bg-gray-100 p-2">
+            <div className="flex gap-3 pr-2 justify-end">
+              <button
+                className="bg-error text-base-100 px-4 py-2 rounded hover:bg-orange-600"
+                // onClick=
+              >
+                Delete
+              </button>
+              <button
+                className="bg-primary text-base-100 px-4 py-2 rounded hover:bg-blue-600"
+                // onClick=
+              >
+                Edit
+              </button>
+            </div>
+          </td>
+        </tr>
+      )}
+    </>
+  );
+}
   
   export default TransactionRow;
   
