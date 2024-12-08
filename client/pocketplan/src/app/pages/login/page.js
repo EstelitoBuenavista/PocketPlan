@@ -68,7 +68,7 @@ export default function LoginPage() {
           <div className="card-body text-neutral">
             <h2 className="font-normal text-center mb-2">Welcome back!</h2>
             
-            <label className="form-control w-full">
+            <form onSubmit={handleLogin} className="form-control w-full">
               <div className="label">
                 <span className="font-light text-xs">Username</span>
               </div>
@@ -85,10 +85,11 @@ export default function LoginPage() {
                 type="password" 
                 placeholder="sample password" 
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary" />
-            </label>
+                <button type="submit" className="btn mt-4 btn-primary w-wide">Login</button>
+            </form>
 
 
-            <button className="btn mt-4 btn-primary w-wide"onClick={handleLogin}>Login</button>
+            
             {isError && <p className="font-medium text-error text-center text-xs w-full">Invalid Login Attempt!</p>}
 
             <div className="flex items-center justify-center gap-2 w-full max-w-[217px] mx-auto">
