@@ -5,9 +5,43 @@ import React, { useState } from 'react';
 
 function CreateTransaction({ onClose }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [title, setTitle] = useState('');
   const [selectAccount, setselectAccount] = useState('Select Account');
   const [selectCategory, setselectCategory] = useState('Select Category');
+  const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
   const [selectedTransactionType, setSelectedTransactionType] = useState('');
+  const token = localStorage.getItem('token');
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const newTransaction = {
+      account_id : selectAccount,
+      category_id : selectCategory,
+      title : title,
+      amount : parseFloat(amount),
+      type : selectedTransactionType,
+      remarks : description,
+    };
+
+    fetch('http://localhost:4000/transaction/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(newTransaction),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Transaction created:', data);
+      onClose();
+    })
+    .catch(error => {
+      console.error('Error creating transaction:', error);
+    });
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(prev => !prev);
@@ -35,6 +69,8 @@ function CreateTransaction({ onClose }) {
             </div>
             <input
               type="text"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
               placeholder="Transaction title..."
               className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
             />
@@ -47,7 +83,9 @@ function CreateTransaction({ onClose }) {
             <div className="flex items-center space-x-2">
               <p className="font-normal text-base">₱</p>
               <input
-                type="text"
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 placeholder="ex. 100.00"
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
               />
@@ -59,6 +97,8 @@ function CreateTransaction({ onClose }) {
               <span className="font-light text-xs">Remarks</span>
             </div>
             <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="textarea textarea-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
               placeholder="Place remarks here..."
             />
