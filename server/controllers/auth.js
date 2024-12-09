@@ -1,5 +1,6 @@
 const db = require("../models");
 const User = db.user;
+const Category = db.category
 const saltRounds = 8;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -10,6 +11,7 @@ exports.register = async (req, res) => {
 
     try {
       const user = await User.create({ username, password, email });
+      await Category.create({user_id : user.id, name: "uncategorized"})
       res.status(201).send(user);
     } catch (error) {
       res.status(500).send({ error: error.message });
