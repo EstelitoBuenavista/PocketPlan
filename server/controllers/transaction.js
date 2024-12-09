@@ -59,16 +59,30 @@ exports.getCategoryTransactions = async (req,res) => {
     }
 }
 
-exports.create = async (req,res) => {
+exports.create = async (req, res) => {
   const newTransaction = req.body;
 
   try {
-    const transaction = await Transaction.create(newTransaction)
-    res.status(201).send(transaction)
+    // Create the transaction
+    const transaction = await Transaction.create(newTransaction);
+
+    if (transaction.type === 'expense') {
+      amountChange = -transaction.amount;  
+    }
+
+    const account = await Account.increment('balace', {where: {id : newTransaction.account_id, }, by : amountChange});
+
+    // Check if the account exists
+    if (!account) {
+      return res.status(404).send({ error: 'Account not found' });
+    }
+
+    res.status(201).send(transaction);
   } catch (error) {
     res.status(500).send({ error: error.message });
-  } 
-}
+  }
+};
+
 
 exports.delete = async (req, res) => {
   const id = req.params.id
