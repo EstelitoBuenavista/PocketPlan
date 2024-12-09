@@ -10,7 +10,7 @@ exports.getTotalBalance = async  (req, res) => {
     const expenses = await Transaction.sum('amount', {
       where: {
         type: 'expense', 
-        '$Account.user_id$': user_id, 
+        '$Account.user_id$': id, 
       },
       include: {
         model: Account,
