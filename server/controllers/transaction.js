@@ -61,16 +61,18 @@ exports.getCategoryTransactions = async (req,res) => {
 
 exports.create = async (req, res) => {
   const newTransaction = req.body;
+  
 
   try {
     // Create the transaction
     const transaction = await Transaction.create(newTransaction);
-
+    const amountChange = transaction.amount;
+    
     if (transaction.type === 'expense') {
       amountChange = -transaction.amount;  
     }
 
-    const account = await Account.increment('balace', {where: {id : newTransaction.account_id, }, by : amountChange});
+    const account = await Account.increment('balance', {where: {id : newTransaction.account_id, }, by : amountChange});
 
     // Check if the account exists
     if (!account) {
