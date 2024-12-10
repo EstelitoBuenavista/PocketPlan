@@ -2,15 +2,22 @@
 
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 
 function AccountList({ children }) {
+  const router = useRouter()
   const [accounts, setAccounts] = useState([]);
   const [selectedAccountId, setSelectedAccountId] = useState(0);
 
-  const token = localStorage.getItem("token")
-  const id = (jwtDecode(token).userId).toString()
 
   const renderAccounts = () => {
+    let id = 0
+    const token = localStorage.getItem("token")
+    if (token){
+    id = jwtDecode(token).userId.toString()
+    } else {
+    router.push('/pages/login')
+    }
     fetch(`http://localhost:4000/account/user/${id}`)
       .then(response => response.json())
       .then(data => {

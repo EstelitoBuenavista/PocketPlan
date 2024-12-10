@@ -20,6 +20,11 @@ function Navbar() {
 
   const isActive = (path) => pathname === path;
 
+  const handleLogOut = () => {
+    localStorage.removeItem('token')
+    router.push('/pages/login')
+  }
+
   return (
     <div className="navbar bg-base-100 shadow-[0_1_60px_rgba(0,0,0,0.15)] sticky top-0">
       <div className="flex-1">
@@ -105,7 +110,7 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a className="text-custom-gray">
+              <a className="text-custom-gray" onClick={handleLogOut}>
                 <ArrowLeftStartOnRectangleIcon className="w-4 h-4" />
                 Logout
               </a>

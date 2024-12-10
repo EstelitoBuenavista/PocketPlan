@@ -13,15 +13,21 @@ import {
 } from "@heroicons/react/24/outline";
 
 function DashboardGrid({ selectedAccount }) {
+  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOverview = !selectedAccount;
   const [totalBalance, setTotalBalance] = useState(0)
   const [totalExpenses, setTotalExpenses] = useState(0)
 
-  const token = localStorage.getItem("token")
-  const id = (jwtDecode(token).userId).toString()
-
   const getTotal = () => {
+    let id = 0
+    const token = localStorage.getItem("token")
+    if (token){
+    id = jwtDecode(token).userId.toString()
+    } else {
+    router.push('/pages/login')
+    }
+
     fetch(`http://localhost:4000/account/usertotal/${id}`)
       .then(response => response.json())
       .then(data => {
@@ -38,7 +44,6 @@ function DashboardGrid({ selectedAccount }) {
     getTotal()
    }, [])
 
-  const router = useRouter(); 
   const handleAddAccountClick = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
