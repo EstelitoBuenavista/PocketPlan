@@ -6,7 +6,7 @@ exports.getUserCategories= async (req, res) => {
 
     try {
       const categories = await Category.findAll({where:{user_id : id}})
-      res.status(201).send(categories);
+      res.status(200).send(categories);
     } catch (error) {
       res.status(500).send({ error: error.message });
     }
