@@ -6,20 +6,8 @@ exports.getTotalBalance = async (req, res) => {
   const id = req.params.id;
 
   try {
-    // Sum all account balances for the user
     const balance = await Account.sum('balance', { where: { user_id: id } });
-
-    // Find all transactions of type 'expense' for the user's accounts
-    let expenses = await Transaction.sum('amount', {
-      where: { type: 'expense' },
-      include: {
-        model: Account,
-        where: { user_id: id }, // Filter by user ID through the account
-        attributes: [], // Don't fetch Account details
-      },
-    });
-
-    expenses = expenses || 0
+    const expenses = await Account.sum('expense', { where: { user_id: id } });
 
     res.status(200).send({ balance, expenses });
   } catch (error) {
