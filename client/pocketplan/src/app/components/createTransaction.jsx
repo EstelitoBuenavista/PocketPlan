@@ -62,6 +62,7 @@ function CreateTransaction({ onClose }) {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [selectedTransactionType, setSelectedTransactionType] = useState('');
+  const [transactionDate, setTransactionDate] = useState('');
 
   const [accounts, setAccounts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -107,6 +108,7 @@ function CreateTransaction({ onClose }) {
       amount : parseFloat(amount),
       type : selectedTransactionType,
       remarks : description,
+      transaction_date : transactionDate,
     };
     
     fetch('http://localhost:4000/transaction/', {
@@ -183,11 +185,21 @@ function CreateTransaction({ onClose }) {
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                placeholder="ex. 100.00"
+                placeholder="100.00"
                 className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
               />
             </div>
           </label>
+
+          <label className="label">
+            <span className="font-light label-text text-xs">Transaction Date</span>
+          </label>
+          <input
+            type="date"
+            value={transactionDate}
+            onChange={(e) => setTransactionDate(e.target.value)}
+            className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
+          />
 
           <label className="form-control w-full">
             <div className="label">
