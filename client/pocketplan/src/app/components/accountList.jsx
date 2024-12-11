@@ -22,7 +22,6 @@ function AccountList({ children }) {
       .then(response => response.json())
       .then(data => {
         setAccounts (data)
-        console.log(data)
       })
       .catch(error => {
         console.log("Error:", error);

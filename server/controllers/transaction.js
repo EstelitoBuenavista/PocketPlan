@@ -69,10 +69,12 @@ exports.create = async (req, res) => {
     const amountChange = transaction.amount;
     
     if (transaction.type === 'expense') {
-      amountChange = -transaction.amount;  
+      const account = await Account.decrement('balance', {where: {id : newTransaction.account_id, }, by : transaction.amount});
+      await Account.increment('expense', {where: {id : newTransaction.account_id, }, by : transaction.amount});
+    } else {
+      const account = await Account.increment('balance', {where: {id : newTransaction.account_id, }, by : transaction.amount});
     }
 
-    const account = await Account.increment('balance', {where: {id : newTransaction.account_id, }, by : amountChange});
 
     // Check if the account exists
     if (!account) {

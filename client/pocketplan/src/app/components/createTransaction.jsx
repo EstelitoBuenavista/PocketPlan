@@ -79,7 +79,6 @@ function CreateTransaction({ onClose }) {
     })
     .then(res => res.json())
     .then(data => {
-      console.log('Fetched accounts:', data);
       setAccounts(data);
     })
     .catch(err => console.error('Error fetching accounts:', err));
@@ -92,7 +91,6 @@ function CreateTransaction({ onClose }) {
     })
     .then(res => res.json())
     .then(data => {
-      console.log('Fetched categories:',data)
       setCategories(data);
     })
     .catch(err => console.error('Error fetching categories:', err));
@@ -121,8 +119,6 @@ function CreateTransaction({ onClose }) {
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Transaction created:', data);
-      console.log(newTransaction);
       onClose();
     })
     .catch(error => {
@@ -243,8 +239,8 @@ function CreateTransaction({ onClose }) {
                         <input 
                             type="checkbox" 
                             className="checkbox checkbox-neutral" 
-                            checked={selectedTransactionType === 'Expense'}
-                            onChange={() => {handleCheckboxChange('Expense')}}
+                            checked={selectedTransactionType === 'expense'}
+                            onChange={() => {handleCheckboxChange('expense')}}
                         />
                         <span className="label-text font-bold">Expense</span>
                     </label>
@@ -254,8 +250,8 @@ function CreateTransaction({ onClose }) {
                             <input 
                                 type="checkbox" 
                                 className="checkbox checkbox-neutral" 
-                                checked={selectedTransactionType === 'Income'}
-                                onChange={() => {handleCheckboxChange('Income')}}
+                                checked={selectedTransactionType === 'income'}
+                                onChange={() => {handleCheckboxChange('income')}}
                             />
                             <span className="label-text font-bold">Income</span>
                         </label>

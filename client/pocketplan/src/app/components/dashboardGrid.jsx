@@ -33,7 +33,6 @@ function DashboardGrid({ selectedAccount }) {
       .then(data => {
         setTotalBalance(data.balance)
         setTotalExpenses(data.expenses)
-        console.log(data)
       })
       .catch(error => {
         console.log("Error:", error);
