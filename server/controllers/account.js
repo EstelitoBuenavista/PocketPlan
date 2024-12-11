@@ -16,16 +16,6 @@ exports.getTotalBalance = async (req, res) => {
 };
 
 
-    try {
-      const balance = await Account.sum('balance', {where:{user_id : id}})
-      const expenses = await Transaction.sum('amount', {where: {user_id : id, type: 'Expense'}})
-      res.status(200).send({balance, expenses});
-    } catch (error) {
-      res.status(500).send({ error: error.message });
-    }
-}
-
-
 exports.getUserAccounts = async (req, res) => {
     const id = req.params.id
 
