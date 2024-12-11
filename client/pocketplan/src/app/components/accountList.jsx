@@ -9,7 +9,6 @@ function AccountList({ children }) {
 
   const token = localStorage.getItem("token")
   const id = (jwtDecode(token).userId).toString()
-  console.log(id);
 
   const renderAccounts = () => {
     fetch(`http://localhost:4000/account/user/${id}`)
