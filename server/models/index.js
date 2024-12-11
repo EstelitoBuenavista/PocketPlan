@@ -45,4 +45,16 @@ db.account = require("./account.js")(sequelize, Sequelize);
 db.category = require("./category.js")(sequelize, Sequelize);
 db.transaction = require("./transaction.js")(sequelize, Sequelize);
 
+db.transaction.belongsTo(db.account, { foreignKey: 'account_id' });
+db.transaction.belongsTo(db.category, { foreignKey: 'category_id' });
+
+db.account.belongsTo(db.user, { foreignKey: 'user_id' });
+db.account.hasMany(db.transaction, { foreignKey: 'account_id' });
+
+db.category.belongsTo(db.user, { foreignKey: 'user_id' });
+db.category.hasMany(db.transaction, { foreignKey: 'category_id' });
+
+db.user.hasMany(db.account, { foreignKey: 'user_id' });
+db.user.hasMany(db.category, { foreignKey: 'user_id' });
+
 module.exports = db;

@@ -1,7 +1,8 @@
 // components/dashboardGrid
 'use client';
 
-import { useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import TotalCard from './totalCard'
 import CreateTransaction from './createTransaction';
@@ -14,6 +15,28 @@ import {
 function DashboardGrid({ selectedAccount }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOverview = !selectedAccount;
+  const [totalBalance, setTotalBalance] = useState(0)
+  const [totalExpenses, setTotalExpenses] = useState(0)
+
+  const token = localStorage.getItem("token")
+  const id = (jwtDecode(token).userId).toString()
+
+  const getTotal = () => {
+    fetch(`http://localhost:4000/account/usertotal/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        setTotalBalance(data.balance)
+        setTotalExpenses(data.expenses)
+        console.log(data)
+      })
+      .catch(error => {
+        console.log("Error:", error);
+      });
+  }
+
+  useEffect(() => {
+    getTotal()
+   }, [])
 
   const router = useRouter(); 
   const handleAddAccountClick = () => setIsModalOpen(true);
@@ -26,12 +49,12 @@ function DashboardGrid({ selectedAccount }) {
       {/* <div className="py-2 flex flex-wrap gap-4"> */}
         <TotalCard
           title={`Balance`}
-          value={isOverview ? '-' : selectedAccount.balance}
+          value={isOverview ? totalBalance : selectedAccount.balance}
         />
         <TotalCard
           title={`Expenses`}
           // add logic for EXPENSES HERE
-          value={isOverview ? '-' : selectedAccount.balance * 0.3}
+          value={isOverview ? totalExpenses : selectedAccount.expense}
         />
         
         <div className="border-2 border-primary">

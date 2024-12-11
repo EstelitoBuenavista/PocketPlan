@@ -2,8 +2,19 @@ const db = require("../models")
 const Account = db.account
 const Transaction = db.transaction
 
-exports.getTotalBalance = async  (req, res) => {
-    const id = req.params.id
+exports.getTotalBalance = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const balance = await Account.sum('balance', { where: { user_id: id } });
+    const expenses = await Account.sum('expense', { where: { user_id: id } });
+
+    res.status(200).send({ balance, expenses });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
 
     try {
       const balance = await Account.sum('balance', {where:{user_id : id}})
@@ -13,6 +24,7 @@ exports.getTotalBalance = async  (req, res) => {
       res.status(500).send({ error: error.message });
     }
 }
+
 
 exports.getUserAccounts = async (req, res) => {
     const id = req.params.id
