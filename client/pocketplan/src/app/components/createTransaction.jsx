@@ -69,7 +69,7 @@ function CreateTransaction({ onClose }) {
   
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   const id = (jwtDecode(token).userId).toString()
-
+  const today = new Date().toISOString().split('T')[0];
   useEffect(() => {
     // Fetch accounts
     fetch(`http://localhost:4000/account/user/${id}`, {
@@ -196,6 +196,7 @@ function CreateTransaction({ onClose }) {
           </label>
           <input
             type="date"
+            max={today}
             value={transactionDate}
             onChange={(e) => setTransactionDate(e.target.value)}
             className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
@@ -213,7 +214,7 @@ function CreateTransaction({ onClose }) {
             />
           </label>
 
-          <label className="flex items-center justify-center gap-4">
+          <div className="flex items-left justify-center gap-4">
           <Dropdown
             label="Account"
             placeholder="Select Account"
@@ -223,17 +224,18 @@ function CreateTransaction({ onClose }) {
             isOpen={isAccountDropdownOpen}
             toggleOpen={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
           />
+          
 
           <Dropdown
             label="Category"
-            placeholder="Select Category"
+            placeholder="Select Category" 
             items={categories}
             selectedId={selectCategory}
             onSelect={handleCategorySelect}
             isOpen={isCategoryDropdownOpen}
             toggleOpen={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
           />
-        </label>
+        </div>
 
             <div className="flex items-center justify-between px-[15%]">
                 <div className="form-control">
