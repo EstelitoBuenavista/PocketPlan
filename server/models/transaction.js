@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
         key: "id",
       },
     },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     amount: {
       type: DataTypes.FLOAT,
       allowNull: false,
@@ -44,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    trasnsaction_date: {
+    transaction_date: {
         type: DataTypes.DATE,
         allowNll: false,
     }

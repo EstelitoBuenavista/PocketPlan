@@ -26,7 +26,7 @@ export default function LandingPage() {
           <div className="w-[60%] max-w-screen-lg">
             <h1 className="mb-8 text-5xl font-black">Plan for the money in your pocket.</h1>
             <p className="mb-8">
-            Whether you're saving for a goal or managing everyday expenses, Pocket Plan provides the insights you need to make smarter financial decisions.            </p>
+            Whether you&apos;re saving for a goal or managing everyday expenses, Pocket Plan provides the insights you need to make smarter financial decisions.            </p>
             <button 
               className="btn btn-primary font-medium w-1/2"
               onClick = {navToSignUp}

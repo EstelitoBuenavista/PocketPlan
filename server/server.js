@@ -35,7 +35,7 @@ db.sequelize.query(`CREATE DATABASE IF NOT EXISTS ${DBname}`)
     .then(() => {
         console.log('Database created or already exists.');
         // Now you can sync your models
-        db.sequelize.sync()
+        db.sequelize.sync( {alter : true} ) //Remove alter when development is done
             .then(() => {
                 console.log('Models synced successfully.');
             })

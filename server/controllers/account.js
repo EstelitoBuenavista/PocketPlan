@@ -21,7 +21,7 @@ exports.getUserAccounts = async (req, res) => {
 
     try {
       const accounts = await Account.findAll({where:{user_id : id}})
-      res.status(201).send(accounts);
+      res.status(200).send(accounts);
     } catch (error) {
       res.status(500).send({ error: error.message });
     }
@@ -32,7 +32,7 @@ exports.getUserAccounts = async (req, res) => {
 
     try {
       const account = await Account.create(newAccount)
-      res.status(200).send(account)
+      res.status(201).send(account)
     } catch (error) {
       res.status(500).send({error: error.message})
     }
