@@ -66,20 +66,14 @@ exports.create = async (req, res) => {
   try {
     // Create the transaction
     const transaction = await Transaction.create(newTransaction);
-    const amountChange = transaction.amount;
     
     if (transaction.type === 'expense') {
-      const account = await Account.decrement('balance', {where: {id : newTransaction.account_id, }, by : transaction.amount});
+      await Account.decrement('balance', {where: {id : newTransaction.account_id, }, by : transaction.amount});
       await Account.increment('expense', {where: {id : newTransaction.account_id, }, by : transaction.amount});
     } else {
-      const account = await Account.increment('balance', {where: {id : newTransaction.account_id, }, by : transaction.amount});
+      await Account.increment('balance', {where: {id : newTransaction.account_id, }, by : transaction.amount});
     }
 
-
-    // Check if the account exists
-    if (!account) {
-      return res.status(404).send({ error: 'Account not found' });
-    }
 
     res.status(201).send(transaction);
   } catch (error) {
@@ -92,8 +86,16 @@ exports.delete = async (req, res) => {
   const id = req.params.id
 
   try {
-    await Transaction.delete({where:{id : id}})
-    res.status(200).send("Successful Deletion!")
+    const transaction = await Transaction.findByPk(id)
+    if (transaction.type === 'expense') {
+      await Account.increment('balance', {where: {id : transaction.account_id, }, by : transaction.amount});
+    } else {
+      await Account.decrement('balance', {where: {id : transaction.account_id, }, by : transaction.amount});
+    }
+
+    await Transaction.destroy({where:{id : id}})
+
+    res.status(200).json("Successful Deletion!")
   } catch (error) {
     res.status(500).send({error:error.message})
   }
