@@ -67,7 +67,7 @@ exports.create = async (req, res) => {
     // Create the transaction
     const transaction = await Transaction.create(newTransaction);
     
-    if (transaction.type === 'expense') {
+    if (transaction.type === 'expense' || transaction.type === 'Expense') {
       await Account.decrement('balance', {where: {id : newTransaction.account_id, }, by : transaction.amount});
       await Account.increment('expense', {where: {id : newTransaction.account_id, }, by : transaction.amount});
     } else {
@@ -86,18 +86,24 @@ exports.delete = async (req, res) => {
   const id = req.params.id
 
   try {
+
     const transaction = await Transaction.findByPk(id)
-    if (transaction.type === 'expense') {
+    console.log(transaction.type)
+    if (transaction.type === 'expense' || transaction.type === 'Expense') {
       await Account.increment('balance', {where: {id : transaction.account_id, }, by : transaction.amount});
+      await Account.decrement('expense', {where: {id : transaction.account_id, }, by : transaction.amount});
     } else {
+      console.log(transaction.type)
       await Account.decrement('balance', {where: {id : transaction.account_id, }, by : transaction.amount});
     }
-
-    await Transaction.destroy({where:{id : id}})
-
-    res.status(200).json("Successful Deletion!")
   } catch (error) {
     res.status(500).send({error:error.message})
+  }
+  try {
+    await Transaction.destroy({where:{id : id}})
+    res.status(200).json("Successful Deletion!")
+  } catch (error) {
+    res.status(500).send({deletion_error:error.message})
   }
 }
 
