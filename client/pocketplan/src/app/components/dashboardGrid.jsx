@@ -31,6 +31,7 @@ function DashboardGrid({ selectedAccount }) {
     fetch(`http://localhost:4000/account/usertotal/${id}`)
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         setTotalBalance(data.balance)
         setTotalExpenses(data.expenses)
       })
@@ -89,7 +90,7 @@ function DashboardGrid({ selectedAccount }) {
             </button>
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount }/>
+          <TransactionsList selectedAccount={ selectedAccount } getTotal= {getTotal}/>
         </div>
       </div>
 

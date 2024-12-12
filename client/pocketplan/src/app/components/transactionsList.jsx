@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react';
 import TransactionRow from './transactionRow';
 
-function TransactionsList({ selectedAccount }) {
+function TransactionsList({ selectedAccount, getTotal }) {
 
   const [transactions, setTransactions] = useState([])
 
@@ -67,6 +67,8 @@ function TransactionsList({ selectedAccount }) {
                   transaction={transaction}
                   isOpen={activeTransactionId === transaction.id}
                   toggleDetails={() => toggleDetails(transaction.id)}
+                  renderTransactions = {renderTransactions}
+                  getTotal = {getTotal}
                 />
               ))
             ) : (
