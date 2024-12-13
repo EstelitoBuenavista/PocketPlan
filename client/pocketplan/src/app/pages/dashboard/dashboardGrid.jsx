@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import TotalCard from './totalCard'
 import CreateTransaction from '../transactions/createTransaction';
 import TransactionsList from "@/app/pages/transactions/transactionsList";
+import DailyExpenseChart from "../charts/dailyExpenseChart";
 import {
   ArrowUpRightIcon,
   PlusIcon
@@ -47,9 +48,9 @@ function DashboardGrid({ selectedAccount }) {
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
+    <div className="border-2 border-info grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
       {/* LEFT COLUMN */}
-      <div className="border-2 border-error p flex flex-wrap gap-4">
+      <div className="border-2 flex flex-wrap gap-4">
       {/* <div className="py-2 flex flex-wrap gap-4"> */}
         <TotalCard
           title={`Balance`}
@@ -61,35 +62,55 @@ function DashboardGrid({ selectedAccount }) {
           value={isOverview ? totalExpenses : selectedAccount.expense}
         />
         
-        <div className="border-2 border-primary">
-          <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4">
+          {/* Chart div */}
+          <div className="w-full h-80 bg-base-100 rounded-xl p-4 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
             <button 
               className="text-2xl font-medium my-4 text-neutral flex gap-2 items-center hover:underline"
               onClick={() => {
-                if (selectedAccount) {
-                  router.push(`/pages/transactions?accountId=${ selectedAccount.id }`);
-                } else {
-                  router.push('/pages/transactions');
-                }
+                // add logic to goto chart
+                router.push('/pages/charts');
               }}
             >
               <span className="flex items-center gap-2 w-full">
                 <ArrowUpRightIcon className="w-5 h-5 stroke-[2px]" />
-                Recent Transactions
+                Daily Overview
               </span>
             </button>
+            <DailyExpenseChart />
+          </div>
+          
+          {/* Transaction div */}
+          <div className="bg-base-100 rounded-xl p-4">
+            <div className="flex items-center justify-between">
+              <button 
+                className="text-2xl font-medium my-4 text-neutral flex gap-2 items-center hover:underline"
+                onClick={() => {
+                  if (selectedAccount) {
+                    router.push(`/pages/transactions?accountId=${selectedAccount.id}`);
+                  } else {
+                    router.push('/pages/transactions');
+                  }
+                }}
+              >
+                <span className="flex items-center gap-2 w-full">
+                  <ArrowUpRightIcon className="w-5 h-5 stroke-[2px]" />
+                  Recent Transactions
+                </span>
+              </button>
 
-            <button
-              className="btn btn-primary btn-sm"
-              onClick={handleAddAccountClick}
-              aria-label="Create New Transaction"
-            >
-              <PlusIcon className="w-4 h-4 stroke-[3]" />
-              New Transaction
-            </button>
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={handleAddAccountClick}
+                aria-label="Create New Transaction"
+              >
+                <PlusIcon className="w-4 h-4 stroke-[3]" />
+                New Transaction
+              </button>
+            </div>
+            <TransactionsList selectedAccount={selectedAccount} />
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount }/>
         </div>
       </div>
 

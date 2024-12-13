@@ -3,6 +3,7 @@
 
 import Navbar from "../../components/navbar";
 import AccountList from "@/app/pages/dashboard/accountList";
+import DailyExpenseChart from "./dailyExpenseChart";
 
 export default function Dashboard() {
   return (
@@ -16,7 +17,9 @@ export default function Dashboard() {
         <AccountList>
           {({ selectedAccount }) => (
             <div className="mt-4">
-              {/* <DashboardContent selectedAccount={selectedAccount} /> */}
+              <div className="w-full h-80 bg-base-100 rounded-xl p-4 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+                <DailyExpenseChart />
+              </div>
             </div>
           )}
         </AccountList>
