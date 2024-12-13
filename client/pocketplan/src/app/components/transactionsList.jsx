@@ -1,21 +1,24 @@
 // components/transactionsList
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react';
 import TransactionRow from './transactionRow';
 
-function TransactionsList({ selectedAccount, getTotal }) {
-
+function TransactionsList({ selectedAccount, getTotal, handleUpdateModal,  setTransaction }) {
+  const router = useRouter()
   const [transactions, setTransactions] = useState([])
 
-  const renderTransactions = () => {
-    let id = 0
+  let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
-    } else {
-    router.push('/pages/login')
+    } 
+
+  const renderTransactions = () => {
+    if (!token){
+      router.push('/pages/login')
     }
     fetch(`http://localhost:4000/transaction/user/${id}`)
       .then(response => response.json())
@@ -30,7 +33,10 @@ function TransactionsList({ selectedAccount, getTotal }) {
   useEffect(() => {
     renderTransactions()
    }, [])
-
+   useEffect(() => {
+    renderTransactions()
+    getTotal()
+   }, [handleUpdateModal])
   
   const filteredTransactions = selectedAccount
     ? transactions.filter(transaction => transaction.account_id === selectedAccount.id)
@@ -69,6 +75,8 @@ function TransactionsList({ selectedAccount, getTotal }) {
                   toggleDetails={() => toggleDetails(transaction.id)}
                   renderTransactions = {renderTransactions}
                   getTotal = {getTotal}
+                  handleUpdateModal = {handleUpdateModal}
+                  setTransaction = {setTransaction}
                 />
               ))
             ) : (

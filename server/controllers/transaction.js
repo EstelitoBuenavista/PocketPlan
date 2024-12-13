@@ -88,7 +88,6 @@ exports.delete = async (req, res) => {
   try {
 
     const transaction = await Transaction.findByPk(id)
-    console.log(transaction.type)
     if (transaction.type === 'expense' || transaction.type === 'Expense') {
       await Account.increment('balance', {where: {id : transaction.account_id, }, by : transaction.amount});
       await Account.decrement('expense', {where: {id : transaction.account_id, }, by : transaction.amount});
@@ -109,10 +108,25 @@ exports.delete = async (req, res) => {
 
 exports.update = async (req, res) => {
   const id = req.params.id
-  let data = req.body
+  let transaction = req.body
 
   try {
-    const transaction = await Transaction.update(data,{where:{id : id}})
+    const oldTransaction = await Transaction.findByPk(id)
+
+    if(!oldTransaction){
+      res.status(404).send({error:"not found"})
+    }
+    updatedTransaction = await Transaction.update(transaction, {where: { id : id } })
+    const amountchange = oldTransaction.amount - transaction.amount // if positive then new amount is less, if negative then new amount is bigger
+
+    if (transaction.type === 'expense' || transaction.type === 'Expense') {
+      await Account.increment('balance', {where: {id : transaction.account_id, }, by : amountchange});
+      await Account.decrement('expense', {where: {id : transaction.account_id, }, by : amountchange});
+    } else {
+      await Account.decrement('balance', {where: {id : transaction.account_id, }, by : amountchange});
+    }
+
+    res.status(200).send(updatedTransaction)
   } catch (error) {
     res.status(500).send({error:error.message})
   }

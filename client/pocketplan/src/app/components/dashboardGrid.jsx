@@ -11,27 +11,31 @@ import {
   ArrowUpRightIcon,
   PlusIcon
 } from "@heroicons/react/24/outline";
+import UpdateTransaction from './updateTransaction';
 
 function DashboardGrid({ selectedAccount }) {
   const router = useRouter()
+  const [transaction, setTransaction] = useState({}) //transaction to be referred by update
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUpdateModal, setIsUpdateModal] = useState(false)
   const isOverview = !selectedAccount;
   const [totalBalance, setTotalBalance] = useState(0)
   const [totalExpenses, setTotalExpenses] = useState(0)
 
-  const getTotal = () => {
     let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
-    } else {
+    } 
+
+  const getTotal = () => {
+    if (!token){
     router.push('/pages/login')
     }
 
     fetch(`http://localhost:4000/account/usertotal/${id}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         setTotalBalance(data.balance)
         setTotalExpenses(data.expenses)
       })
@@ -44,8 +48,10 @@ function DashboardGrid({ selectedAccount }) {
     getTotal()
    }, [])
 
-  const handleAddAccountClick = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleAddTransactionClick = () => {setIsUpdateModal(false); setIsModalOpen(true)}
+  const handleCloseModal = () => {setIsUpdateModal(false); setIsModalOpen(false)}
+  const handleUpdateModal = () => {setIsUpdateModal(true); setIsModalOpen(true)}
+  const handleCloseUpdateModal = () => {setIsUpdateModal(false); setIsModalOpen(false)}
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
@@ -82,7 +88,7 @@ function DashboardGrid({ selectedAccount }) {
 
             <button
               className="btn btn-primary btn-sm"
-              onClick={handleAddAccountClick}
+              onClick={handleAddTransactionClick}
               aria-label="Create New Transaction"
             >
               <PlusIcon className="w-4 h-4 stroke-[3]" />
@@ -90,7 +96,7 @@ function DashboardGrid({ selectedAccount }) {
             </button>
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount } getTotal= {getTotal}/>
+          <TransactionsList selectedAccount={ selectedAccount } getTotal= {getTotal} handleUpdateModal = { handleUpdateModal } setTransaction = { setTransaction }/>
         </div>
       </div>
 
@@ -98,9 +104,9 @@ function DashboardGrid({ selectedAccount }) {
       <div className="border-2 border-error gap-4 w-full h-full">
       {/* <div className="p-2 gap-4 w-full h-full"> */}
         
-      </div>
-
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
+    </div>
+      {isModalOpen && isUpdateModal && <UpdateTransaction onClose={handleCloseUpdateModal} transaction={transaction}/>}
+      {isModalOpen && !isUpdateModal && <CreateTransaction onClose={handleCloseModal} />}
     </div>
   );
 }

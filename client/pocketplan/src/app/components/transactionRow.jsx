@@ -1,7 +1,5 @@
 // components/transactionRow
-
-function TransactionRow({ transaction, isOpen, toggleDetails, renderTransactions, getTotal }) {
-
+function TransactionRow({ transaction, isOpen, toggleDetails, renderTransactions, getTotal, handleUpdateModal, setTransaction}) {
   const handleDelete = ()=>{
     fetch(`http://localhost:4000/transaction/${transaction.id}`, {
       method: "DELETE",
@@ -51,7 +49,7 @@ function TransactionRow({ transaction, isOpen, toggleDetails, renderTransactions
               </button>
               <button
                 className="bg-primary text-base-100 px-4 py-2 rounded hover:bg-blue-600"
-                //onClick={handleDelete}
+                onClick={()=>{handleUpdateModal(); setTransaction(transaction)}}
               >
                 Edit
               </button>
