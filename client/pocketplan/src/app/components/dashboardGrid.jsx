@@ -11,13 +11,11 @@ import {
   ArrowUpRightIcon,
   PlusIcon
 } from "@heroicons/react/24/outline";
-import UpdateTransaction from './updateTransaction';
 
 function DashboardGrid({ selectedAccount }) {
   const router = useRouter()
-  const [transaction, setTransaction] = useState({}) //transaction to be referred by update
+  const [flag, setFlag] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUpdateModal, setIsUpdateModal] = useState(false)
   const isOverview = !selectedAccount;
   const [totalBalance, setTotalBalance] = useState(0)
   const [totalExpenses, setTotalExpenses] = useState(0)
@@ -48,10 +46,12 @@ function DashboardGrid({ selectedAccount }) {
     getTotal()
    }, [])
 
-  const handleAddTransactionClick = () => {setIsUpdateModal(false); setIsModalOpen(true)}
-  const handleCloseModal = () => {setIsUpdateModal(false); setIsModalOpen(false)}
-  const handleUpdateModal = () => {setIsUpdateModal(true); setIsModalOpen(true)}
-  const handleCloseUpdateModal = () => {setIsUpdateModal(false); setIsModalOpen(false)}
+   useEffect(() => {
+    getTotal()
+   }, [isModalOpen, flag])
+
+  const handleAddTransactionClick = () => {setIsModalOpen(true)}
+  const handleCloseModal = () => {setIsModalOpen(false)}
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
@@ -96,7 +96,7 @@ function DashboardGrid({ selectedAccount }) {
             </button>
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount } getTotal= {getTotal} handleUpdateModal = { handleUpdateModal } setTransaction = { setTransaction }/>
+          <TransactionsList selectedAccount={ selectedAccount } flag = { isModalOpen } setFlag = {()=>setFlag(!flag)}/>
         </div>
       </div>
 
@@ -105,8 +105,7 @@ function DashboardGrid({ selectedAccount }) {
       {/* <div className="p-2 gap-4 w-full h-full"> */}
         
     </div>
-      {isModalOpen && isUpdateModal && <UpdateTransaction onClose={handleCloseUpdateModal} transaction={transaction}/>}
-      {isModalOpen && !isUpdateModal && <CreateTransaction onClose={handleCloseModal} />}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
     </div>
   );
 }

@@ -5,10 +5,13 @@ import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react';
 import TransactionRow from './transactionRow';
+import UpdateTransaction from './updateTransaction';
 
-function TransactionsList({ selectedAccount, getTotal, handleUpdateModal,  setTransaction }) {
+function TransactionsList({ selectedAccount, flag, setFlag }) { //flag for re rendering components
   const router = useRouter()
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [transactions, setTransactions] = useState([])
+  const [updateTransaction, setUpdateTransaction] = useState({})
 
   let id = 0
     const token = localStorage.getItem("token")
@@ -35,8 +38,7 @@ function TransactionsList({ selectedAccount, getTotal, handleUpdateModal,  setTr
    }, [])
    useEffect(() => {
     renderTransactions()
-    getTotal()
-   }, [handleUpdateModal])
+   }, [isModalOpen, flag])
   
   const filteredTransactions = selectedAccount
     ? transactions.filter(transaction => transaction.account_id === selectedAccount.id)
@@ -72,11 +74,9 @@ function TransactionsList({ selectedAccount, getTotal, handleUpdateModal,  setTr
                   key={transaction.id}
                   transaction={transaction}
                   isOpen={activeTransactionId === transaction.id}
-                  toggleDetails={() => toggleDetails(transaction.id)}
-                  renderTransactions = {renderTransactions}
-                  getTotal = {getTotal}
-                  handleUpdateModal = {handleUpdateModal}
-                  setTransaction = {setTransaction}
+                  toggleDetails={() => {toggleDetails(transaction.id); setFlag()}}
+                  update = {() => setIsModalOpen(true)}
+                  setUpdateTransaction = {setUpdateTransaction}
                 />
               ))
             ) : (
@@ -86,6 +86,7 @@ function TransactionsList({ selectedAccount, getTotal, handleUpdateModal,  setTr
             )}
           </tbody>
         </table>
+        {isModalOpen && <UpdateTransaction onClose={() => {setIsModalOpen(false); setFlag()}} transaction={updateTransaction}/>}
       </div>
     </div>
   );
