@@ -2,9 +2,7 @@
 'use client'
 
 import { 
-  usePathname, 
-  useRouter 
-} from 'next/navigation';
+  usePathname, useRouter } from 'next/navigation';
 import {
   ArrowLeftStartOnRectangleIcon,
   UserIcon,
