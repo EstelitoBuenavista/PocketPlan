@@ -51,7 +51,7 @@ function DashboardGrid({ selectedAccount }) {
    }, [isModalOpen, flag])
 
   const handleAddTransactionClick = () => {setIsModalOpen(true)}
-  const handleCloseModal = () => {setIsModalOpen(false)}
+  const handleCloseModal = () => {setIsModalOpen(false); setFlag(!flag)}
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
@@ -96,7 +96,7 @@ function DashboardGrid({ selectedAccount }) {
             </button>
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount } trigger = {()=>setFlag(!flag)}/>
+          <TransactionsList selectedAccount={ selectedAccount } renderTrigger = { flag } trigger = {()=>setFlag(!flag)}/>
         </div>
       </div>
 
@@ -105,7 +105,7 @@ function DashboardGrid({ selectedAccount }) {
       {/* <div className="p-2 gap-4 w-full h-full"> */}
         
     </div>
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal} account = { selectedAccount }/>}
     </div>
   );
 }

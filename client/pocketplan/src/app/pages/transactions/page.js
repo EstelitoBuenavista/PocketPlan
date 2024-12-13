@@ -43,7 +43,7 @@ export default function Transactions({ selectedAccount }) {
 
         
       </div>
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal}/>}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal} account = { selectedAccount }/>}
     </div>
   );
 }
