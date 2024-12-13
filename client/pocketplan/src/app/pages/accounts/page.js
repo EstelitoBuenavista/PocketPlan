@@ -3,8 +3,9 @@
 
 import { useState } from 'react';
 import Navbar from "../../components/navbar";
-import { PlusIcon } from '@heroicons/react/24/outline';
 import NewAccModal from '../../components/newAccModal';
+import AccountCard from '@/app/components/accountCard';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 export default function Accounts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +28,15 @@ export default function Accounts() {
             <PlusIcon className="w-4 h-4 stroke-[3]" />
             New Account
           </button>
+        </div>
+        {/* fixing how it should like listed */}
+        <div className="border-2 border-error flex flex-wrap gap-4">
+          <AccountCard />
+          <AccountCard />
+          <AccountCard />
+          <AccountCard />
+          <AccountCard />
+          <AccountCard />
         </div>
       </div>
 
