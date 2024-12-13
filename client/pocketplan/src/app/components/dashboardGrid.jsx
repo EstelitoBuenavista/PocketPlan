@@ -96,7 +96,7 @@ function DashboardGrid({ selectedAccount }) {
             </button>
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount } flag = { isModalOpen } setFlag = {()=>setFlag(!flag)}/>
+          <TransactionsList selectedAccount={ selectedAccount } trigger = {()=>setFlag(!flag)}/>
         </div>
       </div>
 

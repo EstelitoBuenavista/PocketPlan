@@ -7,8 +7,9 @@ import { useState, useEffect } from 'react';
 import TransactionRow from './transactionRow';
 import UpdateTransaction from './updateTransaction';
 
-function TransactionsList({ selectedAccount, flag, setFlag }) { //flag for re rendering components
+function TransactionsList({ selectedAccount, trigger }) { 
   const router = useRouter()
+  const [flag, setFlag] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [transactions, setTransactions] = useState([])
   const [updateTransaction, setUpdateTransaction] = useState({})
@@ -38,7 +39,7 @@ function TransactionsList({ selectedAccount, flag, setFlag }) { //flag for re re
    }, [])
    useEffect(() => {
     renderTransactions()
-   }, [isModalOpen, flag])
+   }, [isModalOpen])
   
   const filteredTransactions = selectedAccount
     ? transactions.filter(transaction => transaction.account_id === selectedAccount.id)
@@ -74,7 +75,7 @@ function TransactionsList({ selectedAccount, flag, setFlag }) { //flag for re re
                   key={transaction.id}
                   transaction={transaction}
                   isOpen={activeTransactionId === transaction.id}
-                  toggleDetails={() => {toggleDetails(transaction.id); setFlag()}}
+                  toggleDetails={() => {toggleDetails(transaction.id); setFlag(!flag); trigger()}}
                   update = {() => setIsModalOpen(true)}
                   setUpdateTransaction = {setUpdateTransaction}
                 />
@@ -86,7 +87,7 @@ function TransactionsList({ selectedAccount, flag, setFlag }) { //flag for re re
             )}
           </tbody>
         </table>
-        {isModalOpen && <UpdateTransaction onClose={() => {setIsModalOpen(false); setFlag()}} transaction={updateTransaction}/>}
+        {isModalOpen && <UpdateTransaction onClose={() => {setIsModalOpen(false); trigger()}} transaction={updateTransaction}/>}
       </div>
     </div>
   );
