@@ -55,7 +55,7 @@ function AccountList({ children }) {
             role="tab"
             className={`tab rounded px-4 hover:scale-110 ${
               selectedAccountId === 0
-                ? 'tab-active font-bold text-primary bg-accent'
+                ? 'tab-active font-bold text-primary bg-secondary'
                 : 'text-secondary'
             }`}
             aria-label="Overview"

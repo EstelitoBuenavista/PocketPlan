@@ -8,6 +8,7 @@ import TotalCard from './totalCard'
 import CreateTransaction from '../transactions/createTransaction';
 import TransactionsList from "@/app/pages/transactions/transactionsList";
 import DailyExpenseChart from "../charts/dailyExpenseChart";
+import CategoryPieChart from '../charts/categoryPieChart';
 import {
   ArrowUpRightIcon,
   PlusIcon
@@ -72,10 +73,10 @@ function DashboardGrid({ selectedAccount }) {
           </div>
           
           {/* Transaction div */}
-          <div className="bg-base-100 rounded-xl p-6">
-            <div className="flex items-center justify-between">
+          <div className="bg-base-100 rounded-xl p-6 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+            <div className="flex items-center mb-4 justify-between">
               <button 
-                className="text-2xl font-medium mb-4 text-neutral flex gap-2 items-center hover:underline"
+                className="text-2xl font-medium text-neutral flex gap-2 items-center hover:underline"
                 onClick={() => {
                   if (selectedAccount) {
                     router.push(`/pages/transactions?accountId=${selectedAccount.id}`);
@@ -99,7 +100,7 @@ function DashboardGrid({ selectedAccount }) {
                 New Transaction
               </button>
             </div>
-            <div className="bg-base-100 rounded-xl p-4 overflow-auto">
+            <div className="bg-base-100 rounded-xl overflow-auto">
               <TransactionsList selectedAccount={selectedAccount} />
             </div>
           </div>
@@ -110,7 +111,14 @@ function DashboardGrid({ selectedAccount }) {
       {/* RIGHT COLUMN */}
       <div className="border-2 border-error gap-4 w-full h-full">
       {/* <div className="p-2 gap-4 w-full h-full"> */}
-        
+        <div className="bg-base-100 rounded-xl p-5 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+          <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
+            Category Trends
+          </h3>
+          <div className="w-full h-[300px]">
+            <CategoryPieChart />
+          </div>
+        </div>
       </div>
 
       {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
