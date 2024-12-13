@@ -1,8 +1,9 @@
 // components/dashboardGrid
 'use client';
 
+import { triggerContext } from './accountList';
 import { jwtDecode } from 'jwt-decode';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import TotalCard from './totalCard'
 import CreateTransaction from './createTransaction';
@@ -14,6 +15,7 @@ import {
 
 function DashboardGrid({ selectedAccount }) {
   const router = useRouter()
+  const [accountTrigger, setAccountTrigger] = useContext(triggerContext)
   const [flag, setFlag] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOverview = !selectedAccount;
@@ -48,6 +50,7 @@ function DashboardGrid({ selectedAccount }) {
 
    useEffect(() => {
     getTotal()
+    setAccountTrigger(!accountTrigger)
    }, [isModalOpen, flag])
 
   const handleAddTransactionClick = () => {setIsModalOpen(true)}

@@ -3,12 +3,14 @@
 
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import TransactionRow from './transactionRow';
 import UpdateTransaction from './updateTransaction';
+import { triggerContext } from './accountList';
 
 function TransactionsList({ selectedAccount, renderTrigger, trigger }) { 
   const router = useRouter()
+  const [accountTrigger, setAccountTrigger] = useContext(triggerContext)
   const [flag, setFlag] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [transactions, setTransactions] = useState([])
@@ -39,6 +41,7 @@ function TransactionsList({ selectedAccount, renderTrigger, trigger }) {
    }, [])
    useEffect(() => {
     renderTransactions()
+    setAccountTrigger(!accountTrigger)
    }, [isModalOpen, renderTrigger, flag])
   
   const filteredTransactions = selectedAccount
