@@ -5,8 +5,8 @@ import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import TotalCard from './totalCard'
-import CreateTransaction from './createTransaction';
-import TransactionsList from "@/app/components/transactionsList";
+import CreateTransaction from '../transactions/createTransaction';
+import TransactionsList from "@/app/pages/transactions/transactionsList";
 import {
   ArrowUpRightIcon,
   PlusIcon

@@ -3,9 +3,9 @@
 
 import { useState } from 'react';
 import Navbar from "../../components/navbar";
-import AccountList from "@/app/components/accountList";
-import TransactionsList from "@/app/components/transactionsList";
-import CreateTransaction from '@/app/components/createTransaction';
+import AccountList from "@/app/pages/dashboard/accountList";
+import TransactionsList from "@/app/pages/transactions/transactionsList";
+import CreateTransaction from '@/app/pages/transactions/createTransaction';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 export default function Transactions({ selectedAccount }) {

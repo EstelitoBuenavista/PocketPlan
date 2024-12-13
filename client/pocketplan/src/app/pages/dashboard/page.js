@@ -2,8 +2,8 @@
 'use client';
 
 import Navbar from "../../components/navbar";
-import AccountList from "@/app/components/accountList";
-import DashboardGrid from "@/app/components/dashboardGrid";
+import AccountList from "@/app/pages/dashboard/accountList";
+import DashboardGrid from "@/app/pages/dashboard/dashboardGrid";
 
 export default function Dashboard() {
   return (

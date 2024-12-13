@@ -3,8 +3,8 @@
 
 import { useState } from 'react';
 import Navbar from "../../components/navbar";
-import NewAccModal from '../../components/newAccModal';
-import AccountCard from '@/app/components/accountCard';
+import NewAccModal from './newAccModal';
+import AccountCard from '@/app/pages/accounts/accountCard';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 export default function Accounts() {

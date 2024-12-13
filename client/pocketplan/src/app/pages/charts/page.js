@@ -2,7 +2,7 @@
 'use client';
 
 import Navbar from "../../components/navbar";
-import AccountList from "@/app/components/accountList";
+import AccountList from "@/app/pages/dashboard/accountList";
 
 export default function Dashboard() {
   return (
