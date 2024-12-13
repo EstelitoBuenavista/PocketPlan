@@ -2,9 +2,7 @@
 'use client'
 
 import { 
-  usePathname, 
-  useRouter 
-} from 'next/navigation';
+  usePathname, useRouter } from 'next/navigation';
 import {
   ArrowLeftStartOnRectangleIcon,
   UserIcon,
@@ -26,7 +24,7 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar bg-base-100 shadow-[0_1_60px_rgba(0,0,0,0.15)] sticky top-0">
+    <div className="navbar bg-base-100 shadow-[0_1_60px_rgba(0,0,0,0.15)] sticky top-0 z-100">
       <div className="flex-1">
         <img
           className="pl-2"
