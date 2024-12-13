@@ -30,8 +30,8 @@ export default function Accounts() {
           </button>
         </div>
         {/* fixing how it should like listed */}
-        <div className="border-2 border-error h-[75vh] overflow-y-auto">
-          <div className="border-2 border-success grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="h-[75vh] overflow-y-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <AccountCard />
             <AccountCard />
             <AccountCard />

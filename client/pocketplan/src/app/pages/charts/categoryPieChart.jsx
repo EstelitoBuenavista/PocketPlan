@@ -14,8 +14,9 @@ const data = [
 ];
 
 const COLORS = [ 
-  '#DED9D8', 
-  '#ABABAB'
+  '#2075fe', 
+  '#7aadff',
+  '#00378f'
 ];
 
 const RADIAN = Math.PI / 180;

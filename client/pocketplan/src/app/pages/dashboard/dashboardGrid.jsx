@@ -9,6 +9,7 @@ import CreateTransaction from '../transactions/createTransaction';
 import TransactionsList from "@/app/pages/transactions/transactionsList";
 import DailyExpenseChart from "../charts/dailyExpenseChart";
 import CategoryPieChart from '../charts/categoryPieChart';
+import CategoryMixBarChart from '../charts/categoryMixBarChart';
 import {
   ArrowUpRightIcon,
   PlusIcon
@@ -49,7 +50,7 @@ function DashboardGrid({ selectedAccount }) {
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <div className="border-2 border-info grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
+    <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
       {/* LEFT COLUMN */}
       <div className="border-2 flex flex-wrap gap-4">
       {/* <div className="py-2 flex flex-wrap gap-4"> */}
@@ -74,7 +75,7 @@ function DashboardGrid({ selectedAccount }) {
           
           {/* Transaction div */}
           <div className="bg-base-100 rounded-xl p-6 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
-            <div className="flex items-center mb-4 justify-between">
+            <div className="flex items-center mb-4 justify-between shadow-[0_1_60px_rgba(0,0,0,0.15)]">
               <button 
                 className="text-2xl font-medium text-neutral flex gap-2 items-center hover:underline"
                 onClick={() => {
@@ -100,7 +101,7 @@ function DashboardGrid({ selectedAccount }) {
                 New Transaction
               </button>
             </div>
-            <div className="bg-base-100 rounded-xl overflow-auto">
+            <div className="bg-base-100 rounded-xl overflow-auto shadow-[0_1_60px_rgba(0,0,0,0.15)]">
               <TransactionsList selectedAccount={selectedAccount} />
             </div>
           </div>
@@ -109,14 +110,22 @@ function DashboardGrid({ selectedAccount }) {
       </div>
 
       {/* RIGHT COLUMN */}
-      <div className="border-2 border-error gap-4 w-full h-full">
+      <div className="flex flex-col gap-4 w-full h-full">
       {/* <div className="p-2 gap-4 w-full h-full"> */}
         <div className="bg-base-100 rounded-xl p-5 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
           <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
             Category Trends
           </h3>
-          <div className="w-full h-[300px]">
+          <div className="w-full h-[200px]">
             <CategoryPieChart />
+          </div>
+        </div>
+        <div className="bg-base-100 rounded-xl p-5 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+          <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
+            Categorized Expenses
+          </h3>
+          <div className="w-full h-[300px]">
+            <CategoryMixBarChart />
           </div>
         </div>
       </div>

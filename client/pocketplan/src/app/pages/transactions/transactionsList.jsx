@@ -47,7 +47,7 @@ function TransactionsList({ selectedAccount }) {
     : "rounded py-0";
 
   return (
-    <div className="w-full h-full rounded-xl">
+    <div className="w-full h-full">
       <div className={containerStyle}>
         <table className="table table-xs rounded-xl bg-base-100 text-neutral-content table-fixed border-spacing-1 w-full max-w-full">
           <thead>

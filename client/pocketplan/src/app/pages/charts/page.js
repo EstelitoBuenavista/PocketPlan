@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar";
 import AccountList from "@/app/pages/dashboard/accountList";
 import DailyExpenseChart from "./dailyExpenseChart";
 import CategoryPieChart from "./categoryPieChart";
+import CategoryMixBarChart from "./categoryMixBarChart";
 
 export default function Dashboard() {
   return (
@@ -17,12 +18,12 @@ export default function Dashboard() {
         {/* AccountList handles its own state and passes selectedAccount data */}
         <AccountList>
           {({ selectedAccount }) => (
-            <div className="mt-4 shadow-lg w-full overflow-hidden">
+            <div className="mt-4 w-full overflow-hidden">
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_3fr] gap-4">
                 
                 {/* Left: Category Pie Chart */}
-                <div className="border-2 border-primary rounded-xl shadow-lg">
-                  <div className="border-2 border-warning bg-base-100 rounded-xl p-5">
+                <div className="rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+                  <div className="bg-base-100 rounded-xl p-5">
                     <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
                       Category Trends
                     </h3>
@@ -34,8 +35,14 @@ export default function Dashboard() {
                 </div>
 
                 {/* Right: Daily Expense Chart */}
-                <div className="flex flex-col gap-6">
-                  <div className="border-2 border-error p-5 bg-base-100 rounded-xl shadow-lg">
+                <div className="flex flex-col gap-4">
+                  <div className="p-5 bg-base-100 rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+                    <h3 className="text-2xl font-medium mb-4 text-neutral">Categorized Expenses</h3>
+                    <div className="w-full h-[400px]">
+                      <CategoryMixBarChart />
+                    </div>
+                  </div>
+                  <div className="p-5 bg-base-100 rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
                     <h3 className="text-2xl font-medium mb-4 text-neutral">Daily Overview</h3>
                     <div className="w-full h-[400px]">
                       <DailyExpenseChart />

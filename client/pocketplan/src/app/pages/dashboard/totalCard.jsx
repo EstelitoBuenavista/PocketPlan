@@ -30,7 +30,7 @@ function TotalCard({ title, value }) {
                     {icon}
                 </div>
                 <div className="flex items-center justify-start mb-2">
-                    <div className="stat-title text-neutral mr-2">
+                    <div className="stat-title text-neutral mr-2 text-medium">
                         Total {title}
                     </div>
                     <button onClick={toggleVisibility} className="ml-2">
