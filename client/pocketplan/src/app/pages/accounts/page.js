@@ -17,7 +17,7 @@ export default function Accounts() {
     <div className="background flex flex-col min-h-screen">
       <Navbar className="fixed top-0 w-full" />
 
-      <div className="md:px-32 sm:px-16 m-4 mt-8">
+      <div className="md:px-32 sm:px-16 m-4 overflow-x-hidden">
         <div className="flex justify-between items-center pb-4">
           <h1 className="text-2xl font-bold my-4 text-primary">Manage Accounts</h1>
           <button
@@ -31,7 +31,7 @@ export default function Accounts() {
         </div>
         {/* fixing how it should like listed */}
         <div className="border-2 border-error h-[75vh] overflow-y-auto">
-          <div className="border-2 border-success grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="border-2 border-success grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <AccountCard />
             <AccountCard />
             <AccountCard />

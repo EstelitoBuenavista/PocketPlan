@@ -21,8 +21,6 @@ function DailyExpenseChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
-        width={500}
-        height={300}
         data={data}
         margin={{
           top: 5,
@@ -32,25 +30,19 @@ function DailyExpenseChart() {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
-          dataKey="dailyTotal"
-          tick={{ fontSize: 12 }}
-        />
+        <XAxis dataKey="dailyTotal" tick={{ fontSize: 12 }} />
         <YAxis 
-          tick={{ fontSize: 12 }} // Adjusts Y-axis tick font size
-          domain={[0, Math.max(...data.map((d) => Math.max(d.income, d.expenses)))]}  
+          tick={{ fontSize: 12 }} 
+          domain={[0, Math.max(...data.map((d) => Math.max(d.income, d.expenses)))]} 
         />
-        <Tooltip 
-          contentStyle={{ fontSize: 12 }}
-        />
-        <Legend 
-          wrapperStyle={{ fontSize: 14 }}
-        />
+        <Tooltip contentStyle={{ fontSize: 12 }} />
+        <Legend wrapperStyle={{ fontSize: 14 }} />
         <Line type="monotone" dataKey="expenses" stroke="#0C68FF" activeDot={{ r: 4 }} />
         <Line type="monotone" dataKey="income" stroke="#7AD47A" activeDot={{ r: 4 }} />
       </LineChart>
     </ResponsiveContainer>
   );
 }
+
 
 export default DailyExpenseChart;

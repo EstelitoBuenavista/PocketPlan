@@ -64,27 +64,18 @@ function DashboardGrid({ selectedAccount }) {
         
         <div className="flex flex-col gap-4">
           {/* Chart div */}
-          <div className="w-full h-80 bg-base-100 rounded-xl p-4 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
-            <button 
-              className="text-2xl font-medium my-4 text-neutral flex gap-2 items-center hover:underline"
-              onClick={() => {
-                // add logic to goto chart
-                router.push('/pages/charts');
-              }}
-            >
-              <span className="flex items-center gap-2 w-full">
-                <ArrowUpRightIcon className="w-5 h-5 stroke-[2px]" />
-                Daily Overview
-              </span>
-            </button>
-            <DailyExpenseChart />
+          <div className="p-4 bg-base-100 rounded-xl p-6 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+            <h3 className="text-2xl font-medium mb-4 text-neutral">Daily Overview</h3>
+            <div className="w-full h-80 ">
+              <DailyExpenseChart />
+            </div>
           </div>
           
           {/* Transaction div */}
-          <div className="bg-base-100 rounded-xl p-4">
+          <div className="bg-base-100 rounded-xl p-6">
             <div className="flex items-center justify-between">
               <button 
-                className="text-2xl font-medium my-4 text-neutral flex gap-2 items-center hover:underline"
+                className="text-2xl font-medium mb-4 text-neutral flex gap-2 items-center hover:underline"
                 onClick={() => {
                   if (selectedAccount) {
                     router.push(`/pages/transactions?accountId=${selectedAccount.id}`);
@@ -108,7 +99,9 @@ function DashboardGrid({ selectedAccount }) {
                 New Transaction
               </button>
             </div>
-            <TransactionsList selectedAccount={selectedAccount} />
+            <div className="bg-base-100 rounded-xl p-4 overflow-auto">
+              <TransactionsList selectedAccount={selectedAccount} />
+            </div>
           </div>
 
         </div>
