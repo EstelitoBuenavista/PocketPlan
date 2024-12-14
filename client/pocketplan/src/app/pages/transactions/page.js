@@ -9,6 +9,7 @@ import CreateTransaction from '@/app/components/createTransaction';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 export default function Transactions({ selectedAccount }) {
+  const [flag, setFlag] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOverview = !selectedAccount;
 
@@ -35,14 +36,14 @@ export default function Transactions({ selectedAccount }) {
         <AccountList>
           {({ selectedAccount }) => (
             <div className="mt-4">
-              <TransactionsList selectedAccount={selectedAccount}/>
+              <TransactionsList selectedAccount={selectedAccount} trigger = {()=>{setFlag(!flag)}}/>
             </div>
           )}
         </AccountList>
 
         
       </div>
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal}/>}
     </div>
   );
 }

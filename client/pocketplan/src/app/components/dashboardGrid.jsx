@@ -14,17 +14,20 @@ import {
 
 function DashboardGrid({ selectedAccount }) {
   const router = useRouter()
+  const [flag, setFlag] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOverview = !selectedAccount;
   const [totalBalance, setTotalBalance] = useState(0)
   const [totalExpenses, setTotalExpenses] = useState(0)
 
-  const getTotal = () => {
     let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
-    } else {
+    } 
+
+  const getTotal = () => {
+    if (!token){
     router.push('/pages/login')
     }
 
@@ -43,8 +46,12 @@ function DashboardGrid({ selectedAccount }) {
     getTotal()
    }, [])
 
-  const handleAddAccountClick = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+   useEffect(() => {
+    getTotal()
+   }, [isModalOpen, flag])
+
+  const handleAddTransactionClick = () => {setIsModalOpen(true)}
+  const handleCloseModal = () => {setIsModalOpen(false)}
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
@@ -81,7 +88,7 @@ function DashboardGrid({ selectedAccount }) {
 
             <button
               className="btn btn-primary btn-sm"
-              onClick={handleAddAccountClick}
+              onClick={handleAddTransactionClick}
               aria-label="Create New Transaction"
             >
               <PlusIcon className="w-4 h-4 stroke-[3]" />
@@ -89,7 +96,7 @@ function DashboardGrid({ selectedAccount }) {
             </button>
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount }/>
+          <TransactionsList selectedAccount={ selectedAccount } trigger = {()=>setFlag(!flag)}/>
         </div>
       </div>
 
@@ -97,8 +104,7 @@ function DashboardGrid({ selectedAccount }) {
       <div className="border-2 border-error gap-4 w-full h-full">
       {/* <div className="p-2 gap-4 w-full h-full"> */}
         
-      </div>
-
+    </div>
       {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
     </div>
   );
