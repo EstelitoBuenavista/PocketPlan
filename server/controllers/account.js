@@ -51,12 +51,6 @@ exports.update = async (req, res) => {
   const id = req.params.id 
   const updatedData = req.body;
 
-  // try {
-  //   const account = await Account.destroy({where:{id : id}})
-  //   res.status(201).send(account)
-  // } catch (error) {
-  //   res.status(500).send({error: error.messager})
-  // }
   try {
     const account = await Account.update(updatedData, {
       where: { id: id }
