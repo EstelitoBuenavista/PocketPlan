@@ -45,10 +45,6 @@ function CategoryPieChart({ selectedAccount }) {
     fetch(`http://localhost:4000/user/pie/${id}/${selectedAccountId}`)
       .then(response => response.json())
       .then(data => {
-        selectedAccount ? 
-        setData(data.filter(item => 
-          item.transactions.some(transaction => transaction.account_id === selectedAccountId)
-        )) :
         setData(data)
       })
       .catch(error => {
