@@ -2,7 +2,7 @@
 'use client';
 
 import { jwtDecode } from 'jwt-decode';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function Dropdown({ 
   label, 
@@ -16,7 +16,7 @@ function Dropdown({
   const selectedItemName = items.find(item => item.id === selectedId)?.name || placeholder;
 
   return (
-    <label className="form-control w-full">
+    <label className="form-control w-1/2">
       <div className="label">
         <span className="font-light text-xs">{label}</span>
       </div>
@@ -50,40 +50,20 @@ function Dropdown({
 }
 
 
-function CreateTransaction({ onClose, account }) {
-  const defaultAccount = account ? account.id : ''
+function UpdateTransaction({ onClose, transaction }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
 
-  const [title, setTitle] = useState('');
-  const [selectAccount, setSelectAccount] = useState(defaultAccount);
-  const [selectCategory, setSelectCategory] = useState('');
-  const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
-  const [selectedTransactionType, setSelectedTransactionType] = useState('');
-  const [transactionDate, setTransactionDate] = useState('');
-
-  const [accounts, setAccounts] = useState([]);
+  const [title, setTitle] = useState(transaction.title);
+  const [selectCategory, setSelectCategory] = useState(transaction.category_id);
+  const [amount, setAmount] = useState(transaction.amount);
+  const [description, setDescription] = useState(transaction.remarks);
   const [categories, setCategories] = useState([]);
   
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   const id = (jwtDecode(token).userId).toString()
-  const today = new Date().toISOString().split('T')[0];
   useEffect(() => {
-    // Fetch accounts
-    fetch(`http://localhost:4000/account/user/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      setAccounts(data);
-    })
-    .catch(err => console.error('Error fetching accounts:', err));
-
     // Fetch categories
     fetch(`http://localhost:4000/category/${id}`, {
       headers: {
@@ -101,17 +81,17 @@ function CreateTransaction({ onClose, account }) {
     e.preventDefault()
 
     const newTransaction = {
-      account_id : selectAccount,
+      account_id : transaction.account_id,
       category_id : selectCategory,
       title : title,
       amount : parseFloat(amount),
-      type : selectedTransactionType,
+      type : transaction.type,
       remarks : description,
-      transaction_date : transactionDate,
+      transaction_date : transaction.transaction_date,
     };
     
-    fetch('http://localhost:4000/transaction/', {
-      method: 'POST',
+    fetch(`http://localhost:4000/transaction/${transaction.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -132,20 +112,6 @@ function CreateTransaction({ onClose, account }) {
     setIsDropdownOpen(prev => !prev);
   };
 
-  const handleDropdownSelect = (type) => {
-    setselectAccount(type);
-    setIsDropdownOpen(false);
-  };
-
-  const handleCheckboxChange = (type) => {
-    setSelectedTransactionType((prev) => (prev === type ? '' : type));
-  };
-
-  const handleAccountSelect = (accountId) => {
-    setSelectAccount(accountId);
-    setIsAccountDropdownOpen(false);
-  };
-
   const handleCategorySelect = (categoryId) => {
     setSelectCategory(categoryId);
     setIsCategoryDropdownOpen(false);
@@ -155,8 +121,8 @@ function CreateTransaction({ onClose, account }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
       <div className="modal-box bg-base-100 text-neutral relative p-8">
-        <h3 className="font-bold text-xl sm:text-lg">Create Transaction</h3>
-        <p className="py-2 text-sm sm:text-base">Fill in the fields to create a new transaction.</p>
+        <h3 className="font-bold text-xl sm:text-lg">Update Transaction</h3>
+        <p className="py-2 text-sm sm:text-base">Change the fields to update the transactions.</p>
         
         <form onSubmit={handleSubmit} >
           <label className="form-control w-full">
@@ -188,17 +154,6 @@ function CreateTransaction({ onClose, account }) {
             </div>
           </label>
 
-          <label className="label">
-            <span className="font-light label-text text-xs">Transaction Date</span>
-          </label>
-          <input
-            type="date"
-            max={today}
-            value={transactionDate}
-            onChange={(e) => setTransactionDate(e.target.value)}
-            className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
-          />
-
           <label className="form-control w-full">
             <div className="label">
               <span className="font-light text-xs">Remarks</span>
@@ -212,15 +167,7 @@ function CreateTransaction({ onClose, account }) {
           </label>
 
           <div className="flex items-left justify-center gap-4">
-          <Dropdown
-            label="Account"
-            placeholder="Select Account"
-            items={accounts}
-            selectedId={selectAccount}
-            onSelect={handleAccountSelect}
-            isOpen={isAccountDropdownOpen}
-            toggleOpen={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
-          />
+          
           
 
           <Dropdown
@@ -233,31 +180,6 @@ function CreateTransaction({ onClose, account }) {
             toggleOpen={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
           />
         </div>
-
-            <div className="flex items-center justify-between px-[15%]">
-                <div className="form-control">
-                    <label className="cursor-pointer label gap-2 flex align-center justify-center mt-4">
-                        <input 
-                            type="checkbox" 
-                            className="checkbox checkbox-neutral" 
-                            checked={selectedTransactionType === 'expense'}
-                            onChange={() => {handleCheckboxChange('expense')}}
-                        />
-                        <span className="label-text font-bold">Expense</span>
-                    </label>
-                </div>
-                <div className="form-control flex align-center justify-center">
-                        <label className="cursor-pointer label gap-2 flex align-center justify-center mt-4">
-                            <input 
-                                type="checkbox" 
-                                className="checkbox checkbox-neutral" 
-                                checked={selectedTransactionType === 'income'}
-                                onChange={() => {handleCheckboxChange('income')}}
-                            />
-                            <span className="label-text font-bold">Income</span>
-                        </label>
-                    </div>
-            </div>
                                 
           <div className="modal-action flex items-center justify-between flex-wrap">
             <button
@@ -280,4 +202,4 @@ function CreateTransaction({ onClose, account }) {
   );
 }
 
-export default CreateTransaction;
+export default UpdateTransaction;

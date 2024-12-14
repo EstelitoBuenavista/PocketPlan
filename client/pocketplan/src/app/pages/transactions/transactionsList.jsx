@@ -1,21 +1,29 @@
 // components/transactionsList
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import TransactionRow from './transactionRow';
+import UpdateTransaction from './updateTransaction';
+import { triggerContext } from '../dashboard/accountList';
 
-function TransactionsList({ selectedAccount }) {
-
+function TransactionsList({ selectedAccount, renderTrigger, trigger }) { 
+  const router = useRouter()
+  const [accountTrigger, setAccountTrigger] = useContext(triggerContext)
+  const [flag, setFlag] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [transactions, setTransactions] = useState([])
+  const [updateTransaction, setUpdateTransaction] = useState({})
 
   const renderTransactions = () => {
     let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
-    } else {
-    router.push('/pages/login')
+    } 
+    if (!token){
+      router.push('/pages/login')
     }
     fetch(`http://localhost:4000/transaction/user/${id}`)
       .then(response => response.json())
@@ -30,7 +38,10 @@ function TransactionsList({ selectedAccount }) {
   useEffect(() => {
     renderTransactions()
    }, [])
-
+   useEffect(() => {
+    renderTransactions()
+    setAccountTrigger(!accountTrigger)
+   }, [isModalOpen, renderTrigger, flag])
   
   const filteredTransactions = selectedAccount
     ? transactions.filter(transaction => transaction.account_id === selectedAccount.id)
@@ -66,7 +77,9 @@ function TransactionsList({ selectedAccount }) {
                   key={transaction.id}
                   transaction={transaction}
                   isOpen={activeTransactionId === transaction.id}
-                  toggleDetails={() => toggleDetails(transaction.id)}
+                  toggleDetails={() => {toggleDetails(transaction.id); setFlag(!flag); trigger()}}
+                  update = {() => setIsModalOpen(true)}
+                  setUpdateTransaction = {setUpdateTransaction}
                 />
               ))
             ) : (
@@ -76,6 +89,7 @@ function TransactionsList({ selectedAccount }) {
             )}
           </tbody>
         </table>
+        {isModalOpen && <UpdateTransaction onClose={() => {setIsModalOpen(false);setFlag(!flag); trigger()}} transaction={updateTransaction}/>}
       </div>
     </div>
   );

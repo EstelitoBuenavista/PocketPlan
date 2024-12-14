@@ -1,8 +1,9 @@
 // components/dashboardGrid
 'use client';
 
+import { triggerContext } from './accountList';
 import { jwtDecode } from 'jwt-decode';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import TotalCard from './totalCard'
 import CreateTransaction from '../transactions/createTransaction';
@@ -17,6 +18,8 @@ import {
 
 function DashboardGrid({ selectedAccount }) {
   const router = useRouter()
+  const [accountTrigger, setAccountTrigger] = useContext(triggerContext)
+  const [flag, setFlag] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOverview = !selectedAccount;
   const [totalBalance, setTotalBalance] = useState(0)
@@ -45,6 +48,11 @@ function DashboardGrid({ selectedAccount }) {
   useEffect(() => {
     getTotal()
    }, [])
+
+   useEffect(() => {
+    getTotal()
+    setAccountTrigger(!accountTrigger)
+   }, [isModalOpen, flag])
 
   const handleAddAccountClick = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -102,7 +110,7 @@ function DashboardGrid({ selectedAccount }) {
               </button>
             </div>
             <div className="bg-base-100 rounded-xl overflow-auto shadow-[0_1_60px_rgba(0,0,0,0.15)]">
-              <TransactionsList selectedAccount={selectedAccount} />
+            <TransactionsList selectedAccount={ selectedAccount } renderTrigger = { flag } trigger = {()=>setFlag(!flag)}/>
             </div>
           </div>
 
@@ -130,7 +138,7 @@ function DashboardGrid({ selectedAccount }) {
         </div>
       </div>
 
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal} account = { selectedAccount }/>}
     </div>
   );
 }

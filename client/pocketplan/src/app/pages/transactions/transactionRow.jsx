@@ -1,6 +1,13 @@
 // components/transactionRow
-
-function TransactionRow({ transaction, isOpen, toggleDetails }) {
+function TransactionRow({ transaction, isOpen, toggleDetails, update, setUpdateTransaction }) {
+  const handleDelete = ()=>{
+    fetch(`http://localhost:4000/transaction/${transaction.id}`, {
+      method: "DELETE",
+    }).then(()=>toggleDetails())
+    .catch(error => {
+        console.log("Error:", error);
+      });
+  }
   return (
     <>
       {/* Main Row Info */}
@@ -30,13 +37,13 @@ function TransactionRow({ transaction, isOpen, toggleDetails }) {
             <div className="flex gap-3 pr-2 justify-end">
               <button
                 className="bg-error text-base-100 px-4 py-2 rounded hover:bg-orange-600"
-                // onClick=
+                onClick={() => handleDelete()}
               >
                 Delete
               </button>
               <button
                 className="bg-primary text-base-100 px-4 py-2 rounded hover:bg-blue-600"
-                // onClick=
+                onClick={()=>{update(); setUpdateTransaction(transaction)}}
               >
                 Edit
               </button>
