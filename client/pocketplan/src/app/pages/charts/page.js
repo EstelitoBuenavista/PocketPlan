@@ -28,7 +28,7 @@ export default function Dashboard() {
                       Category Trends
                     </h3>
                     <div className="w-full h-[300px]">
-                      <CategoryPieChart />
+                      <CategoryPieChart selectedAccount={ selectedAccount }/>
                     </div>
                   </div>
 
@@ -39,13 +39,13 @@ export default function Dashboard() {
                   <div className="p-5 bg-base-100 rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
                     <h3 className="text-2xl font-medium mb-4 text-neutral">Categorized Expenses</h3>
                     <div className="w-full h-[400px]">
-                      <CategoryMixBarChart />
+                      <CategoryMixBarChart selectedAccount={ selectedAccount }/>
                     </div>
                   </div>
                   <div className="p-5 bg-base-100 rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
                     <h3 className="text-2xl font-medium mb-4 text-neutral">Daily Overview</h3>
                     <div className="w-full h-[400px]">
-                      <DailyExpenseChart />
+                      <DailyExpenseChart selectedAccount={ selectedAccount }/>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,8 @@
 // components/categoryPieChart
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { useState, useEffect, useContext } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const data = [
   { category: 'Work',     value: 2900 },
@@ -38,7 +40,38 @@ const y = cy + radius * Math.sin(-midAngle * RADIAN);
   );
 };
 
-function CategoryPieChart() {
+function CategoryPieChart({ selectedAccount }) {
+  const [data,setData] = useState([])
+
+  const renderPieChart = () => {
+    let id = 0
+    const token = localStorage.getItem("token")
+    if (token){
+    id = jwtDecode(token).userId.toString()
+    } else {
+    router.push('/pages/login')
+    }
+    fetch(`http://localhost:4000/user/pie/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        selectedAccount ? 
+        setData(data.filter(item => item.transactions.account_id === selectedAccount.id)) :
+        setData(data)
+
+        console.log(data)
+      })
+      .catch(error => {
+        console.log("Error:", error);
+      });
+  }
+
+  useEffect(() => {
+    renderPieChart()
+   }, [])
+   useEffect(() => {
+    renderPieChart()
+   }, [selectedAccount])
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <PieChart>
@@ -50,7 +83,7 @@ function CategoryPieChart() {
           label={renderCustomizedLabel}
           outerRadius="100%"
           dataKey="value"
-          nameKey="category"
+          nameKey="name"
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
