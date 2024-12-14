@@ -41,6 +41,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    indexes: [
+      {
+        unique: true,
+        fields: ['email']
+      }
+    ]
   });
   
   return User;
