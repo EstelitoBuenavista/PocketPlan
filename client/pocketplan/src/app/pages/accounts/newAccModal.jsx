@@ -7,8 +7,8 @@ import { jwtDecode } from 'jwt-decode'
 function NewAccModal({ onClose }) {
   const [selectedType, setSelectedType] = useState('Others'); // Default to 'Others'
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [name, setName] =  useState('')
-  const [balance, setBalance] = useState(0)
+  const [name, setName] =  useState(null);
+  const [balance, setBalance] = useState(null);
   const token = localStorage.getItem('token');
 
   const handleSubmit = (e) =>{
