@@ -16,7 +16,7 @@ function Dropdown({
   const selectedItemName = items.find(item => item.id === selectedId)?.name || placeholder;
 
   return (
-    <label className="form-control w-full">
+    <label className="form-control w-full ">
       <div className="label">
         <span className="font-light text-xs">{label}</span>
       </div>
@@ -119,7 +119,7 @@ function UpdateTransaction({ onClose, transaction }) {
 
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
       <div className="modal-box bg-base-100 text-neutral relative p-8">
         <h3 className="font-bold text-xl sm:text-lg">Update Transaction</h3>
         <p className="py-2 text-sm sm:text-base">Change the fields to update the transactions.</p>

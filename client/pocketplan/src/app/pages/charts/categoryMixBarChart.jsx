@@ -110,7 +110,7 @@ function CategoryMixBarChart() {
             key={index} 
             dataKey={category} 
             stackId="a" 
-            fill={hoveredBar === category ? '#FF75A1' : categoryColors[index]}
+            fill={hoveredBar === category ? '#89BAFD' : categoryColors[index]}
             onMouseEnter={() => setHoveredBar(category)}
             onMouseLeave={() => setHoveredBar(null)}
           />
