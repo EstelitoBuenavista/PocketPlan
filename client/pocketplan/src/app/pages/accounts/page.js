@@ -7,6 +7,7 @@ import NewAccModal from '../../components/newAccModal';
 import AccountCard from '@/app/components/accountCard';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { jwtDecode } from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 
 export default function Accounts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function Accounts() {
 
   const handleAddAccountClick = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-
+  const router = useRouter()
 
   useEffect(() => {
     // Fetch accounts from the backend

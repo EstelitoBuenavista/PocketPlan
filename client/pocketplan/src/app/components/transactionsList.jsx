@@ -3,24 +3,25 @@
 
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import TransactionRow from './transactionRow';
 import UpdateTransaction from './updateTransaction';
+import { triggerContext } from './accountList';
 
-function TransactionsList({ selectedAccount, trigger }) { 
+function TransactionsList({ selectedAccount, renderTrigger, trigger }) { 
   const router = useRouter()
-  const [flag, setFlag] = useState(false)
+  const [accountTrigger, setAccountTrigger] = useContext(triggerContext)
+  const [flag, setFlag] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [transactions, setTransactions] = useState([])
   const [updateTransaction, setUpdateTransaction] = useState({})
 
-  let id = 0
+  const renderTransactions = () => {
+    let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
     } 
-
-  const renderTransactions = () => {
     if (!token){
       router.push('/pages/login')
     }
@@ -39,7 +40,8 @@ function TransactionsList({ selectedAccount, trigger }) {
    }, [])
    useEffect(() => {
     renderTransactions()
-   }, [isModalOpen])
+    setAccountTrigger(!accountTrigger)
+   }, [isModalOpen, renderTrigger, flag])
   
   const filteredTransactions = selectedAccount
     ? transactions.filter(transaction => transaction.account_id === selectedAccount.id)
@@ -87,7 +89,7 @@ function TransactionsList({ selectedAccount, trigger }) {
             )}
           </tbody>
         </table>
-        {isModalOpen && <UpdateTransaction onClose={() => {setIsModalOpen(false); trigger()}} transaction={updateTransaction}/>}
+        {isModalOpen && <UpdateTransaction onClose={() => {setIsModalOpen(false);setFlag(!flag); trigger()}} transaction={updateTransaction}/>}
       </div>
     </div>
   );

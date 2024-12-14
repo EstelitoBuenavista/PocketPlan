@@ -14,7 +14,7 @@ export default function Transactions({ selectedAccount }) {
   const isOverview = !selectedAccount;
 
   const handleAddAccountClick = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => { setIsModalOpen(false); setFlag(!flag)} 
   
   return (
     <div className="background flex flex-col min-h-screen">
@@ -36,14 +36,14 @@ export default function Transactions({ selectedAccount }) {
         <AccountList>
           {({ selectedAccount }) => (
             <div className="mt-4">
-              <TransactionsList selectedAccount={selectedAccount} trigger = {()=>{setFlag(!flag)}}/>
+              <TransactionsList selectedAccount={selectedAccount} renderTrigger={ flag }  trigger = {()=>{setFlag(!flag)}}/>
             </div>
           )}
         </AccountList>
 
         
       </div>
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal}/>}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal} account = { selectedAccount }/>}
     </div>
   );
 }

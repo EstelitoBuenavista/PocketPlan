@@ -1,14 +1,17 @@
 // components/accountList
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
+
+export const triggerContext = createContext()
 
 function AccountList({ children }) {
   const router = useRouter()
   const [accounts, setAccounts] = useState([]);
   const [selectedAccountId, setSelectedAccountId] = useState(0);
+  const [accountTrigger, setAccountTrigger] = useState(false)
 
 
   const renderAccounts = () => {
@@ -32,11 +35,15 @@ function AccountList({ children }) {
   useEffect(() => {
     renderAccounts()
    }, [])
+   useEffect(() => {
+    renderAccounts()
+   }, [accountTrigger])
 
   const handleTabSelect = (accountId) => {
     setSelectedAccountId(accountId);
   };
 
+  const trigger = () => {setAccountTrigger(!accountTrigger)}
   const selectedAccount =
     selectedAccountId === 0
       ? null
@@ -83,9 +90,9 @@ function AccountList({ children }) {
           ))}
         </div>
       </div>
-
-      {/* Render children with the selected account */}
-       {children({ selectedAccount })}
+        <triggerContext.Provider value={ [accountTrigger, setAccountTrigger] }>
+         {children({ selectedAccount })}
+        </triggerContext.Provider>
     </div>
   );
 }

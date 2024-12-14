@@ -1,8 +1,9 @@
 // components/dashboardGrid
 'use client';
 
+import { triggerContext } from './accountList';
 import { jwtDecode } from 'jwt-decode';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import TotalCard from './totalCard'
 import CreateTransaction from './createTransaction';
@@ -14,19 +15,19 @@ import {
 
 function DashboardGrid({ selectedAccount }) {
   const router = useRouter()
+  const [accountTrigger, setAccountTrigger] = useContext(triggerContext)
   const [flag, setFlag] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOverview = !selectedAccount;
   const [totalBalance, setTotalBalance] = useState(0)
   const [totalExpenses, setTotalExpenses] = useState(0)
 
+  const getTotal = () => {
     let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
     } 
-
-  const getTotal = () => {
     if (!token){
     router.push('/pages/login')
     }
@@ -48,10 +49,11 @@ function DashboardGrid({ selectedAccount }) {
 
    useEffect(() => {
     getTotal()
+    setAccountTrigger(!accountTrigger)
    }, [isModalOpen, flag])
 
   const handleAddTransactionClick = () => {setIsModalOpen(true)}
-  const handleCloseModal = () => {setIsModalOpen(false)}
+  const handleCloseModal = () => {setIsModalOpen(false); setFlag(!flag)}
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
@@ -96,7 +98,7 @@ function DashboardGrid({ selectedAccount }) {
             </button>
           </div>
 
-          <TransactionsList selectedAccount={ selectedAccount } trigger = {()=>setFlag(!flag)}/>
+          <TransactionsList selectedAccount={ selectedAccount } renderTrigger = { flag } trigger = {()=>setFlag(!flag)}/>
         </div>
       </div>
 
@@ -105,7 +107,7 @@ function DashboardGrid({ selectedAccount }) {
       {/* <div className="p-2 gap-4 w-full h-full"> */}
         
     </div>
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal} />}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal} account = { selectedAccount }/>}
     </div>
   );
 }

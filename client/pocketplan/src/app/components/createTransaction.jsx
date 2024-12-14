@@ -50,14 +50,15 @@ function Dropdown({
 }
 
 
-function CreateTransaction({ onClose }) {
+function CreateTransaction({ onClose, account }) {
+  const defaultAccount = account ? account.id : ''
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
 
   const [title, setTitle] = useState('');
-  const [selectAccount, setSelectAccount] = useState('');
+  const [selectAccount, setSelectAccount] = useState(defaultAccount);
   const [selectCategory, setSelectCategory] = useState('');
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
