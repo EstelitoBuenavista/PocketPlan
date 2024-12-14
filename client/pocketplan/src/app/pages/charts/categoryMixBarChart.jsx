@@ -86,7 +86,7 @@ function CategoryMixBarChart() {
   const [hoveredBar, setHoveredBar] = useState(null);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" >
       <BarChart
         data={slicedData}
         margin={{

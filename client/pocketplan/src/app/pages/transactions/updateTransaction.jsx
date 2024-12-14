@@ -16,7 +16,7 @@ function Dropdown({
   const selectedItemName = items.find(item => item.id === selectedId)?.name || placeholder;
 
   return (
-    <label className="form-control w-1/2">
+    <label className="form-control w-full">
       <div className="label">
         <span className="font-light text-xs">{label}</span>
       </div>

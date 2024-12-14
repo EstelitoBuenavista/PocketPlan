@@ -22,7 +22,7 @@ export default function Dashboard() {
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_3fr] gap-4">
                 
                 {/* Left: Category Pie Chart */}
-                <div className="rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+                <div className="rounded-xl">
                   <div className="bg-base-100 rounded-xl p-5">
                     <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
                       Category Trends
@@ -36,13 +36,13 @@ export default function Dashboard() {
 
                 {/* Right: Daily Expense Chart */}
                 <div className="flex flex-col gap-4">
-                  <div className="p-5 bg-base-100 rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+                  <div className="p-5 bg-base-100 rounded-xl">
                     <h3 className="text-2xl font-medium mb-4 text-neutral">Categorized Expenses</h3>
                     <div className="w-full h-[400px]">
                       <CategoryMixBarChart selectedAccount={ selectedAccount }/>
                     </div>
                   </div>
-                  <div className="p-5 bg-base-100 rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+                  <div className="p-5 bg-base-100 rounded-xl">
                     <h3 className="text-2xl font-medium mb-4 text-neutral">Daily Overview</h3>
                     <div className="w-full h-[400px]">
                       <DailyExpenseChart selectedAccount={ selectedAccount }/>
