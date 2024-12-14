@@ -55,7 +55,7 @@ function DashboardGrid({ selectedAccount }) {
    }, [isModalOpen, flag])
 
   const handleAddAccountClick = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => {setIsModalOpen(false);setFlag(!flag)}
 
   return (
     <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
