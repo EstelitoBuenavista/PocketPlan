@@ -50,7 +50,7 @@ function CategoryPieChart({ selectedAccount }) {
           item.transactions.some(transaction => transaction.account_id === selectedAccountId)
         )) :
         setData(data)
-      }).then(()=> console.log(data))
+      })
       .catch(error => {
         console.log("Error:", error);
       });
@@ -60,7 +60,6 @@ function CategoryPieChart({ selectedAccount }) {
     renderPieChart()
    }, [])
    useEffect(() => {
-    console.log("rendering pie chart")
     renderPieChart()
    }, [selectedAccount, selectedAccountId])
 

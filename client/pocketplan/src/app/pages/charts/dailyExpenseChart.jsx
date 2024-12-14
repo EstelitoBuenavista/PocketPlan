@@ -3,10 +3,11 @@ import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useEffect, useState, useContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
-
+import { triggerContext } from '../dashboard/accountList';
 
 function DailyExpenseChart({ selectedAccount }) {
     const [data,setData] = useState([])
+    const [accountTrigger, setAccountTrigger, selectedAccountId] = useContext(triggerContext)
   
     const renderLineChart = () => {
       let id = 0
@@ -19,8 +20,8 @@ function DailyExpenseChart({ selectedAccount }) {
       fetch(`http://localhost:4000/user/daily/${id}`)
         .then(response => response.json())
         .then(data => {
-          selectedAccount ? 
-          setData(data.filter(item => item.account_id === selectedAccount.id)) :
+          selectedAccountId ? 
+          setData(data.filter(item => item.account_id === selectedAccountId)) :
           setData(data)
         })
         .catch(error => {
@@ -31,6 +32,9 @@ function DailyExpenseChart({ selectedAccount }) {
     useEffect(() => {
       renderLineChart()
      }, [])
+    useEffect(() => {
+      renderLineChart()
+     }, [selectedAccount, selectedAccountId])
 
   const slicedData = data.slice(-10);
   const maxValue = Math.max(...slicedData.flatMap((d) => [d.income, d.expenses]));
