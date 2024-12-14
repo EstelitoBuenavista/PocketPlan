@@ -32,8 +32,8 @@ exports.delete = async (req, res) => {
 }
 
 exports.pieChartData = async (req, res) => {
-  const id = req.params.id
-
+  const {id, account_id} = req.params
+  const condition = account_id != 0 ? {account_id:account_id} : {}
     try {
       const result = await Category.findAll({
         attributes: [
@@ -43,7 +43,8 @@ exports.pieChartData = async (req, res) => {
         include: [
           {
             model: Transaction,
-            attributes: ['account_id'],
+            attributes: [],
+            where: condition
           }
         ],
         where: { user_id: id },

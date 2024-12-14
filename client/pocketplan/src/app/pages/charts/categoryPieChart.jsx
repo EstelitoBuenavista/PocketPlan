@@ -3,17 +3,7 @@ import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { useState, useEffect, useContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
-
-const data = [
-  { category: 'Work',     value: 2900 },
-  { category: 'Misc',     value: 2000 },
-  { category: 'Food',     value: 5600 },
-  { category: 'Leisure',  value: 10000 },
-  { category: 'Bills',    value: 12030 },
-  { category: 'Supplies', value: 2300 },
-  { category: 'School',   value: 3200 },
-  { category: 'Music',    value: 12123 }
-];
+import { triggerContext } from '../dashboard/accountList';
 
 const COLORS = [ 
   '#2075fe', 
@@ -42,6 +32,7 @@ const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
 function CategoryPieChart({ selectedAccount }) {
   const [data,setData] = useState([])
+  const [accountTrigger, setAccountTrigger, selectedAccountId] = useContext(triggerContext)
 
   const renderPieChart = () => {
     let id = 0
@@ -51,15 +42,15 @@ function CategoryPieChart({ selectedAccount }) {
     } else {
     router.push('/pages/login')
     }
-    fetch(`http://localhost:4000/user/pie/${id}`)
+    fetch(`http://localhost:4000/user/pie/${id}/${selectedAccountId}`)
       .then(response => response.json())
       .then(data => {
         selectedAccount ? 
-        setData(data.filter(item => item.transactions.account_id === selectedAccount.id)) :
+        setData(data.filter(item => 
+          item.transactions.some(transaction => transaction.account_id === selectedAccountId)
+        )) :
         setData(data)
-
-        console.log(data)
-      })
+      }).then(()=> console.log(data))
       .catch(error => {
         console.log("Error:", error);
       });
@@ -69,8 +60,9 @@ function CategoryPieChart({ selectedAccount }) {
     renderPieChart()
    }, [])
    useEffect(() => {
+    console.log("rendering pie chart")
     renderPieChart()
-   }, [selectedAccount])
+   }, [selectedAccount, selectedAccountId])
 
   return (
     <ResponsiveContainer width="100%" height="100%">

@@ -36,8 +36,9 @@ function AccountList({ children }) {
     renderAccounts()
    }, [])
    useEffect(() => {
+    console.log("account render")
     renderAccounts()
-   }, [accountTrigger])
+   }, [accountTrigger, selectedAccountId])
 
   const handleTabSelect = (accountId) => {
     setSelectedAccountId(accountId);
@@ -89,7 +90,7 @@ function AccountList({ children }) {
           ))}
         </div>
       </div>
-        <triggerContext.Provider value={ [accountTrigger, setAccountTrigger] }>
+        <triggerContext.Provider value={ [accountTrigger, setAccountTrigger, selectedAccountId] }>
          {children({ selectedAccount })}
         </triggerContext.Provider>
     </div>

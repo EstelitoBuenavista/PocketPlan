@@ -4,7 +4,7 @@ module.exports = (app) => {
 
   router.get("/:id", user.getUser);
   router.delete("/:id", user.delete)
-  router.get("/pie/:id", user.pieChartData)
+  router.get("/pie/:id/:account_id", user.pieChartData)
   router.get("/daily/:id", user.dailyExpenseChartData)
   router.get("/mixBar/:id", user.getMixBarChart)
 
