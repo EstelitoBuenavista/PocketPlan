@@ -3,8 +3,8 @@
 
 import { useEffect, useState } from 'react';
 import Navbar from "../../components/navbar";
-import NewAccModal from '../../components/newAccModal';
-import AccountCard from '@/app/components/accountCard';
+import NewAccModal from './newAccModal';
+import AccountCard from '@/app/pages/accounts/accountCard';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
@@ -40,7 +40,7 @@ export default function Accounts() {
     <div className="background flex flex-col min-h-screen">
       <Navbar className="fixed top-0 w-full" />
 
-      <div className="md:px-32 sm:px-16 m-4 mt-8">
+      <div className="md:px-32 sm:px-16 m-4 overflow-x-hidden">
         <div className="flex justify-between items-center pb-4">
           <h1 className="text-2xl font-bold my-4 text-primary">Manage Accounts</h1>
           <button

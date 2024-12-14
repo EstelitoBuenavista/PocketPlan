@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect, useContext } from 'react';
 import TransactionRow from './transactionRow';
 import UpdateTransaction from './updateTransaction';
-import { triggerContext } from './accountList';
+import { triggerContext } from '../dashboard/accountList';
 
 function TransactionsList({ selectedAccount, renderTrigger, trigger }) { 
   const router = useRouter()
@@ -58,9 +58,9 @@ function TransactionsList({ selectedAccount, renderTrigger, trigger }) {
     : "rounded py-0";
 
   return (
-    <div className="overflow-hidden w-full h-full rounded">
+    <div className="w-full h-full">
       <div className={containerStyle}>
-        <table className="table table-xs rounded-lg bg-base-100 text-neutral-content table-fixed border-spacing-1 w-full max-w-full">
+        <table className="table table-xs rounded-xl bg-base-100 text-neutral-content table-fixed border-spacing-1 w-full max-w-full">
           <thead>
             <tr className="text-primary sticky top-0 bg-secondary">
               <th className="break-words whitespace-normal">Title</th>

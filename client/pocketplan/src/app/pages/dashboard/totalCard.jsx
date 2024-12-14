@@ -24,13 +24,13 @@ function TotalCard({ title, value }) {
     };
 
     return (
-        <div className="stats shadow-[0_1_60px_rgba(0,0,0,0.15)] bg-base-100 w-full sm:w-[48%] lg:w-[30%] flex-grow overflow-x-hidden">
+        <div className="stats rounded-xl shadow-[0_1_60px_rgba(0,0,0,0.15)] bg-base-100 w-full sm:w-[48%] lg:w-[30%] flex-grow overflow-x-hidden">
             <div className="stat">
                 <div className="stat-figure text-primary">
                     {icon}
                 </div>
                 <div className="flex items-center justify-start mb-2">
-                    <div className="stat-title text-neutral mr-2">
+                    <div className="stat-title text-neutral mr-2 text-medium">
                         Total {title}
                     </div>
                     <button onClick={toggleVisibility} className="ml-2">

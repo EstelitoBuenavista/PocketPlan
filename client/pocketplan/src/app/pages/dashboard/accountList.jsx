@@ -36,14 +36,14 @@ function AccountList({ children }) {
     renderAccounts()
    }, [])
    useEffect(() => {
+    console.log("account render")
     renderAccounts()
-   }, [accountTrigger])
+   }, [accountTrigger, selectedAccountId])
 
   const handleTabSelect = (accountId) => {
     setSelectedAccountId(accountId);
   };
 
-  const trigger = () => {setAccountTrigger(!accountTrigger)}
   const selectedAccount =
     selectedAccountId === 0
       ? null
@@ -62,7 +62,7 @@ function AccountList({ children }) {
             role="tab"
             className={`tab rounded px-4 hover:scale-110 ${
               selectedAccountId === 0
-                ? 'tab-active font-bold text-primary bg-accent'
+                ? 'tab-active font-bold text-primary bg-secondary'
                 : 'text-secondary'
             }`}
             aria-label="Overview"
@@ -90,7 +90,7 @@ function AccountList({ children }) {
           ))}
         </div>
       </div>
-        <triggerContext.Provider value={ [accountTrigger, setAccountTrigger] }>
+        <triggerContext.Provider value={ [accountTrigger, setAccountTrigger, selectedAccountId] }>
          {children({ selectedAccount })}
         </triggerContext.Provider>
     </div>
