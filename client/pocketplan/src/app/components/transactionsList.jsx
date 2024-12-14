@@ -16,13 +16,12 @@ function TransactionsList({ selectedAccount, renderTrigger, trigger }) {
   const [transactions, setTransactions] = useState([])
   const [updateTransaction, setUpdateTransaction] = useState({})
 
-  let id = 0
+  const renderTransactions = () => {
+    let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
     } 
-
-  const renderTransactions = () => {
     if (!token){
       router.push('/pages/login')
     }

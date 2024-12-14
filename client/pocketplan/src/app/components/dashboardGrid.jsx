@@ -22,13 +22,12 @@ function DashboardGrid({ selectedAccount }) {
   const [totalBalance, setTotalBalance] = useState(0)
   const [totalExpenses, setTotalExpenses] = useState(0)
 
+  const getTotal = () => {
     let id = 0
     const token = localStorage.getItem("token")
     if (token){
     id = jwtDecode(token).userId.toString()
     } 
-
-  const getTotal = () => {
     if (!token){
     router.push('/pages/login')
     }
