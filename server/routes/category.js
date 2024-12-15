@@ -4,7 +4,7 @@ module.exports = (app) => {
   
     router.get("/:id", category.getUserCategories);
     router.post("/", category.create)
-    router.delete("/:id", category.delete)
+    router.delete("/:id/:user_id", category.delete)
     router.put("/:id", category.update)
 
     app.use("/category", router);

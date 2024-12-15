@@ -1,5 +1,6 @@
 const db = require("../models")
 const Category = db.category
+const Transaction = db.transaction
 
 exports.getUserCategories= async (req, res) => {
     const id = req.params.id
@@ -24,9 +25,18 @@ exports.create = async (req, res) =>  {
 }
 
 exports.delete = async (req, res) => {
-  const id = req.params.id
+  const {id, user_id} = req.params.id
 
   try {
+    const uncategorized = await Category.findOne({where:{name:uncategorized,user_id: user_id}})
+    await Transaction.update(
+      { category_id: id },
+      {
+        where:{
+          category_id: id,
+          user_id: user_id
+        }
+    })
     await Category.delete({where:{id : id}})
     res.status(200).send("Successful Deletion!")
   } catch (error) {
