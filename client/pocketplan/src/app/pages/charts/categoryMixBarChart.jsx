@@ -86,7 +86,7 @@ function CategoryMixBarChart() {
   const [hoveredBar, setHoveredBar] = useState(null);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" >
       <BarChart
         data={slicedData}
         margin={{
@@ -110,7 +110,7 @@ function CategoryMixBarChart() {
             key={index} 
             dataKey={category} 
             stackId="a" 
-            fill={hoveredBar === category ? '#FF75A1' : categoryColors[index]}
+            fill={hoveredBar === category ? '#89BAFD' : categoryColors[index]}
             onMouseEnter={() => setHoveredBar(category)}
             onMouseLeave={() => setHoveredBar(null)}
           />

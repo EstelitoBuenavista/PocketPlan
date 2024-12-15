@@ -25,7 +25,9 @@ function TransactionRow({ transaction, isOpen, toggleDetails, update, setUpdateT
         <td>
           <span className="badge badge-sm p-2 text-neutral-content">{transaction.Category.name}</span>
         </td>
-        <td className="text-neutral font-medium">₱ {transaction.amount.toFixed(2)}</td>
+        <td className={`font-medium ${transaction.type === "Income" ? "text-success" : "text-primary"}`}>
+          ₱ {transaction.amount.toFixed(2)}
+        </td>
         <td className="text-neutral">{transaction.remarks}</td>
         <td className="text-neutral-content">{transaction.transaction_date}</td>
       </tr>

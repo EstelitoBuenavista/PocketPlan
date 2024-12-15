@@ -7,7 +7,7 @@ import {
   ArrowLeftStartOnRectangleIcon,
   UserIcon,
   RectangleGroupIcon,
-  PresentationChartBarIcon,
+  ChartPieIcon,
   ReceiptPercentIcon,
   CreditCardIcon,
 } from '@heroicons/react/24/outline';
@@ -56,7 +56,7 @@ function Navbar() {
                     isActive('/pages/charts') ? 'text-primary bg-accent rounded' : 'text-neutral'
                 }`}
                 onClick={() => router.push('/pages/charts')}>
-                <PresentationChartBarIcon className="w-6 h-6" />
+                <ChartPieIcon className="w-6 h-6" />
               </button>
             </li>
             <li>

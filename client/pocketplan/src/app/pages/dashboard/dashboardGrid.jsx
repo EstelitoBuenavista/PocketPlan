@@ -74,7 +74,7 @@ function DashboardGrid({ selectedAccount }) {
         
         <div className="flex flex-col gap-4">
           {/* Chart div */}
-          <div className="p-4 bg-base-100 rounded-xl p-6 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+          <div className="p-4 bg-base-100 rounded-xl p-6 ">
             <h3 className="text-2xl font-medium mb-4 text-neutral">Daily Overview</h3>
             <div className="w-full h-80 ">
               <DailyExpenseChart />
@@ -82,8 +82,8 @@ function DashboardGrid({ selectedAccount }) {
           </div>
           
           {/* Transaction div */}
-          <div className="bg-base-100 rounded-xl p-6 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
-            <div className="flex items-center mb-4 justify-between shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+          <div className="bg-base-100 rounded-xl p-6 ">
+            <div className="flex items-center mb-4 justify-between ">
               <button 
                 className="text-2xl font-medium text-neutral flex gap-2 items-center hover:underline"
                 onClick={() => {
@@ -109,7 +109,7 @@ function DashboardGrid({ selectedAccount }) {
                 New Transaction
               </button>
             </div>
-            <div className="bg-base-100 rounded-xl overflow-auto shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+            <div className="bg-base-100 rounded-xl overflow-auto ">
             <TransactionsList selectedAccount={ selectedAccount } renderTrigger = { flag } trigger = {()=>setFlag(!flag)}/>
             </div>
           </div>
@@ -120,7 +120,7 @@ function DashboardGrid({ selectedAccount }) {
       {/* RIGHT COLUMN */}
       <div className="flex flex-col gap-4 w-full h-full">
       {/* <div className="p-2 gap-4 w-full h-full"> */}
-        <div className="bg-base-100 rounded-xl p-5 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+        <div className="bg-base-100 rounded-xl p-5 ">
           <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
             Category Trends
           </h3>
@@ -128,7 +128,7 @@ function DashboardGrid({ selectedAccount }) {
             <CategoryPieChart />
           </div>
         </div>
-        <div className="bg-base-100 rounded-xl p-5 shadow-[0_1_60px_rgba(0,0,0,0.15)]">
+        <div className="bg-base-100 rounded-xl p-5 ">
           <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
             Categorized Expenses
           </h3>

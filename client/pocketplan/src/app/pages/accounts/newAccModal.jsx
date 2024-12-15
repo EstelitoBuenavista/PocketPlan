@@ -48,7 +48,7 @@ function NewAccModal({ onClose }) {
     <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
         <div className="modal-box bg-base-100 text-neutral relative p-8">
           <h3 className="font-bold text-xl sm:text-lg">Create a New Account</h3>
-          <p className="py-2 text-sm sm:text-base">Fill in the fields for the new account.</p>
+          <p className="py-2 text-sm sm:text-base">Fill in the fields for a new account.</p>
 
           <label className="form-control w-full">
             <div className="label">
@@ -94,7 +94,7 @@ function NewAccModal({ onClose }) {
               {isDropdownOpen && (
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] p-2 shadow absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-full "
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] p-2 absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-full "
                 >
                   {['Miscellaneous', 'Personal', 'Savings', 'Work', 'Others'].map((type) => (
                     <li key={type} onClick={() => handleDropdownSelect(type)}>
