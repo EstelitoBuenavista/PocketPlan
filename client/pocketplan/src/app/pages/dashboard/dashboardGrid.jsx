@@ -109,8 +109,8 @@ function DashboardGrid({ selectedAccount }) {
                 New Transaction
               </button>
             </div>
-            <div className="bg-base-100 rounded-xl overflow-auto ">
-            <TransactionsList selectedAccount={ selectedAccount } renderTrigger = { flag } trigger = {()=>setFlag(!flag)}/>
+            <div className="bg-base-100 rounded-xl overfl">
+              <TransactionsList selectedAccount={ selectedAccount } renderTrigger = { flag } trigger = {()=>setFlag(!flag)}/>
             </div>
           </div>
 

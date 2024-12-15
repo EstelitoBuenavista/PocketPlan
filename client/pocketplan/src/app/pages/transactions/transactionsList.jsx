@@ -58,7 +58,7 @@ function TransactionsList({ selectedAccount, renderTrigger, trigger }) {
     : "rounded py-0";
 
   return (
-    <div className="border-2 border-error w-full h-full">
+    <div className="w-full h-full">
       <div className={containerStyle}>
         <table className="table table-xs rounded-xl bg-base-100 text-neutral-content table-fixed border-spacing-1 w-full min-w-[600px]">
           <thead>
