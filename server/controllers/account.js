@@ -49,11 +49,20 @@ exports.delete = async (req, res) => {
 
 exports.update = async (req, res) => {
   const id = req.params.id 
+  const updatedData = req.body;
 
   try {
-    const account = await Account.destroy({where:{id : id}})
-    res.status(201).send(account)
+    const account = await Account.update(updatedData, {
+      where: { id: id }
+    });
+
+    if (account[0] === 0) {
+      return res.status(404).send({ error: 'Account not found' });
+    }
+
+    res.status(200).send({ message: 'Account updated successfully' });
   } catch (error) {
-    res.status(500).send({error: error.messager})
-  } 
-}
+    res.status(500).send({ error: error.message });
+  }
+};
+
