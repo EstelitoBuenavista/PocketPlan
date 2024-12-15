@@ -51,7 +51,7 @@ function CategoryMixBarChart() {
       if (!chartResponse.ok) throw new Error("Failed to fetch pie chart data");
   
       const chartData = await chartResponse.json();
-      const categoryTotals = getDailyCategoryTotals(chartData, categories);
+      const categoryTotals = getDailyCategoryTotals(chartData, category);
       setSlicedData(categoryTotals.slice(-10));
 
       const maxCategoryValue = Math.max(
@@ -135,37 +135,43 @@ const CustomTooltip = ({ payload }) => {
 };
 
   return (
-    <ResponsiveContainer width="100%" height="100%" >
-      <BarChart
-        data={slicedData}
-        margin={{
-          top: 5,
-          right: 5,
-          left: 5,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" tick={{ fontSize: 12 }}/>
-        <YAxis 
-          tick={{ fontSize: 12 }}
-          domain={[0, upperBound]}
-          tickCount={10}
-        />
-        <Tooltip content={<CustomTooltip />} />
-        <Legend wrapperStyle={{ fontSize: 12 }} />
-        {categories.map((category, index) => (
-          <Bar 
-            key={index} 
-            dataKey={category} 
-            stackId="a" 
-            fill={hoveredBar === category ? '#89BAFD' : categoryColors[index]}
-            onMouseEnter={() => setHoveredBar(category)}
-            onMouseLeave={() => setHoveredBar(null)}
+    <>
+    {slicedData && slicedData.length > 0 && categories ? (
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={slicedData}
+          margin={{
+            top: 5,
+            right: 5,
+            left: 5,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+          <YAxis 
+            tick={{ fontSize: 12 }}
+            domain={[0, upperBound]}
+            tickCount={10}
           />
-        ))}
-      </BarChart>
-    </ResponsiveContainer>
+          <Tooltip content={<CustomTooltip />} />
+          <Legend wrapperStyle={{ fontSize: 12 }} />
+          {categories.map((category, index) => (
+            <Bar 
+              key={index} 
+              dataKey={category} 
+              stackId="a" 
+              fill={hoveredBar === category ? '#89BAFD' : categoryColors[index]}
+              onMouseEnter={() => setHoveredBar(category)}
+              onMouseLeave={() => setHoveredBar(null)}
+            />
+          ))}
+        </BarChart>
+      </ResponsiveContainer>
+    ) : (
+      <p>No data available to display</p>
+    )}
+    </> 
   );
 }
 
