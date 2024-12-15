@@ -17,7 +17,11 @@ function DailyExpenseChart({ selectedAccount }) {
       } else {
       router.push('/pages/login')
       }
-      fetch(`http://localhost:4000/user/daily/${id}`)
+      fetch(`http://localhost:4000/user/daily/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        })
         .then(response => response.json())
         .then(data => {
           selectedAccountId ? 
