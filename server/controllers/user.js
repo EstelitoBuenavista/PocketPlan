@@ -87,10 +87,12 @@ exports.dailyExpenseChartData = async (req, res) => {
 }
 
 exports.getMixBarChart = async (req, res) => {
-  const id = req.params.id; // Get the user ID from the request parameters
+  const {id, account_id} = req.params
+  const condition = account_id != 0 ? {account_id:account_id} : {}
 
   try {
     const results = await Transaction.findAll({
+      where: condition,
       attributes: [
         [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'date'], // Format date as 'Dec 6'
         [sequelize.fn('SUM', sequelize.literal(`CASE WHEN transaction.type = 'expense' THEN transaction.amount ELSE 0 END`)), 'total_expenses'],
