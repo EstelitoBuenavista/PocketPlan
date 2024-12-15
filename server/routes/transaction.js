@@ -1,3 +1,5 @@
+const authenticateToken = require("../middleware/authToken");
+
 module.exports = (app) => {
     const transaction = require("../controllers/transaction");
     let router = require("express").Router();
@@ -9,5 +11,5 @@ module.exports = (app) => {
     router.delete("/:id", transaction.delete)
     router.put("/:id", transaction.update)
   
-    app.use("/transaction", router);
+    app.use("/transaction",authenticateToken, router);
   };

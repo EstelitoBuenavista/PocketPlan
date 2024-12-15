@@ -1,3 +1,6 @@
+const authenticateToken = require("../middleware/authToken");
+const {  } = require("../middleware/authToken");
+
 module.exports = (app) => {
   const user = require("../controllers/user");
   let router = require("express").Router();
@@ -8,5 +11,5 @@ module.exports = (app) => {
   router.get("/daily/:id", user.dailyExpenseChartData)
   router.get("/mixbar/:id/:account_id", user.getMixBarChart)
 
-  app.use("/user", router);
+  app.use("/user",authenticateToken, router);
 };

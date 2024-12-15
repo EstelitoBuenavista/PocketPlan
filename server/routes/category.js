@@ -1,3 +1,5 @@
+const authenticateToken = require("../middleware/authToken");
+
 module.exports = (app) => {
     const category = require("../controllers/category");
     let router = require("express").Router();
@@ -7,5 +9,5 @@ module.exports = (app) => {
     router.delete("/:id/:user_id", category.delete)
     router.put("/:id", category.update)
 
-    app.use("/category", router);
+    app.use("/category",authenticateToken, router);
   };
