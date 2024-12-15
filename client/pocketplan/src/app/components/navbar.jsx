@@ -1,8 +1,7 @@
 // components/navbar
 'use client'
 
-import { 
-  usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   ArrowLeftStartOnRectangleIcon,
   UserIcon,
@@ -10,6 +9,7 @@ import {
   ChartPieIcon,
   ReceiptPercentIcon,
   CreditCardIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/outline';
 
 function Navbar() {
@@ -82,27 +82,22 @@ function Navbar() {
           </ul>
         </div>
 
-        <hr className="border-l-2 border-neutral-content mx-5 my-2 h-7" />
+        <hr className="border-l-2 border-neutral-content mx-2 my-2 h-7" />
 
         <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost avatar p-0 hover:bg-base-100">
-            <div className="w-9 h-9 rounded-lg">
-              {/* Image of user should be here */}
-              <img
-                alt="User avatar"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
-            </div>
+          <div>
+            <button
+              aria-label="Profile"
+              className="flex items-center justify-center transition-transform hover:scale-110 w-8 h-8 btn-square text-neutral">
+              <UserCircleIcon className="w-6 h-6" />
+            </button>
           </div>
 
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-neutral">
             <li>
-              <a>
+              <a onClick={() => router.push('/pages/profile')}>
                 <UserIcon className="w-4 h-4" />
                 Profile
               </a>
