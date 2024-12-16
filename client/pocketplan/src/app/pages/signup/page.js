@@ -42,6 +42,7 @@ const handleRegister = (e) =>{
     .then((response) => response.json())
     .then((data) => {
       if (!data.email){
+        console.log("here")
         setIsError(true)
         return
       }

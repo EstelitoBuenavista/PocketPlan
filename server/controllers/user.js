@@ -4,6 +4,8 @@ const Account = db.account
 const Category = db.category
 const Transaction = db.transaction
 const sequelize = db.Sequelize
+const saltRounds = 8;
+const bcrypt = require('bcryptjs');
 
 exports.getUser = async (req,res) => {
   const id = req.params.id
@@ -18,6 +20,40 @@ exports.getUser = async (req,res) => {
     res.status(500).send({ error: error.message }); 
   }
 }
+
+exports.update = async (req, res) => {
+  const id = req.params.id;
+  let { username, email, password, passconfirm, oldPassword } = req.body;
+
+  if (password) {
+      const isValid = await bcrypt.compare(passconfirm, oldPassword)
+      password = await bcrypt.hash(password, saltRounds);
+      if (!isValid){
+        return res.status(400).send({error: "Bad Request"})
+      }
+  }
+
+  const condition = password
+      ? { username, email, password }
+      : { username, email };
+
+  try {
+      const [updatedRows] = await User.update(condition, {
+          where: { id },
+          validate: true, 
+          individualHooks: true, 
+      });
+
+      if (updatedRows === 0) {
+          return res.status(404).send({ error: "User not found or no changes made" });
+      }
+
+      res.status(200).send({ message: "User updated successfully" });
+  } catch (error) {
+      res.status(500).send({ error: error.message });
+  }
+};
+
 
 //  delete should cascade and delete all categories, transactions and accounts
 exports.delete = async (req, res) => {
