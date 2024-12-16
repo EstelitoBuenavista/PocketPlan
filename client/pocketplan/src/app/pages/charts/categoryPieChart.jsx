@@ -42,7 +42,11 @@ function CategoryPieChart({ selectedAccount }) {
     } else {
     router.push('/pages/login')
     }
-    fetch(`http://localhost:4000/user/pie/${id}/${selectedAccountId}`)
+    fetch(`http://localhost:4000/user/pie/${id}/${selectedAccountId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then(response => response.json())
       .then(data => {
         setData(data)

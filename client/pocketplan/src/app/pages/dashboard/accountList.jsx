@@ -21,7 +21,11 @@ erAccounts = () => {
     } else {
     router.push('/pages/login')
     }
-    fetch(`http://localhost:4000/account/user/${id}`)
+    fetch(`http://localhost:4000/account/user/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
       .then(response => response.json())
       .then(data => {
         setAccounts (data)

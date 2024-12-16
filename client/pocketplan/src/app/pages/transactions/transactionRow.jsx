@@ -3,6 +3,9 @@ function TransactionRow({ transaction, isOpen, toggleDetails, update, setUpdateT
   const handleDelete = ()=>{
     fetch(`http://localhost:4000/transaction/${transaction.id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }).then(()=>toggleDetails())
     .catch(error => {
         console.log("Error:", error);

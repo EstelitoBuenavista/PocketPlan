@@ -34,7 +34,11 @@ function DashboardGrid({ selectedAccount }) {
     router.push('/pages/login')
     }
 
-    fetch(`http://localhost:4000/account/usertotal/${id}`)
+    fetch(`http://localhost:4000/account/usertotal/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
       .then(response => response.json())
       .then(data => {
         setTotalBalance(data.balance)
