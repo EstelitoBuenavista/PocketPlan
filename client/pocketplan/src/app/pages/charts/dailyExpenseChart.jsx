@@ -22,9 +22,16 @@ function DailyExpenseChart({ selectedAccount }) {
       fetch(`http://localhost:4000/user/daily/${id}`)
         .then(response => response.json())
         .then(data => {
-          const filteredData = selectedAccountId ? data.filter(item => item.account_id === selectedAccountId) : data;
-
-          setData(filteredData);
+          // const filteredData = selectedAccountId ? data.filter(item => item.account_id === selectedAccountId) : data;
+          if (Array.isArray(data)) {
+            selectedAccount
+              ? setData(data.filter(item => item.account_id === selectedAccount.id))
+              : setData(data);
+          } else {
+            setData([]);
+          }
+          // setData(filteredData);
+          setData(data);
 
           const sliced = filteredData.slice(-10);
           setSlicedData(sliced);
@@ -51,7 +58,7 @@ function DailyExpenseChart({ selectedAccount }) {
     {slicedData && slicedData.length > 0 ? (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
-        data={slicedData}
+        data={data}
         margin={{
           top: 5,
           right: 5,
