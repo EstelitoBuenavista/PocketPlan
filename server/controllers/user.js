@@ -49,6 +49,7 @@ exports.pieChartData = async (req, res) => {
         ],
         where: { user_id: id },
         group: ['Category.name'],
+        raw: true
       });
 
       res.status(200).send(result)
@@ -76,8 +77,10 @@ exports.dailyExpenseChartData = async (req, res) => {
             where: { user_id: id }, 
           }
         ],
-        group: [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d')], // Group by day
-        order: [[sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d'), 'ASC']] // Order by date
+        group: [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'account_id'], // Group by day
+        order: [[sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'ASC']], // Order by date
+        raw: true,
+        logging: console.log,
       });
 
       res.status(200).send(results)
@@ -110,11 +113,11 @@ exports.getMixBarChart = async (req, res) => {
         }
       ],
       group: [
-        sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d'), // Group by date
+        sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), // Group by date
         'category_id'
       ],
       order: [
-        [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d'), 'ASC']
+        [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'ASC']
       ]
     });
 

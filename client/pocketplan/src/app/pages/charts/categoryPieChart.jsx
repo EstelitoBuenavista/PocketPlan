@@ -72,9 +72,19 @@ function CategoryPieChart({ selectedAccount }) {
           dataKey="value"
           nameKey="name"
         >
-          {data.map((entry, index) => (
+          {/* {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
+          ))} */}
+          {Array.isArray(data) ? (
+    data.map((entry, index) => (
+      <Cell
+        key={`cell-${index}`}
+        fill={COLORS[index % COLORS.length]}
+      />
+    ))
+  ) : (
+    <p>Loading or no data available...</p>
+  )}
         </Pie>
         <Tooltip />
       </PieChart>
