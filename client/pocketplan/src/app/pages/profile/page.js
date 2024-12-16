@@ -1,13 +1,88 @@
 // pages/profile
 'use client';
 
-import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import Navbar from "@/app/components/navbar";
 
 export default function Profile() {
+  const [isError, setIsError] = useState(false)
   const [isEditing, setIsEditing] = useState(false);
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [passconfirm, setPassconfirm] = useState("")
+  const [oldPassword, setOldPassword] = useState('')
   const router = useRouter();
+
+  const renderUser = ()=> {
+    let id = 0
+    const token = localStorage.getItem("token")
+    if (token){
+    id = jwtDecode(token).userId.toString()
+    } else {
+    router.push('/pages/login')
+    }
+    fetch(`http://localhost:4000/user/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      setEmail(data.email);
+      setUsername(data.username);
+      setOldPassword(data.password)
+    })
+    .catch(err => console.error('Error fetching accounts:', err));
+  }
+
+  useEffect(() => {
+    renderUser()
+  }, [])
+  useEffect(() => {
+    renderUser()
+  }, [isEditing])
+
+  const handleSaveChanges = (e) => {
+    e.preventDefault()
+
+    let id = 0
+    const token = localStorage.getItem("token")
+    if (token){
+    id = jwtDecode(token).userId.toString()
+    } else {
+    router.push('/pages/login')
+    }
+
+    const newUser = {
+      email : email,
+      username : username,
+      password : password,
+      passconfirm: passconfirm,
+      oldPassword: oldPassword
+    };
+    
+    fetch(`http://localhost:4000/user/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(newUser),
+    })
+    .then(response => response.json())
+    .then((data) => {
+      renderUser()
+      if (data.error){
+        setIsError(true)
+      }
+    }).then(()=>{toggleEdit()})
+    .catch(error => {
+      console.error('Error updating user:', error);
+    });
+  };
 
   const handleLogOut = () => {
     localStorage.removeItem('token');
@@ -16,6 +91,8 @@ export default function Profile() {
 
   const toggleEdit = () => {
     setIsEditing((prev) => !prev);
+    setPassconfirm('')
+    setPassword('')
   };
 
   const handleDiscard = () => {
@@ -41,7 +118,8 @@ export default function Profile() {
                     <span className="font-light text-xs text-neutral">Username</span>
                   </div>
                   <input
-                     // onChange={e => setUsername(e.target.value)}
+                    onChange={e => setUsername(e.target.value)}
+                    value={username}
                     type="text"
                     placeholder="Show username here***"
                     className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
@@ -50,7 +128,8 @@ export default function Profile() {
                     <span className="font-light text-xs text-neutral">E-mail</span>
                   </div>
                   <input
-                    // onChange={e => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     type="text"
                     placeholder="Show user email here***"
                     className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
@@ -58,10 +137,11 @@ export default function Profile() {
                   <div className="flex gap-4 w-full">
                     <div className="flex flex-col items-start w-full sm:w-1/2">
                       <div className="label">
-                        <span className="font-light text-xs text-neutral">Change Password</span>
+                        <span className="font-light text-xs text-neutral">New Password</span>
                       </div>
                       <input
-                        // onChange={e => setPassword(e.target.value)}
+                        onChange={e => setPassword(e.target.value)}
+                        value={password}
                         type="password"
                         placeholder="sample password"
                         className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
@@ -69,10 +149,11 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col items-start w-full sm:w-1/2">
                       <div className="label">
-                        <span className="font-light text-xs text-neutral">Confirm Password</span>
+                        <span className="font-light text-xs text-neutral">Old Password</span>
                       </div>
                       <input
-                        // onChange={e => setPassconfirm(e.target.value)}
+                        onChange={e => setPassconfirm(e.target.value)}
+                        value={passconfirm}
                         type="password"
                         placeholder="sample password"
                         className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
@@ -87,7 +168,7 @@ export default function Profile() {
                   </div>
                   <input
                     type="text"
-                    value="Emong mama"
+                    value={username || ''}
                     readOnly
                     className="input input-bordered w-full bg-neutral-200 text-neutral-800"
                   />
@@ -96,10 +177,11 @@ export default function Profile() {
                   </div>
                   <input
                     type="text"
-                    value="mamamo@example.com" // Display the email here
+                    value={email || ''}
                     readOnly
                     className="input input-bordered w-full bg-neutral-200 text-neutral-800"
                   />
+                  {isError && <p className="text-error">Something went wrong</p>}
                 </div>
               )}
             </div>
@@ -124,12 +206,13 @@ export default function Profile() {
                     </button>
                     <button
                       className="btn btn-primary w-full sm:w-auto"
+                      onClick={handleSaveChanges}
                     >
                       Save Changes
                     </button>
                   </>
                 ) : (
-                  <button className="btn btn-primary w-full sm:w-auto" onClick={toggleEdit}>
+                  <button className="btn btn-primary w-full sm:w-auto" onClick={()=>{toggleEdit(); setIsError(false)}}>
                     Edit
                   </button>
                 )}
