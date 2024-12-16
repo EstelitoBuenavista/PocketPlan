@@ -99,7 +99,7 @@ const getDailyCategoryTotals = (dailyExpenses, categories) => {
       return acc;
     }, {});
 
-    day.transactions.forEach(transaction => {
+    (day.transactions || []).forEach(transaction => {
       if (transaction.category && dayTotals[transaction.category] !== undefined) {
         dayTotals[transaction.category] += transaction.value;
       }
