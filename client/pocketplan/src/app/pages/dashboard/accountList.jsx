@@ -13,7 +13,6 @@ function AccountList({ children }) {
   const [selectedAccountId, setSelectedAccountId] = useState(0);
   const [accountTrigger, setAccountTrigger] = useState(false)
 
-
   const renderAccounts = () => {
     let id = 0
     const token = localStorage.getItem("token")
