@@ -8,6 +8,8 @@ import { triggerContext } from '../dashboard/accountList';
 function DailyExpenseChart({ selectedAccount }) {
     const [data,setData] = useState([])
     const [accountTrigger, setAccountTrigger, selectedAccountId] = useContext(triggerContext)
+    const [slicedData, setSlicedData] = useState("")
+    const [maxValue, setMaxValue] = useState(0)
   
     const renderLineChart = () => {
       let id = 0
@@ -20,10 +22,18 @@ function DailyExpenseChart({ selectedAccount }) {
       fetch(`http://localhost:4000/user/daily/${id}`)
         .then(response => response.json())
         .then(data => {
-          selectedAccountId ? 
-          setData(data.filter(item => item.account_id === selectedAccountId)) :
-          setData(data)
-        })
+          const filteredData = selectedAccountId ? data.filter(item => item.account_id === selectedAccountId) : data;
+
+          setData(filteredData);
+
+          const sliced = filteredData.slice(-10);
+          setSlicedData(sliced);
+
+          const maxCategoryValue = Math.max(
+              ...sliced.flatMap((d) => [d.income, d.expenses])
+          );
+          setMaxValue(Math.ceil(maxCategoryValue / 10) * 10);
+      })
         .catch(error => {
           console.log("Error:", error);
         });
@@ -36,10 +46,9 @@ function DailyExpenseChart({ selectedAccount }) {
       renderLineChart()
      }, [selectedAccount, selectedAccountId])
 
-  const slicedData = data.slice(-10);
-  const maxValue = Math.max(...slicedData.flatMap((d) => [d.income, d.expenses]));
-
   return (
+    <>
+    {slicedData && slicedData.length > 0 ? (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
         data={slicedData}
@@ -73,6 +82,10 @@ function DailyExpenseChart({ selectedAccount }) {
         />
       </LineChart>
     </ResponsiveContainer>
+  ) : (
+    <p>No data available to display</p>
+  )}
+  </> 
   );
 }
 
