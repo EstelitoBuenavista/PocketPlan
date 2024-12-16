@@ -1,16 +1,16 @@
 // components/newAccModal
 'use client';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { jwtDecode } from 'jwt-decode'
 
-function NewAccModal({ onClose }) {
+
+function NewAccModal({ onClose, onAccountCreated }) {
   const [selectedType, setSelectedType] = useState('Others'); // Default to 'Others'
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [name, setName] =  useState(null);
   const [balance, setBalance] = useState(null);
   const token = localStorage.getItem('token');
-
   const handleSubmit = (e) =>{
     e.preventDefault()
 
@@ -30,6 +30,10 @@ function NewAccModal({ onClose }) {
       body: JSON.stringify(newStudent),
     })
       .then((response) => response.json())
+      .then(() => {
+        onAccountCreated();
+        onClose();
+      })
       .catch((error) => {
         console.error("Error creating Account", error);
       });
