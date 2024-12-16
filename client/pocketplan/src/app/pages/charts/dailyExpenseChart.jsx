@@ -60,7 +60,7 @@ function DailyExpenseChart({ selectedAccount }) {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="dailyTotal" tick={{ fontSize: 12 }} />
+        <XAxis dataKey="date" tick={{ fontSize: 12 }} />
         <YAxis 
           tick={{ fontSize: 12 }} 
           domain={[0, maxValue]} 
