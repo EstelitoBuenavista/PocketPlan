@@ -5,15 +5,15 @@ import React, { useState, useEffect, useContext, createContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 
-export const triggerContext = createContext()
+export const triggerContext = createContext();
 
 function AccountList({ children }) {
-  const router = useRouter()
+  const router = useRouter();
   const [accounts, setAccounts] = useState([]);
   const [selectedAccountId, setSelectedAccountId] = useState(0);
-  const [accountTrigger, setAccountTrigger] = useState(false)
-
-  const renderAccounts = () => {
+  const [accountTrigger, setAccountTrigger] = useState(false);
+ 
+erAccounts = () => {
     let id = 0
     const token = localStorage.getItem("token")
     if (token){
@@ -34,6 +34,7 @@ function AccountList({ children }) {
   useEffect(() => {
     renderAccounts()
    }, [])
+
    useEffect(() => {
     console.log("account render")
     renderAccounts()
