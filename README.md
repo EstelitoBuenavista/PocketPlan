@@ -19,12 +19,6 @@ Clone the repo onto your local machine.
 git clone https://github.com/EstelitoBuenavista/PocketPlan.git
 ```
 
-Run the following command to install all project dependencies.
-```bash
-# Install project dependencies
-npm install
-```
-
 **Open XAMPP then start Apache and MySQL.** Open the repository in your VSCode and split the terminal into two.
 ```bash
 # In the first terminal run the ff commands
