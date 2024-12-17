@@ -3,7 +3,7 @@ import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 
 function AccountCard ({ account }) {
    return (
-      <div className="glass card bg-primary transition-transform hover:bg-blue-600">
+      <div className="glass rounded-lg card bg-primary transition-transform hover:bg-blue-600">
          <div className="card-body">
             <div className="card-actions justify-end mb-2">
                <Square3Stack3DIcon className="w-8 h-8 text-secondary"/>
