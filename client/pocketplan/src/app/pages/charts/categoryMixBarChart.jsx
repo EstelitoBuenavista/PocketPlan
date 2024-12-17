@@ -78,15 +78,15 @@ function CategoryMixBarChart() {
 // ];
 
 const categoryColors = [
-  '#3CA857',
-  '#42BC60',
-  '#54C470',
-  '#66CB7F',
-  '#79D28F',
-  '#8BD89F',
-  '#9EDFAE',
-  '#B1E6BE',
-  '#C4ECCE',
+  '#004e98',
+  '#0068be',
+  '#0086d0',
+  '#2f97d5',
+  '#5fc0b5',
+  '#9cccd3',
+  '#6a99bd',
+  '#73caee',
+  '#87c2d7',
   '#D7F3DE'
 ];
 
@@ -168,7 +168,7 @@ const CustomTooltip = ({ payload }) => {
               key={index} 
               dataKey={category} 
               stackId="a" 
-              fill={hoveredBar === category ? '#89BAFD' : categoryColors[index]}
+              fill={hoveredBar === category ? '#161515' : categoryColors[index]}
               onMouseEnter={() => setHoveredBar(category)}
               onMouseLeave={() => setHoveredBar(null)}
             />

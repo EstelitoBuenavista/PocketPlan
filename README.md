@@ -7,18 +7,34 @@ Make informed decisions and stay on top of your money, making it simple to plan 
 - Track daily expenses and income
 - Visualize spending by category
 
-## Getting Started
-1. Install Docker Desktop from https://www.docker.com
-2. Clone the repository using ```git clone https://github.com/EstelitoBuenavista/PocketPlan.git``` in the terminal.
-3. Move to the cloned directory  via ```cd PocketPlan```.
-4. Run ```docker compose up --build```.
+## Prerequisites
+To get started with Pocket Plan, ensure that you have the following tools installed and properly configured on your system:
+1. XAMPP Control Panel
+   - [Install XAMPP](https://www.ionos.com/digitalguide/server/tools/xampp-tutorial-create-your-own-local-test-server/)
+   - [Download XAMPP](https://www.apachefriends.org/de/download.html)
 
-## Figma Prototype & FigJam
+## Getting Started
+Clone the repo onto your local machine.
+```bash
+git clone https://github.com/EstelitoBuenavista/PocketPlan.git
+```
+
+**Open XAMPP then start Apache and MySQL.** Open the repository in your VSCode and split the terminal into two.
+```bash
+# In the first terminal run the ff commands
+cd .\server\
+npm install
+npm run db:seed
+npm run dev
+```
+```bash
+# In the second terminal run the ff commands
+cd .\client\pocketplan\
+npm install
+npm run dev
+```
+
+### Figma Prototype & FigJam
 Link to Prototype: [Figma Prototype](https://www.figma.com/proto/ysSmUzq4G3R9yIVdDLly2H/3105_AppDev%3A-B.T.V.?page-id=0%3A1&node-id=22-82&node-type=canvas&viewport=-199%2C-479%2C0.71&t=gmdaKf22hjGDhRdV-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=22%3A82)  
 Link to FigJam: [FigJam](https://www.figma.com/board/cNS3Iu8aHhxEwPoT12O8tU/3105_AppDev%3A-Pocket-Plan-FigJam?node-id=0-1&t=5sALwjj56ib4VqaB-1)  
 Password: `pocket-plan-2024`
-
-### Contributors
-Estelito Y. Buanavista  
-Lawrence A. Tulod  
-Fabiola C. Villanueva
