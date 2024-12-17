@@ -10,13 +10,21 @@ import NewCategoryModal from './newCategoryModal';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
-
+import UpdateDeleteModal from './UpdateDeleteModal';
 export default function Accounts() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [accounts, setAccounts] = useState([]);
   const [categories, setCategories] = useState([]);
   
+
+  const [selectedAccount, setSelectedAccount] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleAccountSelect = (account) => {
+    setSelectedAccount(account);
+    setIsModalOpen(true);
+  };
+
   const handleAddCategoryClick = () => setIsCategoryModalOpen(true);
   const handleAddAccountClick = () => setIsAccountModalOpen(true);
   
@@ -106,14 +114,21 @@ export default function Accounts() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {accounts.map(account => (
-              <AccountCard key={account.id} account={account} />
+              <AccountCard key={account.id} account={account} onSelect={handleAccountSelect}/>
             ))} 
           </div>
         </div>
       </div>
-
+      
       {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} />}
       {isCategoryModalOpen && <NewCategoryModal onClose={handleCloseModal} onCategoryCreated={handleNewCategoryCreated}/>}
+      {isModalOpen && (
+        <UpdateDeleteModal 
+          account={selectedAccount} 
+          onClose={() => setIsModalOpen(false)} 
+          // Provide update/delete handlers here
+        />
+      )}
     </div>
   );
 }
