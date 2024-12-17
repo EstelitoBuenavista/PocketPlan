@@ -38,8 +38,3 @@ npm run dev
 Link to Prototype: [Figma Prototype](https://www.figma.com/proto/ysSmUzq4G3R9yIVdDLly2H/3105_AppDev%3A-B.T.V.?page-id=0%3A1&node-id=22-82&node-type=canvas&viewport=-199%2C-479%2C0.71&t=gmdaKf22hjGDhRdV-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=22%3A82)  
 Link to FigJam: [FigJam](https://www.figma.com/board/cNS3Iu8aHhxEwPoT12O8tU/3105_AppDev%3A-Pocket-Plan-FigJam?node-id=0-1&t=5sALwjj56ib4VqaB-1)  
 Password: `pocket-plan-2024`
-
-### Contributors
-Estelito Y. Buanavista  
-Lawrence A. Tulod  
-Fabiola C. Villanueva
