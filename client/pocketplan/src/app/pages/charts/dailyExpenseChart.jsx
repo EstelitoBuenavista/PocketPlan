@@ -32,14 +32,26 @@ function DailyExpenseChart({ selectedAccount }) {
           if (Array.isArray(data)) {
             const filteredData = selectedAccount
             ? data.filter(item => item.account_id === selectedAccount.id)
-            : data;
-          //     ? setData(data.filter(item => item.account_id === selectedAccount.id))
-          //     : setData(data);
-          // } else {
-          //   setData([]);
-          
-          // setData(filteredData);
-          // setData(data);
+            : data.reduce((acc, current) => {
+              const existingEntry = acc.find(item => item.date === current.date);
+            
+              if (existingEntry) {
+                // If the date already exists, sum up the incomes, expenses, and amounts
+                existingEntry.income += current.income;
+                existingEntry.expenses += current.expenses;
+                existingEntry.amt += current.amt;
+              } else {
+                // If the date doesn't exist, add the entry to the accumulator
+                acc.push({ 
+                  date: current.date, 
+                  income: current.income, 
+                  expenses: current.expenses, 
+                  amt: current.amt 
+                });
+              }
+
+              return acc;
+            }, []);
 
           const sliced = filteredData.slice(-10);
           setData(filteredData);
