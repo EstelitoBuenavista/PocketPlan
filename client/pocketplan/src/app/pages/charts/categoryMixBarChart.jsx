@@ -78,16 +78,16 @@ function CategoryMixBarChart() {
 // ];
 
 const categoryColors = [
-  '#3CA857',
-  '#42BC60',
+  '#161515',
+  '#000327',
   '#54C470',
-  '#66CB7F',
-  '#79D28F',
-  '#8BD89F',
-  '#9EDFAE',
-  '#B1E6BE',
-  '#C4ECCE',
-  '#D7F3DE'
+  '#212462',
+  '#37358e',
+  '#4e19b9',
+  '#5065c5',
+  '#857dcd',
+  '#939ce0',
+  '#aeb7e9'
 ];
 
 

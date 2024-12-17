@@ -8,7 +8,6 @@ import AccountCard from '@/app/pages/accounts/accountCard';
 import CategoryBadge from './categoryBadge';
 import NewCategoryModal from './newCategoryModal';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import UpdateAccModal from './updateAccModal';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 
