@@ -78,6 +78,7 @@ function CategoryMixBarChart() {
 // ];
 
 const categoryColors = [
+<<<<<<< Updated upstream
   '#161515',
   '#000327',
   '#54C470',
@@ -88,6 +89,18 @@ const categoryColors = [
   '#857dcd',
   '#939ce0',
   '#aeb7e9'
+=======
+  '#004e98',
+  '#0068be',
+  '#0086d0',
+  '#2f97d5',
+  '#5fc0b5',
+  '#9cccd3',
+  '#6a99bd',
+  '#73caee',
+  '#87c2d7',
+  '#D7F3DE'
+>>>>>>> Stashed changes
 ];
 
 
@@ -161,7 +174,7 @@ const CustomTooltip = ({ payload }) => {
               key={index} 
               dataKey={category} 
               stackId="a" 
-              fill={hoveredBar === category ? '#89BAFD' : categoryColors[index]}
+              fill={hoveredBar === category ? '#161515' : categoryColors[index]}
               onMouseEnter={() => setHoveredBar(category)}
               onMouseLeave={() => setHoveredBar(null)}
             />
