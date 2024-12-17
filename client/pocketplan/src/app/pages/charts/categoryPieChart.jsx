@@ -87,7 +87,7 @@ function CategoryPieChart({ selectedAccount }) {
       />
     ))
   ) : (
-    <p>Loading or no data available...</p>
+    <p className="text-error text-center">Loading or no data available...</p>
   )}
         </Pie>
         <Tooltip />

@@ -119,7 +119,7 @@ function DailyExpenseChart({ selectedAccount }) {
       </LineChart>
     </ResponsiveContainer>
   ) : (
-    <p>No data available to display</p>
+    <p className="text-error text-center">No data available to display</p>
   )}
   </> 
   );
