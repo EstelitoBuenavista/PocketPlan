@@ -12,6 +12,7 @@ import UpdateAccModal from './updateAccModal';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 
+
 export default function Accounts() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
@@ -27,26 +28,43 @@ export default function Accounts() {
   
   const router = useRouter();
 
+
   const categories = [ "music", "food", "shopping", "this is a long category" ];
 
-  useEffect(() => {
-    // Fetch accounts from the backend
-    let id = 0
-    const token = localStorage.getItem("token")
-    if (token){
-    id = jwtDecode(token).userId.toString()
+  // const handleAddAccountClick = () => setIsModalOpen(true);
+  // const handleCloseModal = () => setIsModalOpen(false);
+  const [fetchTrigger, setFetchTrigger] = useState(false);
+ 
+
+
+
+  const fetchAccounts = () => {
+    let id = 0;
+    const token = localStorage.getItem("token");
+    if (token) {
+      id = jwtDecode(token).userId.toString();
     } else {
-    router.push('/pages/login')
+      router.push('/pages/login');
+      return; // Prevent further execution
     }
+
     fetch(`http://localhost:4000/account/user/${id}`, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
     })
-      .then(response => response.json())
-      .then(data => setAccounts(data))
-      .catch(error => console.error('Error fetching accounts:', error));
-  }, []);
+      .then((response) => response.json())
+      .then((data) => setAccounts(data))
+      .catch((error) => console.error('Error fetching accounts:', error));
+  };
+
+  useEffect(() => {
+    fetchAccounts();
+  }, [fetchTrigger]);
+
+  const handleAccountCreated = () => {
+    setFetchTrigger(!fetchTrigger); // Toggle fetchTrigger to re-fetch accounts
+  };
 
   return (
     <div className="background flex flex-col min-h-screen">
@@ -93,8 +111,10 @@ export default function Accounts() {
         </div>
       </div>
 
-      {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} />}
+
+      {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} onAccountCreated={handleAccountCreated}/>}
       {isCategoryModalOpen && <NewCategoryModal onClose={handleCloseModal} />}
+
     </div>
   );
 }
