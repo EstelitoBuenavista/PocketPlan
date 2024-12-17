@@ -71,7 +71,7 @@ function CategoryMixBarChart() {
    }, [])
   useEffect(() => {
     renderChartData()
-   }, [selectedAccountId])
+   }, [selectedAccountId, accountTrigger])
 
 // const categories = [
 //   'Work', 'Misc', 'Food', 'Leisure', 'Bills', 'Supplies', 'School', 'Music'
