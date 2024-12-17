@@ -31,6 +31,7 @@ npm run dev
 # In the second terminal run the ff commands
 cd .\client\pocketplan\
 npm install
+npm install --legacy-peer-deps
 npm run dev
 ```
 
