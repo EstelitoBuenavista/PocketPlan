@@ -4,12 +4,14 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { useEffect, useState, useContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { triggerContext } from '../dashboard/accountList';
+import { useRouter } from 'next/compat/router';
 
 function DailyExpenseChart({ selectedAccount }) {
-    const [data,setData] = useState([])
-    const [accountTrigger, setAccountTrigger, selectedAccountId] = useContext(triggerContext)
+    const [data, setData] = useState([])
+    const [accountTrigger, setAccountTrigger] = useContext(triggerContext)
     const [slicedData, setSlicedData] = useState("")
     const [maxValue, setMaxValue] = useState(0)
+    const router = useRouter();
   
     const renderLineChart = () => {
       let id = 0
@@ -24,41 +26,52 @@ function DailyExpenseChart({ selectedAccount }) {
         .then(data => {
           // const filteredData = selectedAccountId ? data.filter(item => item.account_id === selectedAccountId) : data;
           if (Array.isArray(data)) {
-            selectedAccount
-              ? setData(data.filter(item => item.account_id === selectedAccount.id))
-              : setData(data);
-          } else {
-            setData([]);
-          }
+            const filteredData = selectedAccount
+            ? data.filter(item => item.account_id === selectedAccount.id)
+            : data;
+          //     ? setData(data.filter(item => item.account_id === selectedAccount.id))
+          //     : setData(data);
+          // } else {
+          //   setData([]);
+          
           // setData(filteredData);
-          setData(data);
+          // setData(data);
 
-          const sliced = data.slice(-10);
+          const sliced = filteredData.slice(-10);
+          setData(filteredData);
           setSlicedData(sliced);
 
           const maxCategoryValue = Math.max(
               ...sliced.flatMap((d) => [d.income, d.expenses])
           );
           setMaxValue(Math.ceil(maxCategoryValue / 10) * 10);
-      })
+      } else {
+        setData([]);
+        setSlicedData([]);
+    }
+  })
         .catch(error => {
           console.log("Error:", error);
+          setData([]);
         });
-    }
+    };
   
     // useEffect(() => {
     //   renderLineChart()
     //  }, [])
+    // useEffect(() => {
+    //   renderLineChart()
+    //  }, [selectedAccount, selectedAccountId])
     useEffect(() => {
-      renderLineChart()
-     }, [selectedAccount, selectedAccountId])
+      renderLineChart();
+    }, [accountTrigger, selectedAccount]);
 
   return (
     <>
     {slicedData && slicedData.length > 0 ? (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
-        data={data}
+        data={slicedData}
         margin={{
           top: 5,
           right: 5,

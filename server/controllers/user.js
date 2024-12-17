@@ -87,17 +87,20 @@ exports.dailyExpenseChartData = async (req, res) => {
 
       const aggregatedResults = results.reduce((acc, result) => {
         const date = result.dailyTotal;
-        if (!acc[date]) {
-          acc[date] = {
+        const accountId = result.account_id;
+        const key = `${date}_${accountId}`;
+        if (!acc[key]) {
+          acc[key] = {
             date: date,
             income: 0,
             expenses: 0,
-            amt: 0
+            amt: 0,
+            account_id: accountId
           };
         }
-        acc[date].income += parseFloat(result.income);
-        acc[date].expenses += parseFloat(result.expenses);
-        acc[date].amt += parseFloat(result.amt);
+        acc[key].income += parseFloat(result.income);
+        acc[key].expenses += parseFloat(result.expenses);
+        acc[key].amt += parseFloat(result.amt);
         return acc;
       }, {});
 
