@@ -78,8 +78,8 @@ function DashboardGrid({ selectedAccount }) {
           {/* Chart div */}
           <div className="p-4 bg-base-100 rounded-xl min-h-[200px]">
             <h3 className="text-2xl font-medium mb-4 text-neutral">Daily Overview</h3>
-            <div className="w-full h-[200px] overflow-auto">
-              <DailyExpenseChart />
+            <div className="w-full h-80 ">
+              <DailyExpenseChart selectedAccount={selectedAccount} />
             </div>
           </div>
 

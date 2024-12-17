@@ -85,6 +85,7 @@ exports.pieChartData = async (req, res) => {
         ],
         where: { user_id: id },
         group: ['Category.name'],
+        raw: true
       });
 
       res.status(200).send(result)
@@ -103,7 +104,8 @@ exports.dailyExpenseChartData = async (req, res) => {
           [sequelize.fn('SUM', sequelize.literal(`CASE WHEN Transaction.type = 'income' THEN amount ELSE 0 END`)), 'income'],
           [sequelize.fn('SUM', sequelize.literal(`CASE WHEN Transaction.type = 'expense' THEN amount ELSE 0 END`)), 'expenses'],
           [sequelize.fn('SUM', sequelize.col('amount')), 'amt'],
-          'account_id'
+          'account_id',
+          'transaction_date'
         ],
         include: [
           {
@@ -112,11 +114,34 @@ exports.dailyExpenseChartData = async (req, res) => {
             where: { user_id: id }, 
           }
         ],
-        group: [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d')], // Group by day
-        order: [[sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d'), 'ASC']] // Order by date
+        group: [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'account_id','transaction_date'], // Group by day
+        // order: [[sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'ASC']], // Order by date
+        order: [['transaction_date', 'ASC']],
+        raw: true,
       });
 
-      res.status(200).send(results)
+      const aggregatedResults = results.reduce((acc, result) => {
+        const date = result.dailyTotal;
+        const accountId = result.account_id;
+        const key = `${date}_${accountId}`;
+        if (!acc[key]) {
+          acc[key] = {
+            date: date,
+            income: 0,
+            expenses: 0,
+            amt: 0,
+            account_id: accountId
+          };
+        }
+        acc[key].income += parseFloat(result.income);
+        acc[key].expenses += parseFloat(result.expenses);
+        acc[key].amt += parseFloat(result.amt);
+        return acc;
+      }, {});
+
+    const formattedResults = Object.values(aggregatedResults);
+
+      res.status(200).send(formattedResults);
     } catch (error) {
       res.status(500).send({ error: error.message });
     }
@@ -132,7 +157,8 @@ exports.getMixBarChart = async (req, res) => {
       attributes: [
         [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'date'], // Format date as 'Dec 6'
         [sequelize.fn('SUM', sequelize.literal(`CASE WHEN transaction.type = 'expense' THEN transaction.amount ELSE 0 END`)), 'total_expenses'],
-        'category_id' // Group by category
+        'category_id',
+        'transaction_date' // Group by category
       ],
       include: [
         {
@@ -146,30 +172,52 @@ exports.getMixBarChart = async (req, res) => {
         }
       ],
       group: [
-        sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d'), // Group by date
-        'category_id'
+        sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), // Group by date
+        'category_id',
+        'transaction_date'
       ],
       order: [
-        [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%Y-%m-%d'), 'ASC']
-      ]
+        // [sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'ASC']
+        ['transaction_date', 'ASC']
+
+      ],
+      raw: true
     });
 
-    const formattedResults = results.map(result => {
-       return {
-         date: result.dataValues.date, 
-         transactions: [{
-           category: result.dataValues.Category.name,
-           value: result.dataValues.total_expenses, 
-         }],
-       };
-     });
+    const aggregatedData = {};
 
-     console.log(results)
-     console.log(formattedResults)
+    results.forEach(result => {
+      const { date } = result;
+      const categoryName = result['Category.name'];
+      const totalExpenses = parseFloat(result.total_expenses) || 0;
+
+      if (!aggregatedData[date]) {
+        aggregatedData[date] = {
+          date: date,
+          transactions: []
+        };
+      }
+
+      aggregatedData[date].transactions.push({
+        category: categoryName,
+        value: totalExpenses
+      });
+    });
+
+
+    // const formattedResults = results.map(result => {
+    //    return {
+    //      date: result.dataValues.date, 
+    //      transactions: [{
+    //        category: result.dataValues.Category.name,
+    //        value: result.dataValues.total_expenses, 
+    //      }],
+    //    };
+    //  });
+    const formattedResults = Object.values(aggregatedData);
+
 
     res.status(200).send(formattedResults);
-    
-
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

@@ -40,7 +40,6 @@ const renderAccounts = () => {
    }, [])
 
    useEffect(() => {
-    console.log("account render")
     renderAccounts()
    }, [accountTrigger, selectedAccountId])
 

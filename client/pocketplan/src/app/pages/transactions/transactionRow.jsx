@@ -1,6 +1,14 @@
 // components/transactionRow
+import { jwtDecode } from "jwt-decode"
 function TransactionRow({ transaction, isOpen, toggleDetails, update, setUpdateTransaction }) {
   const handleDelete = ()=>{
+    let id = 0
+      const token = localStorage.getItem("token")
+      if (token){
+      id = jwtDecode(token).userId.toString()
+      } else {
+      router.push('/pages/login')
+      }
     fetch(`http://localhost:4000/transaction/${transaction.id}`, {
       method: "DELETE",
       headers: {
