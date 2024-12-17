@@ -6,9 +6,9 @@ import { jwtDecode } from 'jwt-decode';
 import { triggerContext } from '../dashboard/accountList';
 
 const COLORS = [ 
-  '#2075fe', 
-  '#7aadff',
-  '#00378f'
+  '#f75b8c', 
+  '#d53582',
+  '#ffa6cb'
 ];
 
 const RADIAN = Math.PI / 180;
