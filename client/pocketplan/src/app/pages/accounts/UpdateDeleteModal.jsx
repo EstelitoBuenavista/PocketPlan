@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-function UpdateDeleteModal({ account, onClose }) {
+function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdated }) {
     const [name, setName] = useState(account?.name || '');
     const [balance, setBalance] = useState(account?.balance || 0);
     const [type, setType] = useState(account?.type || '');
@@ -26,9 +26,10 @@ function UpdateDeleteModal({ account, onClose }) {
         if (!response.ok) {
           throw new Error('Failed to update account');
         }
-  
+        const updatedAccount = await response.json();
         // If the update succeeds, you might want to refetch accounts in the parent
         // or directly update state if you have a callback to the parent.
+        onAccountUpdated(updatedAccount);
         onClose(); 
       } catch (error) {
         console.error('Error updating account:', error);
@@ -52,6 +53,7 @@ function UpdateDeleteModal({ account, onClose }) {
   
         // If the deletion succeeds, you should remove the account from the list in the parent.
         // You can either refetch accounts in the parent or handle it there.
+        onAccountDeleted(account.id);
         onClose();
       } catch (error) {
         console.error('Error deleting account:', error);

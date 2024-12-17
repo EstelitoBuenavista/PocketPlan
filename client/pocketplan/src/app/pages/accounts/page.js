@@ -11,6 +11,8 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import UpdateDeleteModal from './UpdateDeleteModal';
+
+
 export default function Accounts() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
@@ -33,6 +35,10 @@ export default function Accounts() {
     setIsCategoryModalOpen(false);
   };
   
+  const handleAccountCreated = (newAccount)=> {
+    setAccounts((prev) => [...prev, newAccount]);
+  };
+
   const router = useRouter();
 
   // const categories = [ "music", "food", "shopping", "this is a long category" ];
@@ -73,6 +79,18 @@ export default function Accounts() {
 
   const handleNewCategoryCreated = (newCategory) => {
     setCategories((prevCategories) => [...prevCategories, newCategory]);
+  };
+
+  const handleAccountDeleted = (deletedAccountId) => {
+    setAccounts(prev => prev.filter(account => account.id !== deletedAccountId));
+  };
+  
+  const handleAccountUpdated = (updatedAccount) => {
+    setAccounts(prev =>
+      prev.map(account =>
+        account.id === updatedAccount.id ? updatedAccount : account
+      )
+    );
   };
 
   return (
@@ -120,13 +138,15 @@ export default function Accounts() {
         </div>
       </div>
       
-      {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} />}
+      {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} onAccountCreated={handleAccountCreated} />}
       {isCategoryModalOpen && <NewCategoryModal onClose={handleCloseModal} onCategoryCreated={handleNewCategoryCreated}/>}
       {isModalOpen && (
         <UpdateDeleteModal 
           account={selectedAccount} 
           onClose={() => setIsModalOpen(false)} 
           // Provide update/delete handlers here
+          onAccountDeleted={handleAccountDeleted}
+          onAccountUpdated={handleAccountUpdated} 
         />
       )}
     </div>

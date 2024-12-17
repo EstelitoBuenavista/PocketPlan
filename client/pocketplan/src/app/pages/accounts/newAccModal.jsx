@@ -4,36 +4,43 @@
 import React, { useState } from 'react';
 import { jwtDecode } from 'jwt-decode'
 
-function NewAccModal({ onClose }) {
+function NewAccModal({ onClose, onAccountCreated }) {
   const [selectedType, setSelectedType] = useState('Others'); // Default to 'Others'
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [name, setName] =  useState('')
   const [balance, setBalance] = useState(0)
   const token = localStorage.getItem('token');
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async (e) =>{
     e.preventDefault()
 
-    const newStudent = {
+    const newAccount = {
       user_id : (jwtDecode(token).userId).toString(),
       balance : balance,
       name : name,
       type : selectedType,
     };
 
-    fetch(`http://localhost:4000/account/`, {
+    try {
+    const response = await fetch(`http://localhost:4000/account/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(newStudent),
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        console.error("Error creating Account", error);
-      });
-  }
+      body: JSON.stringify(newAccount),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create account');
+    }    
+    const createdAccount = await response.json();
+      onAccountCreated(createdAccount);
+      onClose();
+    } catch (error) {
+      console.error("Error creating Account", error);
+    }
+  };
 
   const handleDropdownSelect = (value) => {
     setSelectedType(value);
