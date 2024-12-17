@@ -6,15 +6,9 @@ import { jwtDecode } from 'jwt-decode';
 import { triggerContext } from '../dashboard/accountList';
 
 const COLORS = [ 
-<<<<<<< Updated upstream
-  '#FF75A1', 
-  '#f74b81',
-  '#ffadc7'
-=======
   '#f75b8c', 
   '#d53582',
   '#ffa6cb'
->>>>>>> Stashed changes
 ];
 
 const RADIAN = Math.PI / 180;

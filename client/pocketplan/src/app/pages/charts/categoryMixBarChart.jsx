@@ -78,18 +78,6 @@ function CategoryMixBarChart() {
 // ];
 
 const categoryColors = [
-<<<<<<< Updated upstream
-  '#161515',
-  '#000327',
-  '#54C470',
-  '#212462',
-  '#37358e',
-  '#4e19b9',
-  '#5065c5',
-  '#857dcd',
-  '#939ce0',
-  '#aeb7e9'
-=======
   '#004e98',
   '#0068be',
   '#0086d0',
@@ -100,7 +88,6 @@ const categoryColors = [
   '#73caee',
   '#87c2d7',
   '#D7F3DE'
->>>>>>> Stashed changes
 ];
 
 

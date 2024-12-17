@@ -48,21 +48,24 @@ function DailyExpenseChart({ selectedAccount }) {
       <LineChart
         data={slicedData}
         margin={{
-          top: 5,
-          right: 5,
-          left: 5,
-          bottom: 5,
+          top: 10,
+          right: 10,
+          left: 10,
+          bottom: 10,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="dailyTotal" tick={{ fontSize: 12 }} />
-        <YAxis 
-          tick={{ fontSize: 12 }} 
-          domain={[0, maxValue]} 
+        <XAxis
+          dataKey="dailyTotal"
+          tick={{ fontSize: '0.8rem' }}
+        />
+        <YAxis
+          tick={{ fontSize: '0.8rem' }}
+          domain={[0, maxValue]}
           tickCount={10}
         />
-        <Tooltip contentStyle={{ fontSize: 12 }} />
-        <Legend wrapperStyle={{ fontSize: 12 }} />
+        <Tooltip contentStyle={{ fontSize: '0.8rem' }} />
+        <Legend wrapperStyle={{ fontSize: '0.8rem' }} />
         <Line
           type="monotone"
           dataKey="expenses"
