@@ -147,21 +147,26 @@ exports.getMixBarChart = async (req, res) => {
       raw: true
     });
 
-    const aggregatedResults = results.reduce((acc, result) => {
-      const date = result.date;
-      if (!acc[date]) {
-        acc[date] = {
+    const aggregatedData = {};
+
+    results.forEach(result => {
+      const { date } = result;
+      const categoryName = result['Category.name'];
+      const totalExpenses = parseFloat(result.total_expenses) || 0;
+
+      if (!aggregatedData[date]) {
+        aggregatedData[date] = {
           date: date,
-          income: 0,
-          expenses: 0,
-          amt: 0
+          transactions: []
         };
       }
-      acc[date].income += parseFloat(result.income);
-      acc[date].expenses += parseFloat(result.expenses);
-      acc[date].amt += parseFloat(result.amt);
-      return acc;
-    }, {});
+
+      aggregatedData[date].transactions.push({
+        category: categoryName,
+        value: totalExpenses
+      });
+    });
+
 
     // const formattedResults = results.map(result => {
     //    return {
@@ -172,7 +177,7 @@ exports.getMixBarChart = async (req, res) => {
     //      }],
     //    };
     //  });
-    const formattedResults = Object.values(aggregatedResults);
+    const formattedResults = Object.values(aggregatedData);
 
      console.log(results)
      console.log(formattedResults)
