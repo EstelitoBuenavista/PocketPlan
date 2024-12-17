@@ -19,6 +19,17 @@ function TransactionRow({ transaction, isOpen, toggleDetails, update, setUpdateT
         console.log("Error:", error);
       });
   }
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
   return (
     <>
       {/* Main Row Info */}
@@ -40,7 +51,7 @@ function TransactionRow({ transaction, isOpen, toggleDetails, update, setUpdateT
           ₱ {transaction.amount.toFixed(2)}
         </td>
         <td className="text-neutral">{transaction.remarks}</td>
-        <td className="text-neutral-content">{transaction.transaction_date}</td>
+        <td className="text-neutral-content">{formatDate(transaction.transaction_date)}</td>
       </tr>
 
       {/* Collapsible Section for Edit Button */}
