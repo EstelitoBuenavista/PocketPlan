@@ -93,7 +93,8 @@ const categoryColors = [
 
 // aggregates the daily totals for each category (too eepy to even think i just gpt atp)
 const getDailyCategoryTotals = (dailyExpenses, categories) => {
-  return dailyExpenses.map((day) => {
+  // Create the day-by-day totals
+  const dayData = dailyExpenses.map((day) => {
     const dayTotals = categories.reduce((acc, category) => {
       acc[category] = 0;
       return acc;
@@ -106,12 +107,18 @@ const getDailyCategoryTotals = (dailyExpenses, categories) => {
     });
 
     return {
-      name: day.date,  // Use the date from the data
+      name: day.date,
       ...dayTotals
     };
   });
-};
 
+
+const filteredDayData = dayData.filter(day => {
+  return categories.some(category => day[category] > 0);
+});
+
+return filteredDayData;
+};
 
 const CustomTooltip = ({ payload }) => {
   if (payload && payload.length) {
