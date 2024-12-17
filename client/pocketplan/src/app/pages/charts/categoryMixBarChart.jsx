@@ -161,7 +161,7 @@ const CustomTooltip = ({ payload }) => {
               key={index} 
               dataKey={category} 
               stackId="a" 
-              fill={hoveredBar === category ? '#161515' : categoryColors[index]}
+              fill={hoveredBar === category ? '#7AD47A' : categoryColors[index]}
               onMouseEnter={() => setHoveredBar(category)}
               onMouseLeave={() => setHoveredBar(null)}
             />

@@ -1,7 +1,7 @@
-// components/navbar
+// components/Dashboard
 'use client'
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   ArrowLeftStartOnRectangleIcon,
@@ -18,6 +18,7 @@ function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const isActive = (path) => pathname === path;
 
@@ -26,9 +27,21 @@ function Navbar() {
     router.push('/pages/login')
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="navbar bg-base-100 shadow-[0_1_60px_rgba(0,0,0,0.15)] sticky top-0 z-100">
-      {/* Logo */}
+    <div className="navbar bg-base-100 shadow-[0_1_60px_rgba(0,0,0,0.15)] sticky top-0 z-[100]">
       <div className="flex-1">
         <img
           className="pl-2 cursor-pointer"
@@ -43,12 +56,13 @@ function Navbar() {
       {/* Hamburger Icon for small screens */}
       <div className="lg:hidden">
         <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-label="Toggle Menu"
         >
           <Bars3Icon className="w-6 h-6 text-neutral" />
         </button>
       </div>
+
 
       {/* Navbar Links - Desktop View */}
       <div className="hidden lg:flex flex-1 justify-end items-center px-0">
@@ -121,71 +135,81 @@ function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 w-full bg-base-100 shadow-lg">
-          <ul className="flex flex-col items-start space-y-2 p-4 text-neutral text-sm">
+      <div className="lg:hidden fixed inset-0 z-[11000]">
+        <div className="absolute top-16 right-4 bg-base-100 shadow-lg rounded-box z-[11001] w-52 p-2" ref={menuRef}>
+          <ul className="menu menu-sm text-neutral">
             <li>
-              <button
-                className="w-full text-center py-2"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  router.push('/pages/dashboard');
-                }}>
-                Dashboard
-              </button>
-            </li>
-            <li>
-              <button
-                className="w-full text-center py-2"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  router.push('/pages/charts');
-                }}>
-                Charts
-              </button>
-            </li>
-            <li>
-              <button
-                className="w-full text-center py-2"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  router.push('/pages/transactions');
-                }}>
-                Transactions
-              </button>
-            </li>
-            <li>
-              <button
-                className="w-full text-center py-2"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  router.push('/pages/accounts');
-                }}>
-                Accounts
-              </button>
-            </li>
-            <li>
-              <button
-                className="w-full text-center py-2"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  router.push('/pages/profile');
-                }}>
-                Profile
-              </button>
-            </li>
-            <li>
-              <button
-                className="w-full text-center py-2 text-custom-gray"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  handleLogOut();
-                }}>
-                Logout
-              </button>
-            </li>
-          </ul>
+                <a
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    router.push('/pages/dashboard');
+                  }}
+                >
+                  <RectangleGroupIcon className="w-4 h-4" />
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    router.push('/pages/charts');
+                  }}
+                >
+                  <ChartPieIcon className="w-4 h-4" />
+                  Charts
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    router.push('/pages/transactions');
+                  }}
+                >
+                  <ReceiptPercentIcon className="w-4 h-4" />
+                  Transactions
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    router.push('/pages/accounts');
+                  }}
+                >
+                  <CreditCardIcon className="w-4 h-4" />
+                  Accounts
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    router.push('/pages/profile');
+                  }}
+                >
+                  <UserIcon className="w-4 h-4" />
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-custom-gray"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleLogOut();
+                  }}
+                >
+                  <ArrowLeftStartOnRectangleIcon className="w-4 h-4" />
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       )}
+
     </div>
   );
 }
