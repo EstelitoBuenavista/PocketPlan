@@ -33,7 +33,7 @@ function DailyExpenseChart({ selectedAccount }) {
           // setData(filteredData);
           setData(data);
 
-          const sliced = filteredData.slice(-10);
+          const sliced = data.slice(-10);
           setSlicedData(sliced);
 
           const maxCategoryValue = Math.max(
@@ -46,9 +46,9 @@ function DailyExpenseChart({ selectedAccount }) {
         });
     }
   
-    useEffect(() => {
-      renderLineChart()
-     }, [])
+    // useEffect(() => {
+    //   renderLineChart()
+    //  }, [])
     useEffect(() => {
       renderLineChart()
      }, [selectedAccount, selectedAccountId])
