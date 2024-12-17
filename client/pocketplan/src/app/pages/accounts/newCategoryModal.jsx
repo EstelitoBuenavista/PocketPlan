@@ -2,13 +2,50 @@
 'use client';
 
 import React, { useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
-function NewCategoryModal({ onClose }) {
+function NewCategoryModal({ onClose, onCategoryCreated}) {
   const [categoryName, setCategoryName] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // category logic here
+
+    const token = localStorage.getItem('token');
+
+    if (!categoryName) {
+      setError('Category name is required');
+      return;
+    }
+
+    const newCategory = {
+      name: categoryName,
+      user_id: jwtDecode(token).userId.toString(),
+    };
+
+    try {
+      const response = await fetch('http://localhost:4000/category', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(newCategory),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create category');
+      }
+
+      const data = await response.json();
+      onCategoryCreated(data);
+      console.log('Category created:', data);
+      onClose(); // Close the modal after successful creation
+    } catch (error) {
+      console.error('Error creating category:', error);
+      setError('Failed to create category');
+    }
   };
 
   return (
@@ -30,6 +67,8 @@ function NewCategoryModal({ onClose }) {
               className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
             />
           </label>
+
+          {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
 
           <div className="modal-action flex items-center justify-between flex-wrap">
             <button

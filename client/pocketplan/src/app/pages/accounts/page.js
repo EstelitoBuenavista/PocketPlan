@@ -15,6 +15,7 @@ export default function Accounts() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [categories, setCategories] = useState([]);
   
   const handleAddCategoryClick = () => setIsCategoryModalOpen(true);
   const handleAddAccountClick = () => setIsAccountModalOpen(true);
@@ -26,7 +27,7 @@ export default function Accounts() {
   
   const router = useRouter();
 
-  const categories = [ "music", "food", "shopping", "this is a long category" ];
+  // const categories = [ "music", "food", "shopping", "this is a long category" ];
 
   useEffect(() => {
     // Fetch accounts from the backend
@@ -45,7 +46,26 @@ export default function Accounts() {
       .then(response => response.json())
       .then(data => setAccounts(data))
       .catch(error => console.error('Error fetching accounts:', error));
+
+      fetch(`http://localhost:4000/category/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then(response => response.json())
+        .then(data => setCategories(data))
+        .catch(error => console.error('Error fetching categories:', error));
   }, []);
+
+  const handleDeleteCategory = async (categoryId) => {
+    // Optionally, you can also perform a fetch DELETE request here if it
+    // hasn't been handled inside CategoryBadge.
+    setCategories(prevCategories => prevCategories.filter(c => c.id !== categoryId));
+  };
+
+  const handleNewCategoryCreated = (newCategory) => {
+    setCategories((prevCategories) => [...prevCategories, newCategory]);
+  };
 
   return (
     <div className="background flex flex-col min-h-screen">
@@ -68,7 +88,7 @@ export default function Accounts() {
           </div>
           <div className="flex items-center justify-start gap-2 flex-wrap">
             {categories.map((category, index) => (
-              <CategoryBadge key={index} category={category} />
+              <CategoryBadge key={category.id} category={category} onDelete={handleDeleteCategory}/>
             ))}
           </div>
         </div>
@@ -93,7 +113,7 @@ export default function Accounts() {
       </div>
 
       {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} />}
-      {isCategoryModalOpen && <NewCategoryModal onClose={handleCloseModal} />}
+      {isCategoryModalOpen && <NewCategoryModal onClose={handleCloseModal} onCategoryCreated={handleNewCategoryCreated}/>}
     </div>
   );
 }
