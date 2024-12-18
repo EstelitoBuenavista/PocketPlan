@@ -71,47 +71,54 @@ function CategoryMixBarChart() {
    }, [])
   useEffect(() => {
     renderChartData()
-   }, [selectedAccountId])
+   }, [selectedAccountId, accountTrigger])
 
 // const categories = [
 //   'Work', 'Misc', 'Food', 'Leisure', 'Bills', 'Supplies', 'School', 'Music'
 // ];
 
 const categoryColors = [
-  '#3CA857',
-  '#42BC60',
-  '#54C470',
-  '#66CB7F',
-  '#79D28F',
-  '#8BD89F',
-  '#9EDFAE',
-  '#B1E6BE',
-  '#C4ECCE',
+  '#004e98',
+  '#0068be',
+  '#0086d0',
+  '#2f97d5',
+  '#5fc0b5',
+  '#9cccd3',
+  '#6a99bd',
+  '#73caee',
+  '#87c2d7',
   '#D7F3DE'
 ];
 
 
 // aggregates the daily totals for each category (too eepy to even think i just gpt atp)
 const getDailyCategoryTotals = (dailyExpenses, categories) => {
-  return dailyExpenses.map((day) => {
+  // Create the day-by-day totals
+  const dayData = dailyExpenses.map((day) => {
     const dayTotals = categories.reduce((acc, category) => {
       acc[category] = 0;
       return acc;
     }, {});
 
-    day.transactions.forEach(transaction => {
+    (day.transactions || []).forEach(transaction => {
       if (transaction.category && dayTotals[transaction.category] !== undefined) {
         dayTotals[transaction.category] += transaction.value;
       }
     });
 
     return {
-      name: day.date,  // Use the date from the data
+      name: day.date,
       ...dayTotals
     };
   });
-};
 
+
+const filteredDayData = dayData.filter(day => {
+  return categories.some(category => day[category] > 0);
+});
+
+return filteredDayData;
+};
 
 const CustomTooltip = ({ payload }) => {
   if (payload && payload.length) {
@@ -161,7 +168,7 @@ const CustomTooltip = ({ payload }) => {
               key={index} 
               dataKey={category} 
               stackId="a" 
-              fill={hoveredBar === category ? '#89BAFD' : categoryColors[index]}
+              fill={hoveredBar === category ? '#7AD47A' : categoryColors[index]}
               onMouseEnter={() => setHoveredBar(category)}
               onMouseLeave={() => setHoveredBar(null)}
             />
@@ -169,7 +176,7 @@ const CustomTooltip = ({ payload }) => {
         </BarChart>
       </ResponsiveContainer>
     ) : (
-      <p>No data available to display</p>
+      <p className="text-error text-center">No data available to display</p>
     )}
     </> 
   );

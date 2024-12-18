@@ -25,7 +25,11 @@ function TransactionsList({ selectedAccount, renderTrigger, trigger }) {
     if (!token){
       router.push('/pages/login')
     }
-    fetch(`http://localhost:4000/transaction/user/${id}`)
+    fetch(`http://localhost:4000/transaction/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then(response => response.json())
       .then(data => {
         setTransactions(data)

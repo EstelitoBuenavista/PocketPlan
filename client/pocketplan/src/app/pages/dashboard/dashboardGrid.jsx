@@ -34,7 +34,11 @@ function DashboardGrid({ selectedAccount }) {
     router.push('/pages/login')
     }
 
-    fetch(`http://localhost:4000/account/usertotal/${id}`)
+    fetch(`http://localhost:4000/account/usertotal/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
       .then(response => response.json())
       .then(data => {
         setTotalBalance(data.balance)
@@ -58,33 +62,31 @@ function DashboardGrid({ selectedAccount }) {
   const handleCloseModal = () => {setIsModalOpen(false);setFlag(!flag)}
 
   return (
-    <div className="grid h-full sm:grid-cols-[4fr_2fr] grid-cols-1 gap-4 w-full">
+    <div className="grid h-full grid-cols-1 sm:grid-cols-[4fr_2fr] gap-4 w-full">
       {/* LEFT COLUMN */}
-      <div className="border-2 flex flex-wrap gap-4">
-      {/* <div className="py-2 flex flex-wrap gap-4"> */}
+      <div className="border-2 flex flex-wrap gap-4 overflow-auto">
         <TotalCard
           title={`Balance`}
           value={isOverview ? totalBalance : selectedAccount.balance}
         />
         <TotalCard
           title={`Expenses`}
-          // add logic for EXPENSES HERE
           value={isOverview ? totalExpenses : selectedAccount.expense}
         />
-        
-        <div className="flex flex-col gap-4">
+
+        <div className="flex flex-col gap-4 w-full min-h-[300px]">
           {/* Chart div */}
-          <div className="p-4 bg-base-100 rounded-xl p-6 ">
+          <div className="p-4 bg-base-100 rounded-xl min-h-[200px]">
             <h3 className="text-2xl font-medium mb-4 text-neutral">Daily Overview</h3>
             <div className="w-full h-80 ">
-              <DailyExpenseChart />
+              <DailyExpenseChart selectedAccount={selectedAccount} />
             </div>
           </div>
-          
+
           {/* Transaction div */}
-          <div className="bg-base-100 rounded-xl p-6 ">
-            <div className="flex items-center mb-4 justify-between ">
-              <button 
+          <div className="bg-base-100 rounded-xl p-6 min-h-[300px]">
+            <div className="flex items-center mb-4 justify-between">
+              <button
                 className="text-2xl font-medium text-neutral flex gap-2 items-center hover:underline"
                 onClick={() => {
                   if (selectedAccount) {
@@ -109,36 +111,34 @@ function DashboardGrid({ selectedAccount }) {
                 New Transaction
               </button>
             </div>
-            <div className="bg-base-100 rounded-xl overfl">
-              <TransactionsList selectedAccount={ selectedAccount } renderTrigger = { flag } trigger = {()=>setFlag(!flag)}/>
+            <div className="bg-base-100 rounded-xl overflow-auto">
+              <TransactionsList selectedAccount={selectedAccount} renderTrigger={flag} trigger={() => setFlag(!flag)} />
             </div>
           </div>
-
         </div>
       </div>
 
       {/* RIGHT COLUMN */}
-      <div className="flex flex-col gap-4 w-full h-full">
-      {/* <div className="p-2 gap-4 w-full h-full"> */}
-        <div className="bg-base-100 rounded-xl p-5 ">
+      <div className="flex flex-col gap-4 w-full h-full overflow-auto">
+        <div className="bg-base-100 rounded-xl p-5 min-h-[200px]">
           <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
             Category Trends
           </h3>
-          <div className="w-full h-[200px]">
+          <div className="w-full h-[200px] overflow-auto">
             <CategoryPieChart />
           </div>
         </div>
-        <div className="bg-base-100 rounded-xl p-5 ">
+        <div className="bg-base-100 rounded-xl p-5 min-h-[300px]">
           <h3 className="text-2xl font-medium mb-4 text-neutral text-center flex justify-start">
             Categorized Expenses
           </h3>
-          <div className="w-full h-[300px]">
+          <div className="w-full h-[300px] overflow-auto">
             <CategoryMixBarChart />
           </div>
         </div>
       </div>
 
-      {isModalOpen && <CreateTransaction onClose={handleCloseModal} account = { selectedAccount }/>}
+      {isModalOpen && <CreateTransaction onClose={handleCloseModal} account={selectedAccount} />}
     </div>
   );
 }

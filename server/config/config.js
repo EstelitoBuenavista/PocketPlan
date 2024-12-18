@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   development: {
     username: process.env.DB_USER || 'root' ,
@@ -27,23 +29,3 @@ module.exports = {
     },
   },
 };
-
-// module.exports = {
-//   development: {
-  // username: "root",
-  // password: "",
-  // database: "pocketplan",
-  // host: 'localhost',
-//   username: process.env.DB_USER || 'root',
-//   password: process.env.DB_PASSWORD || 'pass',
-//   database: process.env.DB_NAME || 'pocketplan_db',
-//   host: process.env.DB_HOST || 'localhost',
-//   dialect: 'mysql',
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle: 10000,
-//   },
-// },
-// };
