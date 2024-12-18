@@ -63,34 +63,34 @@ function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdate
 
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="modal-box bg-base-100">
-            <h2 className="font-bold text-xl mb-4">Update Account</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+          <div className="modal-box bg-base-100 text-neutral relative p-8">
+            <h2 className="font-bold text-xl sm:text-lg">Update Account</h2>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">Name</label>
+              <label className="font-light text-xs">Name</label>
               <input 
                 type="text" 
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
     
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">Balance</label>
+              <label className="font-light text-xs">Balance</label>
               <input 
                 type="number" 
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
                 value={balance}
                 onChange={(e) => setBalance(e.target.value)}
               />
             </div>
     
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">Type</label>
+              <label className="font-light text-xs">Type</label>
               <input 
                 type="text" 
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               />

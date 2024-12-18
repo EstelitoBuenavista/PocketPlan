@@ -2,7 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
+
 
 function NewAccModal({ onClose, onAccountCreated }) {
   const [selectedType, setSelectedType] = useState('Others'); // Default to 'Others'
