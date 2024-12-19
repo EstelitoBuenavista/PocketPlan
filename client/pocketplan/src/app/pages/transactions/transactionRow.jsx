@@ -40,7 +40,7 @@ function TransactionRow({ transaction, isOpen, toggleDetails, update, setUpdateT
           <div className="flex items-center gap-3">
             <div>
               <div className="font-bold text-neutral">{transaction.title}</div>
-              <div className="text-xs text-neutral-content">Account</div>
+              <div className="text-xs text-neutral-content">{transaction.Account.name}</div>
             </div>
           </div>
         </td>

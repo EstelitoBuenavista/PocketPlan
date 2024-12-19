@@ -8,7 +8,7 @@ exports.getAccountTransactions = async (req, res) => {
     const id = req.params.id
 
     try {
-      const transactions = await Transaction.findAll({where:{account_id : id}})
+      const transactions = await Transaction.findAll({where:{account_id : id}}, {include: {model:Account, attributes:['name']}})
       res.status(201).json(transactions);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -24,10 +24,16 @@ exports.getUserTransactions = async (req, res) => {
           model: Account,
           include: {
             model: Transaction,
-            include: {
+            include: [
+              {
                 model: Category,
-                attributes: ['name'], 
+                attributes: ['name'],
               },
+              {
+                model: Account,
+                attributes: ['name'],
+              }
+            ],
           },
         },
       });
