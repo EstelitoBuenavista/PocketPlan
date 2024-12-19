@@ -41,21 +41,30 @@ export default function Accounts() {
 
   const router = useRouter();
 
-  // const categories = [ "music", "food", "shopping", "this is a long category" ];
 
-  useEffect(() => {
-    // Fetch accounts from the backend
-    let id = 0
-    const token = localStorage.getItem("token")
-    if (token){
-    id = jwtDecode(token).userId.toString()
+
+
+  // const handleAddAccountClick = () => setIsModalOpen(true);
+  // const handleCloseModal = () => setIsModalOpen(false);
+  const [fetchTrigger, setFetchTrigger] = useState(false);
+ 
+
+
+
+  const fetchAccounts = () => {
+    let id = 0;
+    const token = localStorage.getItem("token");
+    if (token) {
+      id = jwtDecode(token).userId.toString();
     } else {
-    router.push('/pages/login')
+      router.push('/pages/login');
+      return; // Prevent further execution
     }
+
     fetch(`http://localhost:4000/account/user/${id}`, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
     })
       .then(response => response.json())
       .then(data => setAccounts(data))
@@ -69,6 +78,10 @@ export default function Accounts() {
         .then(response => response.json())
         .then(data => setCategories(data))
         .catch(error => console.error('Error fetching categories:', error));
+  };
+
+  useEffect(() => {
+    fetchAccounts();
   }, []);
 
   const handleDeleteCategory = async (categoryId) => {

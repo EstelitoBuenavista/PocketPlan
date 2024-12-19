@@ -5,7 +5,14 @@ const config = require('./config/config.js')[process.env.NODE_ENV || 'developmen
 const path = require('path');
 var cors = require("cors");
 const db = require("./models");
+const Sequelize = require('sequelize')
 const DBname = config.database
+
+const sequelizeAdmin = new Sequelize('mysql', config.username, config.password, {
+    host: config.host,
+    dialect: config.dialect,
+    logging: false,
+  });
 
 
 const app = express();
@@ -31,7 +38,7 @@ app.listen(PORT, () => {
 });
 
 
-db.sequelize.query(`CREATE DATABASE IF NOT EXISTS ${DBname}`)
+sequelizeAdmin.query(`CREATE DATABASE IF NOT EXISTS ${DBname}`)
     .then(() => {
         console.log('Database created or already exists.');
         // Now you can sync your models

@@ -118,7 +118,6 @@ exports.dailyExpenseChartData = async (req, res) => {
         // order: [[sequelize.fn('DATE_FORMAT', sequelize.col('transaction_date'), '%b %e'), 'ASC']], // Order by date
         order: [['transaction_date', 'ASC']],
         raw: true,
-        logging: console.log,
       });
 
       const aggregatedResults = results.reduce((acc, result) => {
@@ -141,7 +140,6 @@ exports.dailyExpenseChartData = async (req, res) => {
       }, {});
 
     const formattedResults = Object.values(aggregatedResults);
-    console.log(formattedResults);
 
       res.status(200).send(formattedResults);
     } catch (error) {
@@ -218,8 +216,6 @@ exports.getMixBarChart = async (req, res) => {
     //  });
     const formattedResults = Object.values(aggregatedData);
 
-     console.log(results)
-     console.log(formattedResults)
 
     res.status(200).send(formattedResults);
   } catch (error) {

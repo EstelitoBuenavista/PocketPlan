@@ -6,9 +6,9 @@ import { jwtDecode } from 'jwt-decode';
 import { triggerContext } from '../dashboard/accountList';
 
 const COLORS = [ 
-  '#2075fe', 
-  '#7aadff',
-  '#00378f'
+  '#f75b8c', 
+  '#d53582',
+  '#ffa6cb'
 ];
 
 const RADIAN = Math.PI / 180;
@@ -42,7 +42,11 @@ function CategoryPieChart({ selectedAccount }) {
     } else {
     router.push('/pages/login')
     }
-    fetch(`http://localhost:4000/user/pie/${id}/${selectedAccountId}`)
+    fetch(`http://localhost:4000/user/pie/${id}/${selectedAccountId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then(response => response.json())
       .then(data => {
         setData(data)
@@ -57,7 +61,7 @@ function CategoryPieChart({ selectedAccount }) {
    }, [])
    useEffect(() => {
     renderPieChart()
-   }, [selectedAccount, selectedAccountId])
+   }, [selectedAccount, selectedAccountId, accountTrigger])
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -83,7 +87,7 @@ function CategoryPieChart({ selectedAccount }) {
       />
     ))
   ) : (
-    <p>Loading or no data available...</p>
+    <p className="text-error text-center">Loading or no data available...</p>
   )}
         </Pie>
         <Tooltip />

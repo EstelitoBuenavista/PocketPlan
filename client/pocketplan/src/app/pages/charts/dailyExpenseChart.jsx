@@ -21,21 +21,37 @@ function DailyExpenseChart({ selectedAccount }) {
       } else {
       router.push('/pages/login')
       }
-      fetch(`http://localhost:4000/user/daily/${id}`)
+      fetch(`http://localhost:4000/user/daily/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        })
         .then(response => response.json())
         .then(data => {
           // const filteredData = selectedAccountId ? data.filter(item => item.account_id === selectedAccountId) : data;
           if (Array.isArray(data)) {
             const filteredData = selectedAccount
             ? data.filter(item => item.account_id === selectedAccount.id)
-            : data;
-          //     ? setData(data.filter(item => item.account_id === selectedAccount.id))
-          //     : setData(data);
-          // } else {
-          //   setData([]);
-          
-          // setData(filteredData);
-          // setData(data);
+            : data.reduce((acc, current) => {
+              const existingEntry = acc.find(item => item.date === current.date);
+            
+              if (existingEntry) {
+                // If the date already exists, sum up the incomes, expenses, and amounts
+                existingEntry.income += current.income;
+                existingEntry.expenses += current.expenses;
+                existingEntry.amt += current.amt;
+              } else {
+                // If the date doesn't exist, add the entry to the accumulator
+                acc.push({ 
+                  date: current.date, 
+                  income: current.income, 
+                  expenses: current.expenses, 
+                  amt: current.amt 
+                });
+              }
+
+              return acc;
+            }, []);
 
           const sliced = filteredData.slice(-10);
           setData(filteredData);
@@ -73,10 +89,10 @@ function DailyExpenseChart({ selectedAccount }) {
       <LineChart
         data={slicedData}
         margin={{
-          top: 5,
-          right: 5,
-          left: 5,
-          bottom: 5,
+          top: 10,
+          right: 10,
+          left: 10,
+          bottom: 10,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
@@ -86,8 +102,8 @@ function DailyExpenseChart({ selectedAccount }) {
           domain={[0, maxValue]} 
           tickCount={10}
         />
-        <Tooltip contentStyle={{ fontSize: 12 }} />
-        <Legend wrapperStyle={{ fontSize: 12 }} />
+        <Tooltip contentStyle={{ fontSize: '0.8rem' }} />
+        <Legend wrapperStyle={{ fontSize: '0.8rem' }} />
         <Line
           type="monotone"
           dataKey="expenses"
@@ -103,7 +119,7 @@ function DailyExpenseChart({ selectedAccount }) {
       </LineChart>
     </ResponsiveContainer>
   ) : (
-    <p>No data available to display</p>
+    <p className="text-error text-center">No data available to display</p>
   )}
   </> 
   );

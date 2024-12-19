@@ -3,7 +3,7 @@ import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 
 function AccountCard ({ account, onSelect }) {
    return (
-      <div className="glass card bg-primary transition-transform hover:bg-blue-600"
+      <div className="glass rounded-lg card bg-primary transition-transform hover:bg-blue-600"
       onClick={() => onSelect(account)}
       role="button"
       tabIndex={0}>
