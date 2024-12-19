@@ -1,11 +1,19 @@
+// components/account/updateDeleteAccount**
 'use client';
 import { useState } from 'react';
+import DeleteModal from '@/app/components/deleteModal';
 
 function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdated }) {
     const [name, setName] = useState(account?.name || '');
     const [balance, setBalance] = useState(account?.balance || 0);
     const [type, setType] = useState(account?.type || '');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleDeleteClick = () => setIsModalOpen(true);
+
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+    };
   
   // Handle account update
     const handleUpdate = async () => {
@@ -71,9 +79,10 @@ function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdate
 
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[100]">
           <div className="modal-box bg-base-100 text-neutral relative p-8">
             <h2 className="font-bold text-xl sm:text-lg">Update Account</h2>
+            <p className="py-2 text-sm sm:text-base">Fill in the fields to update account.</p>
             <div className="mb-4">
               <label className="font-light text-xs">Name</label>
               <input 
@@ -115,14 +124,15 @@ function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdate
           </label>
             </div>
     
-            <div className="modal-action flex justify-between">
-              <button className="btn btn-error" onClick={handleDelete}>Delete</button>
-              <div>
-                <button className="btn btn-ghost mr-2" onClick={onClose}>Cancel</button>
-                <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
+            <div className="modal-action flex justify-between gap-2">
+              <button className="btn btn-accent" onClick={onClose}>Cancel</button>
+              <div className="flex items-center justify-center gap-2">
+                <button className="btn btn-error" onClick={handleDeleteClick}>Delete</button>
+                <button className="btn btn-primary" onClick={handleUpdate}>Save changes</button>
               </div>
             </div>
           </div>
+          {isModalOpen && <DeleteModal onClose={handleCloseModal} onDelete={handleDelete}/>}
         </div>
       );
 }

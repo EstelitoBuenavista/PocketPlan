@@ -153,10 +153,10 @@ function CreateTransaction({ onClose, account }) {
 
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[100]">
       <div className="modal-box bg-base-100 text-neutral relative p-8">
         <h3 className="font-bold text-xl sm:text-lg">Create Transaction</h3>
-        <p className="py-2 text-sm sm:text-base">Fill in the fields to create a new transaction.</p>
+        <p className="py-2 text-sm sm:text-base">Fill in all the fields to create a new transaction. Missing fields will discard the transaction.</p>
         
         <form onSubmit={handleSubmit} >
           <label className="form-control w-full">
