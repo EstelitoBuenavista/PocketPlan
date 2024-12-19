@@ -29,15 +29,6 @@ exports.delete = async (req, res) => {
 
   try {
     const uncategorized = await Category.findOne({where:{name:'uncategorized',user_id: user_id}})
-    // await Transaction.update(
-    //   { category_id: id },
-    //   {
-    //     where:{
-    //       category_id: id,
-    //       user_id: user_id
-    //     }
-    // })
-    // await Category.delete({where:{id : id, user_id: user_id}});
     if (!uncategorized) {
       return res.status(404).send({ error: 'Uncategorized category not found' });
     }

@@ -76,13 +76,16 @@ export default function Accounts() {
         }
       })
         .then(response => response.json())
-        .then(data => setCategories(data))
+        .then(data => setCategories(data.filter(item => item.name !== "Uncategorized")))
         .catch(error => console.error('Error fetching categories:', error));
   };
 
   useEffect(() => {
     fetchAccounts();
   }, []);
+  useEffect(() => {
+    fetchAccounts();
+  }, [isModalOpen]);
 
   const handleDeleteCategory = async (categoryId) => {
     // Optionally, you can also perform a fetch DELETE request here if it
