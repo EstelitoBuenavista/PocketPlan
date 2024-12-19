@@ -28,6 +28,7 @@ npm run db:migrate
 npm run db:seed
 npm run dev
 ```
+// through seeding sample account has username:john_doe, password: 12345
 ```bash
 # In the second terminal run the ff commands
 cd .\client\pocketplan\
