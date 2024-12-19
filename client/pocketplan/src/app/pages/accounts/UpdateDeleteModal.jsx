@@ -5,6 +5,7 @@ function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdate
     const [name, setName] = useState(account?.name || '');
     const [balance, setBalance] = useState(account?.balance || 0);
     const [type, setType] = useState(account?.type || '');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   // Handle account update
     const handleUpdate = async () => {
@@ -59,7 +60,14 @@ function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdate
         console.error('Error deleting account:', error);
       }
     };
-
+    const handleDropdownSelect = (value) => {
+      setType(value);
+      setIsDropdownOpen(false);
+    };
+  
+    const toggleDropdown = () => {
+      setIsDropdownOpen((prev) => !prev);
+    };
 
 
     return (
@@ -77,23 +85,34 @@ function UpdateDeleteModal({ account, onClose, onAccountDeleted, onAccountUpdate
             </div>
     
             <div className="mb-4">
-              <label className="font-light text-xs">Balance</label>
-              <input 
-                type="number" 
-                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
-                value={balance}
-                onChange={(e) => setBalance(e.target.value)}
-              />
+            <label className="form-control w-full">
+            <div className="label">
+              <span className="font-light text-xs">Account Type</span>
             </div>
-    
-            <div className="mb-4">
-              <label className="font-light text-xs">Type</label>
-              <input 
-                type="text" 
-                className="input input-bordered w-full bg-neutral-200 text-neutral-800 hover:border-secondary focus:ring-secondary focus:border-secondary"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-              />
+            <div className="dropdown w-full">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-success btn-sm w-full text-left"
+                onClick={toggleDropdown}
+              >
+                {type}
+              </div>
+
+              {isDropdownOpen && (
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] p-2 absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-full "
+                >
+                  {['Miscellaneous', 'Personal', 'Savings', 'Work', 'Others'].map((type) => (
+                    <li key={type} onClick={() => handleDropdownSelect(type)}>
+                      <a>{type}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </label>
             </div>
     
             <div className="modal-action flex justify-between">
