@@ -24,6 +24,7 @@ git clone https://github.com/EstelitoBuenavista/PocketPlan.git
 # In the first terminal run the ff commands
 cd .\server\
 npm install
+npm run db:migrate
 npm run db:seed
 npm run dev
 ```
