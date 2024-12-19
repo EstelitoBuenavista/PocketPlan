@@ -49,7 +49,7 @@ function NewCategoryModal({ onClose, onCategoryCreated}) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[100]">
       <div className="modal-box bg-base-100 text-neutral relative p-8">
         <h3 className="font-bold text-xl sm:text-lg">Create a New Category</h3>
         <p className="py-2 text-sm sm:text-base">Fill in the field for a new category.</p>

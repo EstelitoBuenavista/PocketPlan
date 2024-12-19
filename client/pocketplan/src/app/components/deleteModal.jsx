@@ -3,7 +3,7 @@
 
 function NewAccModal({ onClose, onDelete }) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[100]">
         <div className="modal-box bg-base-100 text-neutral relative p-8">
           <h3 className="font-bold text-xl sm:text-lg">Are you sure?</h3>
           <p className="py-2 text-sm sm:text-base">Continue to proceed deletion.</p>
