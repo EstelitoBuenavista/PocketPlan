@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
 
     try {
       const user = await User.create({ username, password, email });
-      await Category.create({user_id : user.id, name: "uncategorized"})
+      await Category.create({user_id : user.id, name: "Uncategorized"})
       res.status(201).send(user);
     } catch (error) {
       res.status(500).send({ error: error.message });
