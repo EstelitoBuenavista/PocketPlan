@@ -10,13 +10,23 @@ import NewCategoryModal from './newCategoryModal';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
+import UpdateDeleteModal from './UpdateDeleteModal';
 
 
 export default function Accounts() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [categories, setCategories] = useState([]);
   
+
+  const [selectedAccount, setSelectedAccount] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleAccountSelect = (account) => {
+    setSelectedAccount(account);
+    setIsModalOpen(true);
+  };
+
   const handleAddCategoryClick = () => setIsCategoryModalOpen(true);
   const handleAddAccountClick = () => setIsAccountModalOpen(true);
   
@@ -25,10 +35,14 @@ export default function Accounts() {
     setIsCategoryModalOpen(false);
   };
   
+  const handleAccountCreated = (newAccount)=> {
+    setAccounts((prev) => [...prev, newAccount]);
+  };
+
   const router = useRouter();
 
 
-  const categories = [ "music", "food", "shopping", "this is a long category" ];
+
 
   // const handleAddAccountClick = () => setIsModalOpen(true);
   // const handleCloseModal = () => setIsModalOpen(false);
@@ -52,17 +66,44 @@ export default function Accounts() {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
     })
-      .then((response) => response.json())
-      .then((data) => setAccounts(data))
-      .catch((error) => console.error('Error fetching accounts:', error));
+      .then(response => response.json())
+      .then(data => setAccounts(data))
+      .catch(error => console.error('Error fetching accounts:', error));
+
+      fetch(`http://localhost:4000/category/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then(response => response.json())
+        .then(data => setCategories(data))
+        .catch(error => console.error('Error fetching categories:', error));
   };
 
   useEffect(() => {
     fetchAccounts();
-  }, [fetchTrigger]);
+  }, []);
 
-  const handleAccountCreated = () => {
-    setFetchTrigger(!fetchTrigger); // Toggle fetchTrigger to re-fetch accounts
+  const handleDeleteCategory = async (categoryId) => {
+    // Optionally, you can also perform a fetch DELETE request here if it
+    // hasn't been handled inside CategoryBadge.
+    setCategories(prevCategories => prevCategories.filter(c => c.id !== categoryId));
+  };
+
+  const handleNewCategoryCreated = (newCategory) => {
+    setCategories((prevCategories) => [...prevCategories, newCategory]);
+  };
+
+  const handleAccountDeleted = (deletedAccountId) => {
+    setAccounts(prev => prev.filter(account => account.id !== deletedAccountId));
+  };
+  
+  const handleAccountUpdated = (updatedAccount) => {
+    setAccounts(prev =>
+      prev.map(account =>
+        account.id === updatedAccount.id ? updatedAccount : account
+      )
+    );
   };
 
   return (
@@ -86,7 +127,7 @@ export default function Accounts() {
           </div>
           <div className="flex items-center justify-start gap-2 flex-wrap">
             {categories.map((category, index) => (
-              <CategoryBadge key={index} category={category} />
+              <CategoryBadge key={category.id} category={category} onDelete={handleDeleteCategory}/>
             ))}
           </div>
         </div>
@@ -104,16 +145,23 @@ export default function Accounts() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {accounts.map(account => (
-              <AccountCard key={account.id} account={account} />
+              <AccountCard key={account.id} account={account} onSelect={handleAccountSelect}/>
             ))} 
           </div>
         </div>
       </div>
-
-
-      {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} onAccountCreated={handleAccountCreated}/>}
-      {isCategoryModalOpen && <NewCategoryModal onClose={handleCloseModal} />}
-
+      
+      {isAccountModalOpen && <NewAccModal onClose={handleCloseModal} onAccountCreated={handleAccountCreated} />}
+      {isCategoryModalOpen && <NewCategoryModal onClose={handleCloseModal} onCategoryCreated={handleNewCategoryCreated}/>}
+      {isModalOpen && (
+        <UpdateDeleteModal 
+          account={selectedAccount} 
+          onClose={() => setIsModalOpen(false)} 
+          // Provide update/delete handlers here
+          onAccountDeleted={handleAccountDeleted}
+          onAccountUpdated={handleAccountUpdated} 
+        />
+      )}
     </div>
   );
 }

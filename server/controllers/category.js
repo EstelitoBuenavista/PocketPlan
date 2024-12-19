@@ -25,19 +25,33 @@ exports.create = async (req, res) =>  {
 }
 
 exports.delete = async (req, res) => {
-  const {id, user_id} = req.params.id
+  const {id, user_id} = req.params;
 
   try {
-    const uncategorized = await Category.findOne({where:{name:uncategorized,user_id: user_id}})
+    const uncategorized = await Category.findOne({where:{name:'uncategorized',user_id: user_id}})
+    // await Transaction.update(
+    //   { category_id: id },
+    //   {
+    //     where:{
+    //       category_id: id,
+    //       user_id: user_id
+    //     }
+    // })
+    // await Category.delete({where:{id : id, user_id: user_id}});
+    if (!uncategorized) {
+      return res.status(404).send({ error: 'Uncategorized category not found' });
+    }
+
     await Transaction.update(
-      { category_id: id },
+      { category_id: uncategorized.id },
       {
-        where:{
+        where: {
           category_id: id,
-          user_id: user_id
-        }
-    })
-    await Category.delete({where:{id : id}})
+        },
+      }
+    );
+
+    await Category.destroy({ where: { id: id, user_id: user_id } });
     res.status(200).send("Successful Deletion!")
   } catch (error) {
     res.status(500).send({error:error.message})

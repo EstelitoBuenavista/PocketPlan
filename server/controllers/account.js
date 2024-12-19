@@ -38,14 +38,28 @@ exports.getUserAccounts = async (req, res) => {
     }
   }
 
+// exports.delete = async (req, res) => {
+//   const id = req.params.id
+//   try {
+//     await Account.destroy({where:{id : id}})
+//   } catch (error) {
+//     res.status(500).send({error: error.message})
+//   }
+// }
 exports.delete = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   try {
-    await Account.destroy({where:{id : id}})
+    const deletedCount = await Account.destroy({ where: { id: id } });
+
+    if (deletedCount === 0) {
+      return res.status(404).send({ error: 'Account not found' });
+    }
+
+    res.status(200).send({ message: 'Account and associated transactions deleted successfully' });
   } catch (error) {
-    res.status(500).send({error: error.message})
+    res.status(500).send({ error: error.message });
   }
-}
+};
 
 exports.update = async (req, res) => {
   const id = req.params.id 
